@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import Anthropic from "@anthropic-ai/sdk";
 import { siteConfig } from "@/lib/site-config";
 
 // System prompt with full context about Marion's practice
@@ -42,8 +43,8 @@ export async function POST(request: NextRequest) {
   try {
     const { messages } = await request.json();
 
-    // Check if OpenAI API key is configured
-    const apiKey = process.env.OPENAI_API_KEY;
+    // Check if Anthropic API key is configured
+    const apiKey = process.env.ANTHROPIC_API_KEY;
 
     if (!apiKey) {
       // Return a helpful static response if no API key
@@ -57,32 +58,34 @@ Our Southsea-based practice offers specialist support for ADHD, trauma, anxiety,
       });
     }
 
-    // Call OpenAI API
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          ...messages,
-        ],
-        max_tokens: 500,
-        temperature: 0.7,
-      }),
+    // Initialize Anthropic client
+    const anthropic = new Anthropic({
+      apiKey: apiKey,
     });
 
-    if (!response.ok) {
-      const error = await response.text();
-      console.error("OpenAI API error:", error);
-      throw new Error("Failed to get AI response");
-    }
+    // Format messages for Claude API
+    const formattedMessages = messages.map((m: { role: string; content: string }) => ({
+      role: m.role as "user" | "assistant",
+      content: m.content,
+    }));
 
-    const data = await response.json();
-    const content = data.choices[0]?.message?.content || "I apologise, I was unable to generate a response.";
+    // Call Claude API (using Haiku for cost efficiency on chat)
+    const response = await anthropic.messages.create({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 500,
+      temperature: 0.7,
+      system: SYSTEM_PROMPT,
+      messages: formattedMessages,
+    });
+
+    // Extract text content from response
+    let content = "I apologise, I was unable to generate a response.";
+    if (response.content && response.content.length > 0) {
+      const textBlock = response.content.find((block) => block.type === "text");
+      if (textBlock && textBlock.type === "text") {
+        content = textBlock.text;
+      }
+    }
 
     return NextResponse.json({ content });
   } catch (error) {

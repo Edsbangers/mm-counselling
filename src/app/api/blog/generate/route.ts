@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import Anthropic from "@anthropic-ai/sdk";
 import { siteConfig } from "@/lib/site-config";
 
 const BLOG_GENERATION_PROMPT = `You are a professional content writer for MM Counselling, a therapy practice based in Southsea, Portsmouth, Hampshire, UK. You write in a warm, professional, UK English tone.
@@ -53,41 +54,40 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.ANTHROPIC_API_KEY;
 
     if (!apiKey) {
       // Return demo content if no API key
       return NextResponse.json(generateDemoContent(seedIdea));
     }
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o",
-        messages: [
-          { role: "system", content: BLOG_GENERATION_PROMPT },
-          {
-            role: "user",
-            content: `Generate a blog post about: ${seedIdea}`,
-          },
-        ],
-        max_tokens: 2500,
-        temperature: 0.7,
-      }),
+    // Initialize Anthropic client
+    const anthropic = new Anthropic({
+      apiKey: apiKey,
     });
 
-    if (!response.ok) {
-      const error = await response.text();
-      console.error("OpenAI API error:", error);
-      throw new Error("Failed to generate blog content");
-    }
+    // Call Claude API (using Sonnet for higher quality content generation)
+    const response = await anthropic.messages.create({
+      model: "claude-sonnet-4-5-20250929",
+      max_tokens: 3000,
+      temperature: 0.7,
+      system: BLOG_GENERATION_PROMPT,
+      messages: [
+        {
+          role: "user",
+          content: `Generate a blog post about: ${seedIdea}`,
+        },
+      ],
+    });
 
-    const data = await response.json();
-    const rawContent = data.choices[0]?.message?.content;
+    // Extract text content from response
+    let rawContent = "";
+    if (response.content && response.content.length > 0) {
+      const textBlock = response.content.find((block) => block.type === "text");
+      if (textBlock && textBlock.type === "text") {
+        rawContent = textBlock.text;
+      }
+    }
 
     if (!rawContent) {
       throw new Error("No content generated");
