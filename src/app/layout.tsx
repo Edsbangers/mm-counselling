@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { PageTracker } from "@/components/analytics/page-tracker";
+import { Analytics } from "@vercel/analytics/react";
 import { siteConfig } from "@/lib/site-config";
 
 const playfair = Playfair_Display({
@@ -70,6 +71,7 @@ export default function RootLayout({
         <Footer />
         <ChatWidget />
         <PageTracker />
+        <Analytics />
       </body>
     </html>
   );
