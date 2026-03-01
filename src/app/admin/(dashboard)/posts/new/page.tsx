@@ -28,6 +28,7 @@ export default function NewPostPage() {
   const [generating, setGenerating] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [topic, setTopic] = useState("");
+  const [error, setError] = useState("");
   const [publishedPostId, setPublishedPostId] = useState<string | null>(null);
   const [form, setForm] = useState({
     title: "",
@@ -53,23 +54,31 @@ export default function NewPostPage() {
   const handleGenerate = async () => {
     if (!topic.trim()) return;
     setGenerating(true);
+    setError("");
 
-    const res = await fetch("/api/admin/posts/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ topic }),
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      setForm({
-        ...form,
-        title: data.title || "",
-        slug: data.slug || generateSlug(data.title || ""),
-        content: data.content || "",
-        excerpt: data.excerpt || "",
-        metaDescription: data.metaDescription || "",
+    try {
+      const res = await fetch("/api/admin/posts/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic }),
       });
+
+      if (res.ok) {
+        const data = await res.json();
+        setForm({
+          ...form,
+          title: data.title || "",
+          slug: data.slug || generateSlug(data.title || ""),
+          content: data.content || "",
+          excerpt: data.excerpt || "",
+          metaDescription: data.metaDescription || "",
+        });
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || `Generation failed (${res.status})`);
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Network error");
     }
     setGenerating(false);
   };
@@ -350,6 +359,9 @@ export default function NewPostPage() {
           )}
           {generating ? "Generating..." : "Generate Blog Post"}
         </button>
+        {error && (
+          <p className="text-sm text-red-600 mt-3">{error}</p>
+        )}
       </div>
 
       {/* Form */}

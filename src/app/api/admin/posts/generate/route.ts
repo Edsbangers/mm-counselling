@@ -10,23 +10,30 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing topic" }, { status: 400 });
   }
 
-  const { text } = await generateText({
-    model: contentModel,
-    prompt: getBlogGenerationPrompt(topic, description),
-    maxOutputTokens: 3000,
-    temperature: 0.7,
-  });
-
   try {
+    const { text } = await generateText({
+      model: contentModel,
+      prompt: getBlogGenerationPrompt(topic, description),
+      maxOutputTokens: 3000,
+      temperature: 0.7,
+    });
+
     // Extract JSON from the response (handle potential markdown wrapping)
     const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error("No JSON found in response");
+    if (!jsonMatch) {
+      return NextResponse.json(
+        { error: "No JSON found in AI response", raw: text },
+        { status: 500 }
+      );
+    }
 
     const parsed = JSON.parse(jsonMatch[0]);
     return NextResponse.json(parsed);
-  } catch {
+  } catch (e) {
+    console.error("Blog generation error:", e);
+    const message = e instanceof Error ? e.message : "Unknown error";
     return NextResponse.json(
-      { error: "Failed to parse AI response", raw: text },
+      { error: `Generation failed: ${message}` },
       { status: 500 }
     );
   }

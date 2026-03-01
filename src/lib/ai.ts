@@ -5,4 +5,4 @@ export const anthropic = createAnthropic({
 });
 
 export const chatModel = anthropic("claude-haiku-4-5-20251001");
-export const contentModel = anthropic("claude-sonnet-4-5-20251014");
+export const contentModel = anthropic("claude-sonnet-4-6");
