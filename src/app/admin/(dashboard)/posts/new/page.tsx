@@ -10,6 +10,8 @@ import {
   Instagram,
   Send,
   X,
+  Eye,
+  Code,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -29,6 +31,7 @@ export default function NewPostPage() {
   const [uploading, setUploading] = useState(false);
   const [topic, setTopic] = useState("");
   const [error, setError] = useState("");
+  const [preview, setPreview] = useState(false);
   const [publishedPostId, setPublishedPostId] = useState<string | null>(null);
   const [form, setForm] = useState({
     title: "",
@@ -393,15 +396,41 @@ export default function NewPostPage() {
         </div>
 
         <div>
-          <label className="block text-sm text-[#595959] mb-1.5">
-            Content (HTML)
-          </label>
-          <textarea
-            value={form.content}
-            onChange={(e) => setForm({ ...form, content: e.target.value })}
-            rows={20}
-            className="w-full px-4 py-2 border border-[#e5e5e5] text-sm font-mono focus:outline-none focus:border-[#808080] resize-y"
-          />
+          <div className="flex items-center justify-between mb-1.5">
+            <label className="block text-sm text-[#595959]">Content</label>
+            {form.content && (
+              <button
+                type="button"
+                onClick={() => setPreview(!preview)}
+                className="inline-flex items-center gap-1.5 text-xs text-[#595959] hover:text-[#1b1b1b] transition-colors"
+              >
+                {preview ? (
+                  <>
+                    <Code className="h-3.5 w-3.5" />
+                    Edit HTML
+                  </>
+                ) : (
+                  <>
+                    <Eye className="h-3.5 w-3.5" />
+                    Preview
+                  </>
+                )}
+              </button>
+            )}
+          </div>
+          {preview ? (
+            <div
+              className="w-full px-6 py-4 border border-[#e5e5e5] bg-white text-sm prose prose-sm max-w-none min-h-[500px] overflow-y-auto"
+              dangerouslySetInnerHTML={{ __html: form.content }}
+            />
+          ) : (
+            <textarea
+              value={form.content}
+              onChange={(e) => setForm({ ...form, content: e.target.value })}
+              rows={20}
+              className="w-full px-4 py-2 border border-[#e5e5e5] text-sm font-mono focus:outline-none focus:border-[#808080] resize-y"
+            />
+          )}
         </div>
 
         <div>
@@ -465,6 +494,7 @@ export default function NewPostPage() {
                 accept="image/*"
                 onChange={handleImageUpload}
                 className="hidden"
+                title="Upload cover image"
               />
             </label>
           )}
