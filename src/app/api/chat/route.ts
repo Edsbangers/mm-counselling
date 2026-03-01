@@ -22,76 +22,85 @@ async function getDb() {
 }
 
 export async function POST(request: Request) {
-  const body = await request.json();
-  const uiMessages: UIMessage[] = body.messages ?? [];
-  const sessionId: string | undefined = body.sessionId;
-
-  if (!sessionId || !uiMessages.length) {
-    return new Response("Missing sessionId or messages", { status: 400 });
-  }
-
-  const db = await getDb();
-
-  // Save to database if available
-  if (db) {
-    try {
-      await db.chatConversation.upsert({
-        where: { sessionId },
-        create: { sessionId },
-        update: { updatedAt: new Date() },
-      });
-
-      const lastUserMessage = uiMessages[uiMessages.length - 1];
-      if (lastUserMessage?.role === "user") {
-        const content = extractText(lastUserMessage);
-        if (content) {
-          await db.chatMessage.create({
-            data: {
-              conversation: { connect: { sessionId } },
-              role: "user",
-              content,
-            },
-          });
-        }
-      }
-    } catch (e) {
-      console.error("Chat DB error (non-fatal):", e);
-    }
-  }
-
-  const modelMessages = await convertToModelMessages(uiMessages);
-
-  // Build dynamic context (latest blogs, availability, announcements)
-  let systemPrompt = chatSystemPrompt;
   try {
-    const dynamicContext = await buildDynamicContext();
-    systemPrompt = chatSystemPrompt + dynamicContext;
-  } catch {
-    // Fall back to static prompt
-  }
+    const body = await request.json();
+    const uiMessages: UIMessage[] = body.messages ?? [];
+    const sessionId: string | undefined = body.sessionId;
 
-  const result = streamText({
-    model: chatModel,
-    system: systemPrompt,
-    messages: modelMessages,
-    maxOutputTokens: 500,
-    temperature: 0.7,
-    onFinish: async ({ text }) => {
-      if (db) {
-        try {
-          await db.chatMessage.create({
-            data: {
-              conversation: { connect: { sessionId } },
-              role: "assistant",
-              content: text,
-            },
-          });
-        } catch (e) {
-          console.error("Chat DB save error (non-fatal):", e);
+    if (!sessionId || !uiMessages.length) {
+      return new Response("Missing sessionId or messages", { status: 400 });
+    }
+
+    const db = await getDb();
+
+    // Save to database if available
+    if (db) {
+      try {
+        await db.chatConversation.upsert({
+          where: { sessionId },
+          create: { sessionId },
+          update: { updatedAt: new Date() },
+        });
+
+        const lastUserMessage = uiMessages[uiMessages.length - 1];
+        if (lastUserMessage?.role === "user") {
+          const content = extractText(lastUserMessage);
+          if (content) {
+            await db.chatMessage.create({
+              data: {
+                conversation: { connect: { sessionId } },
+                role: "user",
+                content,
+              },
+            });
+          }
         }
+      } catch (e) {
+        console.error("Chat DB error (non-fatal):", e);
       }
-    },
-  });
+    }
 
-  return result.toUIMessageStreamResponse();
+    const modelMessages = await convertToModelMessages(uiMessages);
+
+    // Build dynamic context (latest blogs, availability, announcements)
+    let systemPrompt = chatSystemPrompt;
+    try {
+      const dynamicContext = await buildDynamicContext();
+      systemPrompt = chatSystemPrompt + dynamicContext;
+    } catch {
+      // Fall back to static prompt
+    }
+
+    const result = streamText({
+      model: chatModel,
+      system: systemPrompt,
+      messages: modelMessages,
+      maxOutputTokens: 500,
+      temperature: 0.7,
+      onFinish: async ({ text }) => {
+        if (db) {
+          try {
+            await db.chatMessage.create({
+              data: {
+                conversation: { connect: { sessionId } },
+                role: "assistant",
+                content: text,
+              },
+            });
+          } catch (e) {
+            console.error("Chat DB save error (non-fatal):", e);
+          }
+        }
+      },
+    });
+
+    return result.toUIMessageStreamResponse();
+  } catch (e) {
+    console.error("Chat API error:", e);
+    const message = e instanceof Error ? e.message : "Unknown error";
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
