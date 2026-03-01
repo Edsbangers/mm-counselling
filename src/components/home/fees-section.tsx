@@ -10,8 +10,8 @@ export function FeesSection() {
             Sessions and Fees
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Marion offers a complimentary introductory discussion via telephone
-            or Zoom to discuss your circumstances and determine compatibility
+            I offer a complimentary introductory discussion via telephone or
+            Zoom to discuss your circumstances and determine compatibility
             before committing to paid sessions.
           </p>
         </div>

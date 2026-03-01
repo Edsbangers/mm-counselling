@@ -3,6 +3,8 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { ChatWidget } from "@/components/chat/chat-widget";
+import { PageTracker } from "@/components/analytics/page-tracker";
 import { siteConfig } from "@/lib/site-config";
 
 const playfair = Playfair_Display({
@@ -66,6 +68,8 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <ChatWidget />
+        <PageTracker />
       </body>
     </html>
   );

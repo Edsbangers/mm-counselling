@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 
@@ -6,39 +7,56 @@ export function AboutSection() {
     <section className="py-20 md:py-28 bg-[#f9f9f9]">
       <div className="max-w-5xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Image placeholder matching GoDaddy layout */}
-          <div className="aspect-[3/4] bg-[#e8e8e8] flex items-center justify-center">
-            <div className="text-center p-8">
-              <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-[#d0d0d0] flex items-center justify-center">
-                <span className="text-4xl font-serif text-[#808080]">M</span>
-              </div>
-              <p className="text-sm text-muted-foreground">Marion Morris</p>
-              <p className="text-xs text-muted-foreground">BACP Registered Counsellor</p>
-            </div>
+          {/* Marion's headshot */}
+          <div className="relative aspect-[3/4] overflow-hidden">
+            <Image
+              src="/images/marion-headshot.jpg"
+              alt="Marion Morris - BACP Registered Counsellor in Portsmouth"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
 
-          {/* Content */}
+          {/* Content - using Marion's preferred bio */}
           <div className="space-y-5">
             <h2 className="text-3xl md:text-4xl font-serif text-foreground">
               About {siteConfig.therapist.fullName}
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Marion is a BACP-registered psychotherapeutic counsellor based in
-              Southsea, Portsmouth. She holds a BACP Accredited Diploma in
-              Psychotherapeutic Counselling with a psychodynamic approach, a
-              Certificate in Working with Couples, and is completing ADHD
-              Certification Training.
+              I provide a compassionate, confidential, and safe space for
+              individuals and couples to navigate life&apos;s challenges. Whether
+              you are feeling weighed down by anxiety, depression, or the impact
+              of trauma, you don&apos;t have to walk through it alone.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              She is committed to furthering qualifications and training through
-              continual professional development, with specialist training in
-              Trauma and Attachment.
+              <strong className="text-foreground">For Individuals</strong> &mdash; I
+              work collaboratively with you to rebuild self-esteem, process the
+              pain of past relationships, and untangle the roots of generational
+              trauma so you can move forward with clarity and confidence.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Marion works with clients across diverse backgrounds, including
-              those with neurodiversity, trauma histories, addictions,
-              relationship difficulties, and members of the LGBTQ+ community.
+              <strong className="text-foreground">For Couples</strong> &mdash; I
+              help partners identify and break negative relationship cycles.
+              Together, we will work to improve communication, rebuild trust, and
+              foster a healthier, more secure connection.
             </p>
+            <p className="text-muted-foreground leading-relaxed italic">
+              Healing is a journey, and taking the first step takes courage.
+              Reach out today to schedule a call.
+            </p>
+
+            {/* BACP Logo */}
+            <div className="pt-4">
+              <Image
+                src="/images/bacp-logo.png"
+                alt="BACP Registered Member 388689 - Accredited Register"
+                width={200}
+                height={80}
+                className="object-contain"
+              />
+            </div>
+
             <Link
               href="/about"
               className="inline-block text-sm text-foreground border-b border-foreground pb-0.5 hover:text-muted-foreground hover:border-muted-foreground transition-colors"

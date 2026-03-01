@@ -1,6 +1,7 @@
 import { HeroSection } from "@/components/home/hero-section";
 import { ServicesSection } from "@/components/home/services-section";
 import { AboutSection } from "@/components/home/about-section";
+import { TherapyRoomSection } from "@/components/home/therapy-room-section";
 import { FeesSection } from "@/components/home/fees-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { FAQSection, faqData } from "@/components/home/faq-section";
@@ -142,6 +143,7 @@ export default function HomePage() {
       <HeroSection />
       <ServicesSection />
       <AboutSection />
+      <TherapyRoomSection />
       <TestimonialsSection />
       <FeesSection />
       <FAQSection />

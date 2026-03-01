@@ -18,7 +18,7 @@ export default function ContactPage() {
             Book Your Therapy Appointment in Portsmouth
           </h1>
           <p className="text-muted-foreground leading-relaxed">
-            Ready to take the first step? Marion offers a free introductory
+            Ready to take the first step? I offer a free introductory
             consultation where you can discuss your needs and see if it&apos;s a
             good fit. There&apos;s no obligation to continue.
           </p>

@@ -9,14 +9,14 @@ export function CTASection() {
           Serving Portsmouth and Surrounding Areas
         </h2>
         <p className="text-muted-foreground leading-relaxed mb-4">
-          MM-Counselling provides accessible counselling services throughout
-          Portsmouth and Southsea, including Fratton, Old Portsmouth, Eastney,
-          and surrounding areas of Hampshire. Sessions are available in-person
-          at the Southsea (PO4) practice, or via telephone and Zoom.
+          I provide accessible counselling services throughout Portsmouth and
+          Southsea, including Fratton, Old Portsmouth, Eastney, and surrounding
+          areas of Hampshire. Sessions are available in-person at my Southsea
+          ({siteConfig.location.postcode}) practice, or via telephone and Zoom.
         </p>
         <p className="text-muted-foreground leading-relaxed mb-10">
-          The practice is easily accessible with local street parking and
-          within walking distance of Southsea town centre.
+          My practice is easily accessible with local street parking and within
+          walking distance of Southsea town centre.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

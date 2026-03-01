@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Instagram } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
@@ -27,6 +28,17 @@ export function Footer() {
               {siteConfig.contact.email}
             </a>
           </p>
+        </div>
+
+        {/* BACP Logo */}
+        <div className="flex justify-center mb-6">
+          <Image
+            src="/images/bacp-logo.png"
+            alt="BACP Registered Member 388689 - Accredited Register"
+            width={160}
+            height={64}
+            className="object-contain brightness-0 invert opacity-80"
+          />
         </div>
 
         {/* Social */}

@@ -18,8 +18,8 @@ export default function SessionsAndFeesPage() {
             Sessions and Fees
           </h1>
           <p className="text-muted-foreground leading-relaxed">
-            Marion offers a complimentary introductory discussion via telephone
-            or Zoom. This allows prospective clients to discuss their
+            I offer a complimentary introductory discussion via telephone
+            or Zoom. This allows you to discuss your
             circumstances and determine compatibility before committing to paid
             sessions.
           </p>
@@ -84,7 +84,7 @@ export default function SessionsAndFeesPage() {
                 Initial Consultation
               </h3>
               <p>
-                Marion offers a complimentary introductory discussion via
+                I offer a complimentary introductory discussion via
                 telephone or Zoom. This allows you to discuss your circumstances
                 and determine compatibility before committing to paid sessions.
               </p>
