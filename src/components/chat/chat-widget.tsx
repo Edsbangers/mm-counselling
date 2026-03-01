@@ -44,6 +44,7 @@ function ChatInner({ sessionId }: { sessionId: string }) {
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [leadName, setLeadName] = useState("");
   const [leadEmail, setLeadEmail] = useState("");
+  const [leadPhone, setLeadPhone] = useState("");
   const [inputValue, setInputValue] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -75,12 +76,12 @@ function ChatInner({ sessionId }: { sessionId: string }) {
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!leadName && !leadEmail) return;
+    if (!leadName && !leadEmail && !leadPhone) return;
 
     await fetch("/api/chat/lead", {
-      method: "PATCH",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sessionId, name: leadName, email: leadEmail }),
+      body: JSON.stringify({ sessionId, name: leadName, email: leadEmail, phone: leadPhone }),
     });
 
     setLeadCaptured(true);
@@ -144,7 +145,7 @@ function ChatInner({ sessionId }: { sessionId: string }) {
         {showLeadForm && !leadCaptured && (
           <div className="bg-[#f9f9f9] border border-[#e5e5e5] p-3">
             <p className="text-xs text-[#595959] mb-2">
-              Would you like Marion to follow up? Leave your details below.
+              Would you like Marion to get back to you? Leave your details below.
             </p>
             <form onSubmit={handleLeadSubmit} className="space-y-2">
               <input
@@ -159,6 +160,13 @@ function ChatInner({ sessionId }: { sessionId: string }) {
                 placeholder="Your email"
                 value={leadEmail}
                 onChange={(e) => setLeadEmail(e.target.value)}
+                className="w-full px-3 py-1.5 border border-[#e5e5e5] text-xs focus:outline-none focus:border-[#808080]"
+              />
+              <input
+                type="tel"
+                placeholder="Your phone number"
+                value={leadPhone}
+                onChange={(e) => setLeadPhone(e.target.value)}
                 className="w-full px-3 py-1.5 border border-[#e5e5e5] text-xs focus:outline-none focus:border-[#808080]"
               />
               <div className="flex gap-2">

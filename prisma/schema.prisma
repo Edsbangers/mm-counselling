@@ -17,6 +17,7 @@ model ChatConversation {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   messages     ChatMessage[]
+  leads        Lead[]
 
   @@index([visitorEmail])
   @@index([createdAt])
@@ -83,6 +84,25 @@ model SocialPost {
   createdAt  DateTime  @default(now())
 
   @@index([blogPostId])
+}
+
+// ─── Leads ──────────────────────────────────────────────
+
+model Lead {
+  id             String            @id @default(cuid())
+  name           String
+  email          String?
+  phone          String?
+  status         String            @default("new") // new, contacted, booked, closed
+  notes          String?           @db.Text
+  conversationId String?
+  conversation   ChatConversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([email])
 }
 
 // ─── Admin Session ────────────────────────────────────────

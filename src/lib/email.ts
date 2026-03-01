@@ -106,6 +106,7 @@ export async function sendBookingCancellation(
 export async function sendNewEnquiryNotification(lead: {
   name: string;
   email: string;
+  phone?: string;
 }): Promise<void> {
   const resend = getResend();
   if (!resend) return;

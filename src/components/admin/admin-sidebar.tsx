@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Calendar,
   MessageSquare,
+  UserPlus,
   FileText,
   Instagram,
   LogOut,
@@ -18,6 +19,7 @@ import {
 const navItems = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Bookings", href: "/admin/bookings", icon: Calendar },
+  { name: "Leads", href: "/admin/leads", icon: UserPlus },
   { name: "Conversations", href: "/admin/conversations", icon: MessageSquare },
   { name: "Blog Posts", href: "/admin/posts", icon: FileText },
   { name: "Social Media", href: "/admin/social", icon: Instagram },
