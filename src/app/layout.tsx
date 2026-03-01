@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { ChatWidget } from "@/components/chat/chat-widget";
 import { siteConfig } from "@/lib/site-config";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfair = Playfair_Display({
+  variable: "--font-serif",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.seo.description,
   keywords: [...siteConfig.seo.keywords],
-  authors: [{ name: siteConfig.therapist.title }],
+  authors: [{ name: siteConfig.therapist.fullName }],
   creator: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
   openGraph: {
@@ -60,12 +61,11 @@ export default function RootLayout({
   return (
     <html lang="en-GB">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${playfair.variable} ${inter.variable} min-h-screen flex flex-col`}
       >
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
-        <ChatWidget />
       </body>
     </html>
   );

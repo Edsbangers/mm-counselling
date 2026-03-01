@@ -1,75 +1,47 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 export function CTASection() {
   return (
-    <section className="py-16 md:py-24 bg-slate-dark text-white">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Take the First Step?
-          </h2>
-          <p className="text-lg text-slate-light mb-8 max-w-2xl mx-auto">
-            Whether you&apos;re seeking support for ADHD, working through trauma,
-            or simply need someone to talk to, I&apos;m here to help. Book a free
-            initial consultation to see if we&apos;re a good fit.
+    <section className="py-20 md:py-28 bg-[#f9f9f9]">
+      <div className="max-w-3xl mx-auto px-6 text-center">
+        <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-6">
+          Serving Portsmouth and Surrounding Areas
+        </h2>
+        <p className="text-muted-foreground leading-relaxed mb-4">
+          MM-Counselling provides accessible counselling services throughout
+          Portsmouth and Southsea, including Fratton, Old Portsmouth, Eastney,
+          and surrounding areas of Hampshire. Sessions are available in-person
+          at the Southsea (PO4) practice, or via telephone and Zoom.
+        </p>
+        <p className="text-muted-foreground leading-relaxed mb-10">
+          The practice is easily accessible with local street parking and
+          within walking distance of Southsea town centre.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <Link
+            href="/contact"
+            className="inline-block border border-foreground text-foreground px-8 py-3 text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300"
+          >
+            Schedule an Introductory Session
+          </Link>
+          <a
+            href={`tel:${siteConfig.contact.phone}`}
+            className="inline-block border border-[#808080] text-[#808080] px-8 py-3 text-sm tracking-wide hover:bg-[#808080] hover:text-white transition-all duration-300"
+          >
+            Call {siteConfig.contact.phone}
+          </a>
+        </div>
+
+        {/* Trust indicators */}
+        <div className="border-t border-border pt-8">
+          <p className="font-serif text-lg text-foreground mb-2">
+            Trusted &amp; Registered
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button
-              asChild
-              size="lg"
-              className="bg-sage hover:bg-sage-dark text-white"
-            >
-              <Link href="/contact">Book Free Consultation</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-slate-dark"
-            >
-              <a href={`tel:${siteConfig.contact.phone}`}>Call Now</a>
-            </Button>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-6 pt-8 border-t border-slate-brand">
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center">
-                <Phone className="h-5 w-5 text-sage-light" />
-              </div>
-              <span className="text-sm text-slate-light">Phone</span>
-              <a
-                href={`tel:${siteConfig.contact.phone}`}
-                className="font-medium hover:text-sage-light transition-colors"
-              >
-                {siteConfig.contact.phone}
-              </a>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center">
-                <Mail className="h-5 w-5 text-sage-light" />
-              </div>
-              <span className="text-sm text-slate-light">Email</span>
-              <a
-                href={`mailto:${siteConfig.contact.email}`}
-                className="font-medium hover:text-sage-light transition-colors"
-              >
-                {siteConfig.contact.email}
-              </a>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center">
-                <MapPin className="h-5 w-5 text-sage-light" />
-              </div>
-              <span className="text-sm text-slate-light">Location</span>
-              <span className="font-medium">
-                {siteConfig.location.area}, {siteConfig.location.city}
-              </span>
-            </div>
-          </div>
+          <p className="text-sm text-muted-foreground">
+            Registered member of BACP (British Association for Counselling and Psychotherapy)
+          </p>
         </div>
       </div>
     </section>

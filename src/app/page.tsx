@@ -2,139 +2,129 @@ import { HeroSection } from "@/components/home/hero-section";
 import { ServicesSection } from "@/components/home/services-section";
 import { AboutSection } from "@/components/home/about-section";
 import { FeesSection } from "@/components/home/fees-section";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
+import { FAQSection, faqData } from "@/components/home/faq-section";
 import { CTASection } from "@/components/home/cta-section";
 import { siteConfig } from "@/lib/site-config";
 
-// CounsellingService Schema for Local SEO
 function generateStructuredData() {
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "LocalBusiness",
-        "@id": `${siteConfig.url}/#business`,
-        name: siteConfig.name,
-        description: siteConfig.description,
-        url: siteConfig.url,
+        "@id": `${siteConfig.url}/#localbusiness`,
+        name: "MM-Counselling",
+        image: `${siteConfig.url}/logo.png`,
         telephone: siteConfig.contact.phone,
         email: siteConfig.contact.email,
         address: {
           "@type": "PostalAddress",
-          addressLocality: siteConfig.location.area,
-          addressRegion: siteConfig.location.city,
-          addressCountry: "GB",
+          addressLocality: "Southsea, Portsmouth",
+          addressRegion: "Hampshire",
           postalCode: siteConfig.location.postcode,
+          addressCountry: "GB",
         },
         geo: {
           "@type": "GeoCoordinates",
           latitude: "50.7823",
           longitude: "-1.0866",
         },
-        areaServed: [
-          {
-            "@type": "City",
-            name: "Portsmouth",
-          },
-          {
-            "@type": "City",
-            name: "Southsea",
-          },
-          {
-            "@type": "AdministrativeArea",
-            name: "Hampshire",
-          },
-        ],
-        priceRange: `£${siteConfig.fees.concession}-£${siteConfig.fees.standard}`,
-        openingHoursSpecification: [
-          {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            opens: "09:00",
-            closes: "18:00",
-          },
-        ],
-      },
-      {
-        "@type": "CounselingService",
-        "@id": `${siteConfig.url}/#service`,
-        name: "MM Counselling Services",
-        provider: {
-          "@id": `${siteConfig.url}/#business`,
-        },
-        areaServed: [
-          {
-            "@type": "City",
-            name: "Portsmouth",
-          },
-          {
-            "@type": "City",
-            name: "Southsea",
-          },
-          {
-            "@type": "AdministrativeArea",
-            name: "Hampshire",
-          },
-        ],
-        serviceType: [
-          "ADHD Counselling",
-          "Trauma Therapy",
-          "Anxiety Counselling",
-          "Depression Support",
-          "Relationship Counselling",
-        ],
+        url: siteConfig.url,
+        priceRange: "££",
         description:
-          "Professional counselling services specialising in ADHD support and trauma therapy for adults in Portsmouth, Southsea and Hampshire.",
-        offers: {
-          "@type": "Offer",
-          price: siteConfig.fees.standard,
-          priceCurrency: "GBP",
-          description: `${siteConfig.fees.sessionLength} counselling session`,
+          "Empathic and approachable counselling services in Portsmouth and Southsea. BACP registered. Individual and couples therapy.",
+        areaServed: ["Portsmouth", "Southsea", "Hampshire"],
+        founder: {
+          "@type": "Person",
+          name: siteConfig.therapist.fullName,
+          jobTitle: "BACP Registered Psychotherapeutic Counsellor",
         },
-      },
-      {
-        "@type": "Person",
-        "@id": `${siteConfig.url}/#therapist`,
-        name: siteConfig.therapist.title,
-        jobTitle: "Counsellor",
-        description: `MBACP registered counsellor with ${siteConfig.therapist.experience} specialising in ADHD and trauma therapy.`,
-        worksFor: {
-          "@id": `${siteConfig.url}/#business`,
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Counselling Services",
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Individual Counselling Session",
+                description: "50-minute individual therapy session",
+              },
+              price: "50.00",
+              priceCurrency: "GBP",
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Couples Counselling Session",
+                description: "50-minute couples therapy session",
+              },
+              price: "60.00",
+              priceCurrency: "GBP",
+            },
+          ],
         },
-        hasCredential: [
-          {
-            "@type": "EducationalOccupationalCredential",
-            credentialCategory: "Professional Certification",
-            name: "MBACP Registered",
-          },
-          {
-            "@type": "EducationalOccupationalCredential",
-            credentialCategory: "Diploma",
-            name: "Diploma in Counselling",
-          },
-        ],
       },
       {
         "@type": "WebSite",
         "@id": `${siteConfig.url}/#website`,
         url: siteConfig.url,
-        name: siteConfig.name,
-        description: siteConfig.description,
+        name: "MM-Counselling",
         publisher: {
-          "@id": `${siteConfig.url}/#business`,
+          "@id": `${siteConfig.url}/#localbusiness`,
         },
       },
       {
-        "@type": "WebPage",
-        "@id": `${siteConfig.url}/#webpage`,
-        url: siteConfig.url,
-        name: siteConfig.seo.title,
-        isPartOf: {
-          "@id": `${siteConfig.url}/#website`,
+        "@type": "BreadcrumbList",
+        "@id": `${siteConfig.url}/#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteConfig.url,
+          },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${siteConfig.url}/#faq`,
+        mainEntity: faqData.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      },
+      {
+        "@type": "Person",
+        "@id": `${siteConfig.url}/#therapist`,
+        name: siteConfig.therapist.fullName,
+        jobTitle: "BACP Registered Psychotherapeutic Counsellor",
+        worksFor: {
+          "@id": `${siteConfig.url}/#localbusiness`,
         },
-        about: {
-          "@id": `${siteConfig.url}/#service`,
-        },
-        description: siteConfig.seo.description,
+        hasCredential: [
+          {
+            "@type": "EducationalOccupationalCredential",
+            credentialCategory: "Professional Certification",
+            name: "BACP Registered Counsellor",
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            credentialCategory: "Diploma",
+            name: "Accredited Diploma in Psychotherapeutic Counselling",
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            credentialCategory: "Certificate",
+            name: "Certificate in Working with Couples",
+          },
+        ],
       },
     ],
   };
@@ -152,7 +142,9 @@ export default function HomePage() {
       <HeroSection />
       <ServicesSection />
       <AboutSection />
+      <TestimonialsSection />
       <FeesSection />
+      <FAQSection />
       <CTASection />
     </>
   );

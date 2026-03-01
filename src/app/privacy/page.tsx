@@ -11,167 +11,136 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="bg-gradient-to-b from-warm-white to-cream py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h1 className="text-4xl font-bold text-foreground mb-4">
-              Privacy Policy
-            </h1>
-            <p className="text-muted-foreground">
-              Last updated: January 2024
-            </p>
-          </div>
+      <section className="py-12 bg-white border-b border-border">
+        <div className="max-w-3xl mx-auto px-6">
+          <h1 className="text-3xl font-serif text-foreground mb-2">
+            Privacy Policy
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Last updated: January 2024
+          </p>
         </div>
       </section>
 
       {/* Content */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto prose prose-slate">
-            <h2>Introduction</h2>
+      <section className="py-16 bg-white">
+        <div className="max-w-3xl mx-auto px-6 space-y-8 text-muted-foreground leading-relaxed">
+          <div>
+            <h2 className="font-serif text-xl text-foreground mb-3">Introduction</h2>
             <p>
-              MM Counselling (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;)
-              is committed to protecting your privacy. This Privacy Policy
-              explains how we collect, use, and safeguard your personal
-              information when you use our website or counselling services.
+              {siteConfig.therapist.fullName}, a self-employed counsellor operating as
+              MM Counselling, has established this policy to protect the personal
+              data of clients and safeguard their privacy and security.
             </p>
+          </div>
 
-            <h2>Information We Collect</h2>
-            <h3>Information you provide directly</h3>
-            <ul>
-              <li>
-                <strong>Contact information:</strong> Name, email address, phone
-                number when you contact us or book an appointment
-              </li>
-              <li>
-                <strong>Session information:</strong> Notes and records from
-                counselling sessions (kept confidentially)
-              </li>
-              <li>
-                <strong>Website enquiries:</strong> Any information you provide
-                through our contact form
-              </li>
-            </ul>
-
-            <h3>Information collected automatically</h3>
-            <ul>
-              <li>
-                <strong>Website analytics:</strong> We may use cookies and
-                similar technologies to understand how visitors use our website
-              </li>
-              <li>
-                <strong>Chat interactions:</strong> If you use our website chat
-                feature, your messages may be processed to provide responses
-              </li>
-            </ul>
-
-            <h2>How We Use Your Information</h2>
-            <p>We use your personal information to:</p>
-            <ul>
-              <li>Respond to your enquiries and provide counselling services</li>
-              <li>Schedule and manage appointments</li>
-              <li>Maintain clinical records as required by professional standards</li>
-              <li>Improve our website and services</li>
-              <li>Comply with legal and professional obligations</li>
-            </ul>
-
-            <h2>Confidentiality</h2>
-            <p>
-              As a BACP-registered counsellor, I adhere to strict confidentiality
-              standards. Information shared in counselling sessions is
-              confidential, with limited exceptions:
+          <div>
+            <h2 className="font-serif text-xl text-foreground mb-3">Information We Collect</h2>
+            <p className="mb-3">
+              We collect identifying information including names, contact details,
+              dates of birth, gender, and occupation. This information is gathered
+              to provide counselling services, maintain client records, and
+              communicate with clients.
             </p>
-            <ul>
-              <li>Where there is a serious risk of harm to yourself or others</li>
-              <li>Where required by law (e.g., terrorism, money laundering)</li>
-              <li>Where disclosure is ordered by a court</li>
-            </ul>
             <p>
-              I would always try to discuss any potential breach of
+              Personal information will be used exclusively for its original
+              purpose, with explicit consent from clients before using their
+              personal data for any new purposes.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="font-serif text-xl text-foreground mb-3">Confidentiality</h2>
+            <p className="mb-3">
+              As a BACP-registered counsellor, Marion adheres to strict
+              confidentiality standards. Information shared in counselling sessions
+              is confidential, with limited exceptions:
+            </p>
+            <ul className="space-y-1 ml-4">
+              <li>&#8226; Where there is a serious risk of harm to yourself or others</li>
+              <li>&#8226; Where required by law (e.g., terrorism, money laundering)</li>
+              <li>&#8226; Where disclosure is ordered by a court</li>
+            </ul>
+            <p className="mt-3">
+              Marion would always try to discuss any potential breach of
               confidentiality with you first, wherever possible.
             </p>
+          </div>
 
-            <h2>Data Storage and Security</h2>
+          <div>
+            <h2 className="font-serif text-xl text-foreground mb-3">Data Storage and Security</h2>
             <p>
-              Your personal information is stored securely. Session notes are kept
-              in encrypted digital or secure physical storage. We use appropriate
-              technical and organisational measures to protect your data against
-              unauthorised access, alteration, or destruction.
+              Client data is stored securely and in compliance with applicable
+              data protection laws. Access is restricted to authorised personnel
+              only. Session notes are kept in encrypted digital or secure physical
+              storage.
             </p>
+          </div>
 
-            <h2>Data Retention</h2>
+          <div>
+            <h2 className="font-serif text-xl text-foreground mb-3">Data Retention</h2>
             <p>
               Counselling records are retained for 7 years after the end of
               therapy, in line with BACP recommendations and insurance
-              requirements. Website enquiry data is retained for as long as
-              necessary to respond to your query and for our legitimate business
-              interests.
+              requirements.
             </p>
+          </div>
 
-            <h2>Your Rights</h2>
-            <p>Under UK data protection law (UK GDPR), you have the right to:</p>
-            <ul>
-              <li>Access the personal information we hold about you</li>
-              <li>Request correction of inaccurate information</li>
-              <li>Request deletion of your information (subject to legal requirements)</li>
-              <li>Object to processing of your information</li>
-              <li>Request transfer of your information to another provider</li>
+          <div>
+            <h2 className="font-serif text-xl text-foreground mb-3">Your Rights</h2>
+            <p className="mb-3">Under UK data protection law (UK GDPR), you have the right to:</p>
+            <ul className="space-y-1 ml-4">
+              <li>&#8226; Access the personal information we hold about you</li>
+              <li>&#8226; Request correction of inaccurate information</li>
+              <li>&#8226; Request deletion of your information (subject to legal requirements)</li>
+              <li>&#8226; Object to processing of your information</li>
+              <li>&#8226; Request transfer of your information to another provider</li>
             </ul>
-            <p>
-              To exercise any of these rights, please contact us using the details
-              below.
-            </p>
+          </div>
 
-            <h2>Third-Party Services</h2>
+          <div>
+            <h2 className="font-serif text-xl text-foreground mb-3">Cookies</h2>
             <p>
-              Our website may use third-party services for analytics, hosting, and
-              the chat feature. These services have their own privacy policies and
-              may process data in accordance with their terms.
+              This website uses cookies for traffic analysis and user experience
+              optimisation. Data will be aggregated with all other user data. You
+              can control cookies through your browser settings.
             </p>
+          </div>
 
-            <h2>Cookies</h2>
+          <div>
+            <h2 className="font-serif text-xl text-foreground mb-3">Contact Us</h2>
             <p>
-              Our website uses cookies to improve your experience. You can control
-              cookies through your browser settings. Disabling cookies may affect
-              some website functionality.
+              If you have any questions about this Privacy Policy, please contact:
             </p>
-
-            <h2>Changes to This Policy</h2>
-            <p>
-              We may update this Privacy Policy from time to time. Any changes will
-              be posted on this page with an updated revision date.
-            </p>
-
-            <h2>Contact Us</h2>
-            <p>
-              If you have any questions about this Privacy Policy or how we handle
-              your personal information, please contact:
-            </p>
-            <p>
-              {siteConfig.therapist.title}
+            <p className="mt-2">
+              {siteConfig.therapist.fullName}
               <br />
               MM Counselling
               <br />
               Email:{" "}
-              <a href={`mailto:${siteConfig.contact.email}`}>
+              <a
+                href={`mailto:${siteConfig.contact.email}`}
+                className="text-foreground hover:text-muted-foreground transition-colors border-b border-foreground"
+              >
                 {siteConfig.contact.email}
               </a>
               <br />
               {siteConfig.location.area}, {siteConfig.location.city},{" "}
               {siteConfig.location.county}
             </p>
+          </div>
 
-            <h2>Complaints</h2>
+          <div>
+            <h2 className="font-serif text-xl text-foreground mb-3">Complaints</h2>
             <p>
               If you are unhappy with how we have handled your personal
               information, you have the right to complain to the Information
-              Commissioner&apos;s Office (ICO):
-            </p>
-            <p>
+              Commissioner&apos;s Office (ICO):{" "}
               <a
                 href="https://ico.org.uk"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="text-foreground hover:text-muted-foreground transition-colors border-b border-foreground"
               >
                 https://ico.org.uk
               </a>

@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "MM Counselling",
-  description: "Professional counselling services in Southsea, Portsmouth. Specialising in ADHD support and trauma therapy across Hampshire.",
-  url: "https://mmcounselling.co.uk",
+  description: "Empathic and approachable counselling services in Portsmouth and Southsea, providing clients with professional support for anxiety, trauma, depression, relationship difficulties and more.",
+  url: "https://www.mm-counselling.co.uk",
 
   // Contact & Location
   location: {
@@ -9,77 +9,121 @@ export const siteConfig = {
     city: "Portsmouth",
     county: "Hampshire",
     country: "United Kingdom",
-    postcode: "PO5",
+    postcode: "PO4",
   },
 
   // Therapist Info
   therapist: {
     name: "Marion",
-    title: "Marion Mitchell",
-    qualifications: "MBACP, Dip. Counselling",
-    experience: "10+ years",
+    fullName: "Marion Morris",
+    qualifications: "BACP Registered, Accredited Diploma in Psychotherapeutic Counselling",
+    approach: "Psychodynamic",
+    certifications: [
+      "BACP Accredited Diploma in Psychotherapeutic Counselling (Psychodynamic)",
+      "Certificate in Working with Couples",
+      "ADHD Certification Training",
+      "Trauma and Attachment Training",
+    ],
   },
 
   // Services & Specialisms
   specialisms: [
     {
-      name: "ADHD Support",
-      slug: "adhd",
-      description: "Specialist counselling for adults with ADHD, helping you understand your neurodivergent mind and develop effective coping strategies.",
-      keywords: ["ADHD counselling Portsmouth", "ADHD therapy Hampshire", "adult ADHD support Southsea"],
+      name: "Individual Counselling",
+      slug: "individuals",
+      description: "A non-judgmental space to explore your thoughts and emotions, examining relationship patterns and generational cycles to help break unhelpful behaviours.",
+      keywords: ["counselling Portsmouth", "therapist Portsmouth", "individual therapy Portsmouth"],
     },
     {
-      name: "Trauma Therapy",
+      name: "Couples Counselling",
+      slug: "couples",
+      description: "An unbiased space to work through relationship ruptures towards repair, including infidelity recovery and trust restoration.",
+      keywords: ["couples counselling Portsmouth", "relationship therapy Portsmouth", "couples therapy Hampshire"],
+    },
+    {
+      name: "Trauma & PTSD",
       slug: "trauma",
-      description: "Compassionate trauma-informed therapy using evidence-based approaches to help you process difficult experiences and move forward.",
-      keywords: ["trauma counselling Portsmouth", "trauma therapy Hampshire", "PTSD support Southsea"],
+      description: "Compassionate trauma-informed therapy to help you process difficult experiences, including abuse, PTSD, and attachment difficulties.",
+      keywords: ["trauma counselling Portsmouth", "PTSD therapy Hampshire", "trauma support Southsea"],
     },
     {
       name: "Anxiety & Depression",
       slug: "anxiety-depression",
-      description: "Understanding and managing anxiety and depression through person-centred counselling approaches.",
+      description: "Support for managing anxiety, panic attacks, depression, low self-worth, and occupational stress through person-centred counselling.",
       keywords: ["anxiety counselling Portsmouth", "depression therapy Hampshire", "mental health support Southsea"],
     },
-    {
-      name: "Relationship Issues",
-      slug: "relationships",
-      description: "Support for navigating relationship difficulties, communication challenges, and personal boundaries.",
-      keywords: ["relationship counselling Portsmouth", "couples therapy Hampshire"],
-    },
+  ],
+
+  // Additional areas of expertise from the About page
+  expertise: [
+    "Neurodiversity (Autism, ADHD)",
+    "Panic Attacks & Depression",
+    "Trauma & Abuse",
+    "Addictions",
+    "Low Self-Worth",
+    "Occupational Stress",
+    "OCD",
+    "Relationship Difficulties",
+    "LGBTQ+ Support",
+    "Suicidal Ideation",
   ],
 
   // Fees
   fees: {
-    initial: 50,
-    standard: 55,
-    concession: 45,
+    individual: 50,
+    couples: 60,
     currency: "GBP",
     sessionLength: "50 minutes",
+    cancellationNotice: "24 hours",
+    freeConsultation: true,
   },
 
   // Contact
   contact: {
-    email: "marion@mmcounselling.co.uk",
-    phone: "07XXX XXXXXX",
+    email: "mmcounselling1@gmail.com",
+    phone: "07864 281701",
   },
 
   // Social
   social: {
-    linkedin: "https://linkedin.com/in/mmcounselling",
+    instagram: "https://www.instagram.com/mmcounselling1",
   },
 
-  // SEO
+  // Testimonials from the GoDaddy site
+  testimonials: [
+    {
+      text: "I'm happier than I've ever been, and I am learning new skills to help overcome when I feel anxious.",
+      attribution: "Client",
+    },
+    {
+      text: "I felt emotionally safe and was able to open up in ways I hadn't before.",
+      attribution: "Client",
+    },
+    {
+      text: "Cost-effective mental health support that has genuinely changed my life.",
+      attribution: "Client",
+    },
+    {
+      text: "After just a few sessions, I noticed a real shift in how I see myself.",
+      attribution: "Client",
+    },
+  ],
+
+  // SEO / AEO
   seo: {
-    title: "MM Counselling | ADHD & Trauma Specialist | Southsea, Portsmouth",
-    description: "Professional counselling in Southsea, Portsmouth. Marion offers specialist support for ADHD, trauma, anxiety and depression. MBACP registered.",
+    title: "MM-Counselling | Empathic Counselling Services in Portsmouth",
+    description: "Book a therapy appointment with MM-Counselling in Portsmouth. Professional, approachable counselling support tailored to your needs. BACP registered.",
     keywords: [
-      "counselling Southsea",
-      "counsellor Portsmouth",
-      "ADHD counselling Hampshire",
-      "trauma therapy Portsmouth",
-      "anxiety counselling Southsea",
-      "depression support Portsmouth",
-      "MBACP counsellor Hampshire",
+      "Portsmouth counselling",
+      "counselling in Portsmouth",
+      "therapist Portsmouth",
+      "counselling services Portsmouth",
+      "mental health support Portsmouth",
+      "therapy appointments Portsmouth",
+      "empathic counselling Portsmouth",
+      "book therapy session Portsmouth",
+      "couples counselling Portsmouth",
+      "local counselling support",
     ],
   },
 } as const;
