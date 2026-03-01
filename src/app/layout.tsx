@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { ChatWidget } from "@/components/chat/chat-widget";
+import { SiteWrapper } from "@/components/layout/site-wrapper";
 import { PageTracker } from "@/components/analytics/page-tracker";
 import { Analytics } from "@vercel/analytics/react";
 import { siteConfig } from "@/lib/site-config";
@@ -66,10 +64,7 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${inter.variable} min-h-screen flex flex-col`}
       >
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ChatWidget />
+        <SiteWrapper>{children}</SiteWrapper>
         <PageTracker />
         <Analytics />
       </body>
