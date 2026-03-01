@@ -64,8 +64,8 @@ export default function BookingsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold text-[#1b1b1b]">Bookings</h1>
+      <div className="flex items-center justify-between mb-6 gap-4">
+        <h1 className="text-xl sm:text-2xl font-semibold text-[#1b1b1b]">Bookings</h1>
         <button
           type="button"
           onClick={() => setShowNewDialog(true)}
@@ -77,7 +77,7 @@ export default function BookingsPage() {
       </div>
 
       {/* Status legend */}
-      <div className="flex items-center gap-4 mb-4 text-xs text-[#595959]">
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 text-xs text-[#595959]">
         <span className="flex items-center gap-1.5">
           <span className="w-3 h-3 bg-yellow-100 border-l-2 border-yellow-500" />
           Pending

@@ -117,7 +117,7 @@ export function CalendarView({
   );
 
   return (
-    <div className="bg-white border border-[#e5e5e5] p-4" style={{ height: 700 }}>
+    <div className="bg-white border border-[#e5e5e5] p-2 sm:p-4 overflow-x-auto" style={{ height: 500 }}>
       <DnDCalendar
         localizer={localizer}
         events={events}
