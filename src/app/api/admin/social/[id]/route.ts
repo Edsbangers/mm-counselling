@@ -44,6 +44,7 @@ export async function PUT(
     data: {
       caption: data.caption,
       hashtags: data.hashtags,
+      facebookContent: data.facebookContent !== undefined ? data.facebookContent : undefined,
       imageUrl: data.imageUrl || null,
       status: data.status,
     },

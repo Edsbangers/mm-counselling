@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
@@ -8,10 +8,13 @@ import {
   Upload,
   Loader2,
   Instagram,
+  Facebook,
   Send,
   X,
   Eye,
   Code,
+  CheckCircle2,
+  XCircle,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -19,10 +22,23 @@ type PageState =
   | "editing"
   | "saving"
   | "published"
-  | "generating_instagram"
-  | "instagram_preview"
-  | "sending_instagram"
+  | "generating_social"
+  | "social_preview"
+  | "publishing_social"
   | "done";
+
+interface Connections {
+  facebook: { connected: boolean; status: string; pageName?: string };
+  instagram: { connected: boolean; status: string; igUsername?: string };
+}
+
+interface PublishResultEntry {
+  platform: string;
+  success: boolean;
+  platformPostId?: string;
+  platformUrl?: string;
+  error?: string;
+}
 
 export default function NewPostPage() {
   const router = useRouter();
@@ -43,10 +59,29 @@ export default function NewPostPage() {
     status: "draft",
   });
 
-  // Instagram state
+  // Social media state
+  const [socialPostId, setSocialPostId] = useState<string | null>(null);
+  const [facebookContent, setFacebookContent] = useState("");
   const [instagramCaption, setInstagramCaption] = useState("");
   const [instagramHashtags, setInstagramHashtags] = useState("");
-  const [instagramId, setInstagramId] = useState<string | null>(null);
+  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+  const [connections, setConnections] = useState<Connections | null>(null);
+  const [publishResults, setPublishResults] = useState<PublishResultEntry[] | null>(null);
+
+  // Load connections on mount
+  useEffect(() => {
+    fetch("/api/admin/social/connections")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((conns) => {
+        if (conns) {
+          setConnections(conns);
+          const defaults: string[] = [];
+          if (conns.facebook?.connected) defaults.push("facebook");
+          if (conns.instagram?.connected) defaults.push("instagram");
+          setSelectedPlatforms(defaults);
+        }
+      });
+  }, []);
 
   const generateSlug = (title: string) =>
     title
@@ -127,9 +162,9 @@ export default function NewPostPage() {
     }
   };
 
-  const handleGenerateInstagram = async () => {
+  const handleGenerateSocial = async () => {
     if (!publishedPostId) return;
-    setPageState("generating_instagram");
+    setPageState("generating_social");
 
     const res = await fetch("/api/admin/social/generate", {
       method: "POST",
@@ -139,45 +174,60 @@ export default function NewPostPage() {
 
     if (res.ok) {
       const data = await res.json();
+      setFacebookContent(data.facebookContent || "");
       setInstagramCaption(data.caption || "");
       setInstagramHashtags(data.hashtags || "");
-      setInstagramId(data.id);
-      setPageState("instagram_preview");
+      setSocialPostId(data.id);
+      setPageState("social_preview");
     } else {
       setPageState("published");
     }
   };
 
-  const handleSendToWebhook = async () => {
-    if (!instagramId) return;
-    setPageState("sending_instagram");
+  const handlePublish = async () => {
+    if (!socialPostId || selectedPlatforms.length === 0) return;
+    setPageState("publishing_social");
 
     // Save any edits first
-    await fetch(`/api/admin/social/${instagramId}`, {
+    await fetch(`/api/admin/social/${socialPostId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         caption: instagramCaption,
         hashtags: instagramHashtags,
+        facebookContent: facebookContent || null,
         status: "draft",
       }),
     });
 
-    const res = await fetch("/api/admin/social/webhook", {
+    const res = await fetch("/api/admin/social/publish", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ socialPostId: instagramId }),
+      body: JSON.stringify({ socialPostId, platforms: selectedPlatforms }),
     });
 
     if (res.ok) {
+      const data = await res.json();
+      setPublishResults(data.results);
       setPageState("done");
     } else {
-      setPageState("instagram_preview");
+      setPageState("social_preview");
     }
   };
 
-  // Post-publish flow
-  if (pageState === "published" || pageState === "generating_instagram") {
+  const togglePlatform = (platform: string) => {
+    setSelectedPlatforms((prev) =>
+      prev.includes(platform)
+        ? prev.filter((p) => p !== platform)
+        : [...prev, platform]
+    );
+  };
+
+  const anyConnected =
+    connections?.facebook.connected || connections?.instagram.connected;
+
+  // Post-publish flow: generate social posts
+  if (pageState === "published" || pageState === "generating_social") {
     return (
       <div className="max-w-lg mx-auto py-16 text-center">
         <div className="bg-green-50 p-6 mb-8">
@@ -190,27 +240,30 @@ export default function NewPostPage() {
         </div>
 
         <div className="bg-white border border-[#e5e5e5] p-6">
-          <Instagram className="h-8 w-8 text-[#595959] mx-auto mb-4" />
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Facebook className="h-6 w-6 text-[#595959]" />
+            <Instagram className="h-6 w-6 text-[#595959]" />
+          </div>
           <h3 className="text-sm font-medium text-[#1b1b1b] mb-2">
-            Generate Instagram Post?
+            Generate Social Media Posts?
           </h3>
           <p className="text-xs text-[#595959] mb-6">
-            Automatically create an Instagram caption and hashtags from this
-            blog post.
+            Automatically create Facebook and Instagram posts from this blog
+            post.
           </p>
           <div className="flex justify-center gap-3">
             <button
               type="button"
-              onClick={handleGenerateInstagram}
-              disabled={pageState === "generating_instagram"}
+              onClick={handleGenerateSocial}
+              disabled={pageState === "generating_social"}
               className="inline-flex items-center gap-2 bg-[#1b1b1b] text-white px-4 py-2 text-sm hover:bg-[#333] transition-colors disabled:opacity-50"
             >
-              {pageState === "generating_instagram" ? (
+              {pageState === "generating_social" ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
                 <Sparkles className="h-4 w-4" />
               )}
-              Generate Instagram Post
+              Generate Social Posts
             </button>
             <button
               type="button"
@@ -225,18 +278,20 @@ export default function NewPostPage() {
     );
   }
 
+  // Social preview + publish
   if (
-    pageState === "instagram_preview" ||
-    pageState === "sending_instagram"
+    pageState === "social_preview" ||
+    pageState === "publishing_social"
   ) {
     return (
-      <div className="max-w-lg mx-auto py-16">
+      <div className="max-w-2xl mx-auto py-16">
         <div className="bg-white border border-[#e5e5e5] p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
+              <Facebook className="h-5 w-5 text-[#595959]" />
               <Instagram className="h-5 w-5 text-[#595959]" />
               <h3 className="text-sm font-medium text-[#1b1b1b]">
-                Instagram Post Preview
+                Social Media Preview
               </h3>
             </div>
             <button
@@ -249,41 +304,106 @@ export default function NewPostPage() {
             </button>
           </div>
 
-          <div className="space-y-4">
-            <div>
-              <label className="block text-xs text-[#808080] mb-1">
-                Caption
-              </label>
-              <textarea
-                value={instagramCaption}
-                onChange={(e) => setInstagramCaption(e.target.value)}
-                rows={6}
-                placeholder="Instagram caption"
-                className="w-full px-4 py-2 border border-[#e5e5e5] text-sm focus:outline-none focus:border-[#808080] resize-y"
-              />
-            </div>
-            <div>
-              <label className="block text-xs text-[#808080] mb-1">
-                Hashtags
-              </label>
-              <input
-                type="text"
-                value={instagramHashtags}
-                onChange={(e) => setInstagramHashtags(e.target.value)}
-                placeholder="Hashtags"
-                className="w-full px-4 py-2 border border-[#e5e5e5] text-sm focus:outline-none focus:border-[#808080]"
-              />
-            </div>
+          <div className="space-y-6">
+            {/* Facebook content */}
+            {connections?.facebook.connected && (
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="flex items-center gap-1.5 text-xs text-[#808080]">
+                    <Facebook className="h-3 w-3" /> Facebook
+                  </label>
+                  <span className="text-xs text-[#808080]">
+                    {facebookContent.length}/63,206
+                  </span>
+                </div>
+                <textarea
+                  value={facebookContent}
+                  onChange={(e) => setFacebookContent(e.target.value)}
+                  rows={6}
+                  placeholder="Facebook post content..."
+                  className="w-full px-4 py-2 border border-[#e5e5e5] text-sm focus:outline-none focus:border-[#808080] resize-y"
+                />
+              </div>
+            )}
+
+            {/* Instagram content */}
+            {connections?.instagram.connected && (
+              <>
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="flex items-center gap-1.5 text-xs text-[#808080]">
+                      <Instagram className="h-3 w-3" /> Instagram Caption
+                    </label>
+                    <span className="text-xs text-[#808080]">
+                      {instagramCaption.length}/2,200
+                    </span>
+                  </div>
+                  <textarea
+                    value={instagramCaption}
+                    onChange={(e) => setInstagramCaption(e.target.value)}
+                    rows={6}
+                    placeholder="Instagram caption"
+                    className="w-full px-4 py-2 border border-[#e5e5e5] text-sm focus:outline-none focus:border-[#808080] resize-y"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-[#808080] mb-1">
+                    Hashtags
+                  </label>
+                  <input
+                    type="text"
+                    value={instagramHashtags}
+                    onChange={(e) => setInstagramHashtags(e.target.value)}
+                    placeholder="Hashtags"
+                    className="w-full px-4 py-2 border border-[#e5e5e5] text-sm focus:outline-none focus:border-[#808080]"
+                  />
+                </div>
+              </>
+            )}
           </div>
+
+          {/* Platform selection */}
+          {anyConnected && (
+            <div className="flex items-center gap-4 mt-6 pt-4 border-t border-[#e5e5e5]">
+              <span className="text-xs text-[#808080]">Publish to:</span>
+              {connections?.facebook.connected && (
+                <label className="inline-flex items-center gap-1.5 text-xs text-[#595959] cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={selectedPlatforms.includes("facebook")}
+                    onChange={() => togglePlatform("facebook")}
+                    className="rounded border-[#e5e5e5]"
+                  />
+                  <Facebook className="h-3 w-3" />
+                  Facebook
+                </label>
+              )}
+              {connections?.instagram.connected && (
+                <label className="inline-flex items-center gap-1.5 text-xs text-[#595959] cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={selectedPlatforms.includes("instagram")}
+                    onChange={() => togglePlatform("instagram")}
+                    className="rounded border-[#e5e5e5]"
+                  />
+                  <Instagram className="h-3 w-3" />
+                  Instagram
+                </label>
+              )}
+            </div>
+          )}
 
           <div className="flex gap-3 mt-6">
             <button
               type="button"
-              onClick={handleSendToWebhook}
-              disabled={pageState === "sending_instagram"}
+              onClick={handlePublish}
+              disabled={
+                pageState === "publishing_social" ||
+                selectedPlatforms.length === 0
+              }
               className="inline-flex items-center gap-2 bg-[#1b1b1b] text-white px-4 py-2 text-sm hover:bg-[#333] transition-colors disabled:opacity-50"
             >
-              {pageState === "sending_instagram" ? (
+              {pageState === "publishing_social" ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
                 <Send className="h-4 w-4" />
@@ -303,6 +423,7 @@ export default function NewPostPage() {
     );
   }
 
+  // Done screen with results
   if (pageState === "done") {
     return (
       <div className="max-w-lg mx-auto py-16 text-center">
@@ -311,9 +432,44 @@ export default function NewPostPage() {
             All Done!
           </h2>
           <p className="text-sm text-green-700">
-            Blog published and Instagram post pushed to your socials.
+            Blog published and social posts sent.
           </p>
         </div>
+
+        {/* Per-platform results */}
+        {publishResults && (
+          <div className="bg-white border border-[#e5e5e5] p-6 mb-6 text-left">
+            <h3 className="text-sm font-medium text-[#1b1b1b] mb-3">
+              Publishing Results
+            </h3>
+            <div className="space-y-2">
+              {publishResults.map((r) => (
+                <div key={r.platform} className="flex items-center gap-2 text-sm">
+                  {r.success ? (
+                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <XCircle className="h-4 w-4 text-red-600" />
+                  )}
+                  <span className="capitalize text-[#1b1b1b]">{r.platform}</span>
+                  {r.success && r.platformUrl && (
+                    <a
+                      href={r.platformUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline text-xs ml-auto"
+                    >
+                      View Post
+                    </a>
+                  )}
+                  {!r.success && r.error && (
+                    <span className="text-red-600 text-xs ml-auto">{r.error}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <button
           type="button"
           onClick={() => router.push("/admin/posts")}

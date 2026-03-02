@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       post.excerpt || "",
       blogUrl
     ),
-    maxOutputTokens: 1000,
+    maxOutputTokens: 2000,
     temperature: 0.7,
   });
 
@@ -58,6 +58,7 @@ export async function POST(request: NextRequest) {
         blogPostId,
         caption: data.caption || "",
         hashtags: data.hashtags || "",
+        facebookContent: data.facebookContent || null,
         blogUrl,
         status: "draft",
       },

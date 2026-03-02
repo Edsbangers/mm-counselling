@@ -72,18 +72,69 @@ model BlogPost {
 // ─── Social Media ─────────────────────────────────────────
 
 model SocialPost {
-  id         String    @id @default(cuid())
-  blogPostId String
-  blogPost   BlogPost  @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
-  caption    String    @db.Text
-  hashtags   String    @db.Text
-  imageUrl   String?
-  blogUrl    String?
-  status     String    @default("draft")
-  sentAt     DateTime?
-  createdAt  DateTime  @default(now())
+  id              String       @id @default(cuid())
+  blogPostId      String
+  blogPost        BlogPost     @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
+  caption         String       @db.Text
+  hashtags        String       @db.Text
+  facebookContent String?      @db.Text
+  imageUrl        String?
+  blogUrl         String?
+  status          String       @default("draft")
+  sentAt          DateTime?
+  createdAt       DateTime     @default(now())
+  publishLogs     PublishLog[]
 
   @@index([blogPostId])
+}
+
+model SocialConnection {
+  id                  String    @id @default(cuid())
+  platform            String    @unique
+  userAccessToken     String    @db.Text
+  userAccessTokenIv   String
+  userAccessTokenTag  String
+  pageAccessToken     String?   @db.Text
+  pageAccessTokenIv   String?
+  pageAccessTokenTag  String?
+  tokenExpiresAt      DateTime?
+  status              String    @default("active")
+  pageId              String?
+  pageName            String?
+  igBusinessAccountId String?
+  igUsername           String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  @@index([status])
+}
+
+model PublishLog {
+  id             String      @id @default(cuid())
+  socialPostId   String?
+  socialPost     SocialPost? @relation(fields: [socialPostId], references: [id], onDelete: SetNull)
+  platform       String
+  contentSnippet String?     @db.VarChar(100)
+  status         String
+  platformPostId String?
+  platformUrl    String?
+  error          String?     @db.Text
+  publishedAt    DateTime    @default(now())
+
+  @@index([socialPostId])
+  @@index([platform])
+  @@index([publishedAt])
+}
+
+model TokenRefreshLog {
+  id          String   @id @default(cuid())
+  platform    String
+  attemptedAt DateTime @default(now())
+  success     Boolean
+  error       String?  @db.Text
+
+  @@index([platform])
+  @@index([attemptedAt])
 }
 
 // ─── Leads ──────────────────────────────────────────────
