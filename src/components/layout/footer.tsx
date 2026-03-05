@@ -40,7 +40,7 @@ export function Footer() {
             alt="BACP Registered Member 388689 - Accredited Register"
             width={160}
             height={64}
-            className="object-contain brightness-0 invert opacity-80"
+            className="object-contain"
           />
         </div>
 
