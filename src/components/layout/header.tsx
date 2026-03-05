@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
+import { trackPhoneClick, trackEmailClick } from "@/lib/analytics";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -68,10 +69,10 @@ export function Header() {
               </Link>
             ))}
             <div className="pt-3 border-t border-border/40 space-y-1 text-sm text-muted-foreground">
-              <a href={`tel:${siteConfig.contact.phone}`} className="block py-1">
+              <a href={`tel:${siteConfig.contact.phone}`} onClick={trackPhoneClick} className="block py-1">
                 {siteConfig.contact.phone}
               </a>
-              <a href={`mailto:${siteConfig.contact.email}`} className="block py-1">
+              <a href={`mailto:${siteConfig.contact.email}`} onClick={trackEmailClick} className="block py-1">
                 {siteConfig.contact.email}
               </a>
             </div>

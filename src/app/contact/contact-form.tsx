@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { trackContactFormSubmit } from "@/lib/analytics";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,9 +17,31 @@ export function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Something went wrong");
+      }
+
+      trackContactFormSubmit();
+      setIsSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Failed to send message. Please try calling instead."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -47,7 +71,7 @@ export function ContactForm() {
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder="Your name"
-          className="w-full px-4 py-3 border border-border bg-white text-foreground text-sm focus:outline-none focus:border-[#808080] transition-colors"
+          className="w-full px-4 py-3 min-h-[48px] border border-border bg-white text-foreground text-base focus:outline-none focus:border-[#808080] transition-colors"
         />
       </div>
 
@@ -65,7 +89,7 @@ export function ContactForm() {
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           placeholder="your@email.com"
-          className="w-full px-4 py-3 border border-border bg-white text-foreground text-sm focus:outline-none focus:border-[#808080] transition-colors"
+          className="w-full px-4 py-3 min-h-[48px] border border-border bg-white text-foreground text-base focus:outline-none focus:border-[#808080] transition-colors"
         />
       </div>
 
@@ -82,7 +106,7 @@ export function ContactForm() {
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           placeholder="07XXX XXXXXX"
-          className="w-full px-4 py-3 border border-border bg-white text-foreground text-sm focus:outline-none focus:border-[#808080] transition-colors"
+          className="w-full px-4 py-3 min-h-[48px] border border-border bg-white text-foreground text-base focus:outline-none focus:border-[#808080] transition-colors"
         />
       </div>
 
@@ -91,18 +115,24 @@ export function ContactForm() {
           htmlFor="message"
           className="block text-sm text-muted-foreground mb-1.5"
         >
-          Message <span className="text-red-600">*</span>
+          How can I help?
         </label>
+        <p className="text-xs text-muted-foreground mb-1.5">
+          This is optional &mdash; we can discuss everything when we speak.
+        </p>
         <textarea
           id="message"
-          required
           rows={5}
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           placeholder="Tell me a bit about what brings you to counselling..."
-          className="w-full px-4 py-3 border border-border bg-white text-foreground text-sm focus:outline-none focus:border-[#808080] transition-colors resize-none"
+          className="w-full px-4 py-3 min-h-[48px] border border-border bg-white text-foreground text-base focus:outline-none focus:border-[#808080] transition-colors resize-none"
         />
       </div>
+
+      {error && (
+        <p className="text-sm text-red-600">{error}</p>
+      )}
 
       <p className="text-xs text-muted-foreground">
         Your information is confidential and will only be used to respond to
@@ -112,7 +142,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full border border-foreground text-foreground px-8 py-3 text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300 disabled:opacity-50"
+        className="w-full border border-foreground text-foreground px-8 py-3 min-h-[48px] text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300 disabled:opacity-50"
       >
         {isSubmitting ? "Sending..." : "Send Message"}
       </button>

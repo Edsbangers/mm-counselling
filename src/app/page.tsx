@@ -13,28 +13,39 @@ function generateStructuredData() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "LocalBusiness",
+        "@type": "HealthBusiness",
+        additionalType: "https://schema.org/ProfessionalService",
         "@id": `${siteConfig.url}/#localbusiness`,
         name: "MM-Counselling",
+        alternateName: "Marion Morris Counselling",
         image: `${siteConfig.url}/logo.png`,
-        telephone: siteConfig.contact.phone,
+        telephone: "+447864281701",
         email: siteConfig.contact.email,
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Southsea, Portsmouth",
-          addressRegion: "Hampshire",
+          addressLocality: "Southsea",
           postalCode: siteConfig.location.postcode,
+          addressRegion: "Hampshire",
           addressCountry: "GB",
         },
         geo: {
           "@type": "GeoCoordinates",
-          latitude: "50.7823",
-          longitude: "-1.0866",
+          latitude: 50.7811,
+          longitude: -1.0856,
         },
         url: siteConfig.url,
-        priceRange: "££",
+        priceRange: "\u00a350-\u00a360",
+        currenciesAccepted: "GBP",
         description:
-          "Empathic and approachable counselling services in Portsmouth and Southsea. BACP registered. Individual and couples therapy.",
+          "Person-centred counselling in Portsmouth and Southsea. BACP registered counsellor offering face-to-face and online therapy for anxiety, trauma, depression, relationship difficulties, and more.",
+        hasCredential: {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "Professional Registration",
+          recognizedBy: {
+            "@type": "Organization",
+            name: "British Association for Counselling and Psychotherapy (BACP)",
+          },
+        },
         openingHoursSpecification: {
           "@type": "OpeningHoursSpecification",
           dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],

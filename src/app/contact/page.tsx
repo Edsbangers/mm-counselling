@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/lib/site-config";
 import { ContactForm } from "./contact-form";
+import { ContactTracking } from "./contact-tracking";
 
 export const metadata: Metadata = {
   title: "Contact MM-Counselling | Book a Therapy Appointment in Portsmouth",
@@ -25,15 +26,41 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* Prominent Phone Section */}
+      <section className="py-8 md:py-10 bg-[#faf9f6]">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <p className="text-muted-foreground mb-2">Prefer to talk?</p>
+          <ContactTracking />
+          <p className="text-xs text-muted-foreground mt-2">
+            Leave a message and Marion will call you back
+          </p>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section className="py-16 md:py-24 bg-[#f9f9f9]">
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div>
-              <h2 className="text-2xl font-serif text-foreground mb-6">
+              <h2 className="text-2xl font-serif text-foreground mb-3">
                 Send a Message
               </h2>
+
+              {/* Trust Signals */}
+              <ul className="text-sm text-muted-foreground space-y-1.5 mb-5">
+                <li>&#10003; BACP Registered Counsellor</li>
+                <li>&#10003; No obligation &mdash; just a conversation</li>
+                <li>&#10003; I aim to respond within 24 hours</li>
+                <li>&#10003; Everything you share is confidential</li>
+              </ul>
+
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                Taking this step takes courage, and I want you to know
+                there&apos;s absolutely no pressure. You can ask questions,
+                share what&apos;s on your mind, or simply see if it feels right.
+              </p>
+
               <ContactForm />
             </div>
 

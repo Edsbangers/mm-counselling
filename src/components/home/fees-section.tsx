@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
+import { trackBookingClick } from "@/lib/analytics";
 
 export function FeesSection() {
   return (
@@ -53,6 +56,7 @@ export function FeesSection() {
         <div className="text-center mt-10">
           <Link
             href="/contact"
+            onClick={trackBookingClick}
             className="inline-block border border-foreground text-foreground px-8 py-3 text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300"
           >
             Book Your Therapy Appointment

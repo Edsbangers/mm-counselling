@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
+import { trackBookingClick, trackPhoneClick } from "@/lib/analytics";
 
 export function CTASection() {
   return (
@@ -22,12 +25,14 @@ export function CTASection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Link
             href="/contact"
+            onClick={trackBookingClick}
             className="inline-block border border-foreground text-foreground px-8 py-3 text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300"
           >
             Schedule an Introductory Session
           </Link>
           <a
             href={`tel:${siteConfig.contact.phone}`}
+            onClick={trackPhoneClick}
             className="inline-block border border-[#808080] text-[#808080] px-8 py-3 text-sm tracking-wide hover:bg-[#808080] hover:text-white transition-all duration-300"
           >
             Call {siteConfig.contact.phone}

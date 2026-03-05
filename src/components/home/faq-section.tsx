@@ -23,6 +23,22 @@ export const faqData = [
     question: "How does MM-Counselling compare to other counselling services in Portsmouth?",
     answer: "MM-Counselling offers a highly personalised, psychodynamic approach with strong client feedback. Marion has specialist training in trauma, attachment, couples work, and neurodiversity \u2014 and offers a free introductory call so you can see if it\u2019s the right fit.",
   },
+  {
+    question: "What if I don\u2019t know what to say in my first session?",
+    answer: "That\u2019s completely okay, and more common than you might think. There\u2019s no script to follow. My role is to create a space where you feel comfortable enough to share at your own pace. We start wherever feels right for you \u2014 even if that\u2019s just telling me you\u2019re not sure where to start.",
+  },
+  {
+    question: "Do I need a referral from my GP to see a counsellor?",
+    answer: "No, you don\u2019t need a referral. You can contact me directly. Many people self-refer and that\u2019s perfectly fine. If you\u2019d like to talk first before committing, I offer a free introductory call.",
+  },
+  {
+    question: "Is counselling right for me? My problems might not be \u2018big enough\u2019.",
+    answer: "There\u2019s no threshold you need to reach before you \u2018deserve\u2019 support. If something is affecting your wellbeing, your happiness, or how you relate to others \u2014 that matters. Counselling is for anyone who wants to understand themselves better, not just people in crisis.",
+  },
+  {
+    question: "How long will I need counselling for?",
+    answer: "That depends entirely on you and what you\u2019re working through. Some people find a few sessions helpful, others benefit from longer-term support. We\u2019ll talk about this together, review as we go, and you\u2019re always in control of how long we work together.",
+  },
 ];
 
 export function FAQSection() {

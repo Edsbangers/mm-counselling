@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
+import { CtaBlock } from "@/components/shared/cta-block";
 
 export const metadata: Metadata = {
   title: "Counselling Sessions & Fees | £50 Individual, £60 Couples | Portsmouth",
@@ -129,31 +129,7 @@ export default function SessionsAndFeesPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 md:py-24 bg-[#f9f9f9]">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-4">
-            Ready to Book?
-          </h2>
-          <p className="text-muted-foreground mb-8">
-            Get in touch to arrange your free introductory consultation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-block border border-foreground text-foreground px-8 py-3 text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300"
-            >
-              Schedule an Introductory Session
-            </Link>
-            <a
-              href={`tel:${siteConfig.contact.phone}`}
-              className="inline-block border border-[#808080] text-[#808080] px-8 py-3 text-sm tracking-wide hover:bg-[#808080] hover:text-white transition-all duration-300"
-            >
-              Call {siteConfig.contact.phone}
-            </a>
-          </div>
-        </div>
-      </section>
+      <CtaBlock />
     </div>
   );
 }

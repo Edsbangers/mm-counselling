@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ChatWidget } from "@/components/chat/chat-widget";
+import { MobileCallBar } from "@/components/shared/mobile-call-bar";
 
 export function SiteWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -19,6 +20,7 @@ export function SiteWrapper({ children }: { children: React.ReactNode }) {
       <main className="flex-1">{children}</main>
       <Footer />
       <ChatWidget />
+      <MobileCallBar />
     </>
   );
 }

@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { trackBookingClick } from "@/lib/analytics";
 
 export function ServicesSection() {
   return (
@@ -67,6 +70,7 @@ export function ServicesSection() {
             </p>
             <Link
               href="/contact"
+              onClick={trackBookingClick}
               className="inline-block text-sm text-foreground border-b border-foreground pb-0.5 hover:text-muted-foreground hover:border-muted-foreground transition-colors"
             >
               Book a Couples Session

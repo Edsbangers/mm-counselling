@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { format } from "date-fns";
 import { siteConfig } from "@/lib/site-config";
+import { BlogScrollTracker } from "@/components/shared/blog-scroll-tracker";
+import { TrackedBookingLink } from "@/components/shared/tracked-booking-link";
 
 async function getDb() {
   try {
@@ -132,15 +134,17 @@ export default async function BlogPostPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
+        <BlogScrollTracker />
+
         <div className="mt-16 pt-8 border-t border-border/40">
           <p className="text-sm text-muted-foreground">
             If you&apos;d like to talk about anything raised in this article,{" "}
-            <Link
+            <TrackedBookingLink
               href="/contact"
               className="text-foreground underline underline-offset-4"
             >
               get in touch
-            </Link>{" "}
+            </TrackedBookingLink>{" "}
             to book a session.
           </p>
         </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
 import { areaContent, areaSlugs } from "@/lib/area-content";
+import { CtaBlock } from "@/components/shared/cta-block";
 
 interface Props {
   params: Promise<{ area: string }>;
@@ -157,32 +158,42 @@ export default async function AreaPage({ params }: Props) {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-16 md:py-24 bg-[#f9f9f9]">
-          <div className="max-w-3xl mx-auto px-6 text-center">
-            <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-4">
-              Ready to Take the First Step?
+        {/* Learn More */}
+        <section className="py-12 md:py-16 bg-white">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="text-xl font-serif text-foreground mb-6 text-center">
+              Learn More
             </h2>
-            <p className="text-muted-foreground mb-8">
-              If you&apos;re in {data.name} and thinking about counselling,
-              get in touch for a free, no-obligation introductory conversation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="grid sm:grid-cols-2 gap-4">
               <Link
-                href="/contact"
-                className="inline-block border border-foreground text-foreground px-8 py-3 text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300"
+                href="/about"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
               >
-                Book a Free Consultation
+                Learn more about Marion
               </Link>
               <Link
                 href="/sessions-and-fees"
-                className="inline-block border border-[#808080] text-[#808080] px-8 py-3 text-sm tracking-wide hover:bg-[#808080] hover:text-white transition-all duration-300"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
               >
-                View Sessions &amp; Fees
+                View sessions and fees
+              </Link>
+              <Link
+                href="/blog"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
+              >
+                Read our latest articles
+              </Link>
+              <Link
+                href="/contact"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
+              >
+                Get in touch
               </Link>
             </div>
           </div>
         </section>
+
+        <CtaBlock />
       </div>
     </>
   );

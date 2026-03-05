@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { trackBookingClick } from "@/lib/analytics";
 
 export function HeroSection() {
   return (
@@ -31,6 +34,7 @@ export function HeroSection() {
 
         <Link
           href="/contact"
+          onClick={trackBookingClick}
           className="inline-block border border-white text-white px-8 py-4 text-sm tracking-wide hover:bg-white hover:text-[#1b1b1b] transition-all duration-300"
         >
           Schedule an Introductory Session

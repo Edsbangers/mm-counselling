@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Instagram } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
+import { trackPhoneClick, trackEmailClick } from "@/lib/analytics";
 
 export function Footer() {
   return (
@@ -18,13 +21,13 @@ export function Footer() {
           </p>
           <p className="text-white/80 text-sm mt-2">
             Phone:{" "}
-            <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-white transition-colors">
+            <a href={`tel:${siteConfig.contact.phone}`} onClick={trackPhoneClick} className="hover:text-white transition-colors">
               {siteConfig.contact.phone}
             </a>
           </p>
           <p className="text-white/80 text-sm">
             Email:{" "}
-            <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-white transition-colors">
+            <a href={`mailto:${siteConfig.contact.email}`} onClick={trackEmailClick} className="hover:text-white transition-colors">
               {siteConfig.contact.email}
             </a>
           </p>
