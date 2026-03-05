@@ -54,6 +54,22 @@ export function Footer() {
           </a>
         </div>
 
+        {/* Areas We Serve */}
+        <div className="text-center mb-6">
+          <p className="text-white/80 text-xs mb-2">Areas We Serve</p>
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-white/60">
+            {siteConfig.serviceAreas.map((area) => (
+              <Link
+                key={area.slug}
+                href={`/counselling-in-${area.slug}`}
+                className="hover:text-white transition-colors"
+              >
+                {area.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {/* Bottom Links */}
         <div className="border-t border-white/20 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="text-white/60 text-xs">

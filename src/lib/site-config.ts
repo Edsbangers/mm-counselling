@@ -84,6 +84,25 @@ export const siteConfig = {
     phone: "07864 281701",
   },
 
+  // Hours
+  hours: {
+    days: "Monday to Friday",
+    open: "09:00",
+    close: "20:00",
+    note: "Evening appointments available",
+  },
+
+  // Service Areas
+  serviceAreas: [
+    { name: "Portsmouth", slug: "portsmouth" },
+    { name: "Southsea", slug: "southsea" },
+    { name: "Gosport", slug: "gosport" },
+    { name: "Fareham", slug: "fareham" },
+    { name: "Havant", slug: "havant" },
+    { name: "Waterlooville", slug: "waterlooville" },
+    { name: "Chichester", slug: "chichester" },
+  ],
+
   // Social
   social: {
     instagram: "https://www.instagram.com/mmcounselling1",

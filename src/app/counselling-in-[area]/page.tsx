@@ -1,0 +1,189 @@
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { siteConfig } from "@/lib/site-config";
+import { areaContent, areaSlugs } from "@/lib/area-content";
+
+interface Props {
+  params: Promise<{ area: string }>;
+}
+
+export function generateStaticParams() {
+  return areaSlugs.map((area) => ({ area }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { area } = await params;
+  const data = areaContent[area];
+  if (!data) return {};
+
+  return {
+    title: data.metaTitle,
+    description: data.metaDescription,
+    alternates: { canonical: `/counselling-in-${area}` },
+    openGraph: {
+      title: data.metaTitle,
+      description: data.metaDescription,
+      type: "website",
+    },
+  };
+}
+
+function generateStructuredData(areaName: string, slug: string) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        name: `Counselling in ${areaName}`,
+        description: `Professional counselling services for ${areaName} residents, provided by ${siteConfig.therapist.fullName}, BACP registered counsellor.`,
+        provider: {
+          "@id": `${siteConfig.url}/#localbusiness`,
+        },
+        areaServed: {
+          "@type": "City",
+          name: areaName,
+        },
+        serviceType: "Counselling",
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteConfig.url,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: `Counselling in ${areaName}`,
+            item: `${siteConfig.url}/counselling-in-${slug}`,
+          },
+        ],
+      },
+    ],
+  };
+}
+
+export default async function AreaPage({ params }: Props) {
+  const { area } = await params;
+  const data = areaContent[area];
+
+  if (!data) notFound();
+
+  const structuredData = generateStructuredData(data.name, data.slug);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
+      <div className="min-h-screen">
+        {/* Hero */}
+        <section className="py-16 md:py-24 bg-white">
+          <div className="max-w-3xl mx-auto px-6">
+            <nav className="text-sm text-muted-foreground mb-8">
+              <Link href="/" className="hover:text-foreground transition-colors">
+                Home
+              </Link>
+              <span className="mx-2">/</span>
+              <span>Counselling in {data.name}</span>
+            </nav>
+
+            <h1 className="text-3xl md:text-4xl font-serif text-foreground mb-8">
+              {data.heading}
+            </h1>
+
+            <div className="space-y-5">
+              {data.paragraphs.map((paragraph, index) => (
+                <p
+                  key={index}
+                  className="text-muted-foreground leading-relaxed"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Specialisms */}
+        <section className="py-16 md:py-24 bg-[#f9f9f9]">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-8 text-center">
+              How I Can Help
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {siteConfig.specialisms.map((specialism) => (
+                <div
+                  key={specialism.slug}
+                  className="bg-white p-6 border border-border"
+                >
+                  <h3 className="font-serif text-lg text-foreground mb-2">
+                    {specialism.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {specialism.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* About Marion */}
+        <section className="py-16 md:py-24 bg-white">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-6 text-center">
+              About {siteConfig.therapist.name}
+            </h2>
+            <p className="text-muted-foreground leading-relaxed text-center max-w-2xl mx-auto mb-4">
+              {siteConfig.therapist.fullName} is a BACP registered
+              psychotherapeutic counsellor based in Southsea, Portsmouth.
+              With qualifications including an Accredited Diploma in
+              Psychotherapeutic Counselling, a Certificate in Working with
+              Couples, and specialist training in trauma, attachment and ADHD,
+              Marion brings a breadth of experience to her practice.
+            </p>
+            <p className="text-muted-foreground leading-relaxed text-center max-w-2xl mx-auto">
+              Sessions cost {"\u00A3"}{siteConfig.fees.individual} for individuals
+              and {"\u00A3"}{siteConfig.fees.couples} for couples ({siteConfig.fees.sessionLength}).
+              A free initial consultation is available.
+            </p>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="py-16 md:py-24 bg-[#f9f9f9]">
+          <div className="max-w-3xl mx-auto px-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-4">
+              Ready to Take the First Step?
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              If you&apos;re in {data.name} and thinking about counselling,
+              get in touch for a free, no-obligation introductory conversation.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/contact"
+                className="inline-block border border-foreground text-foreground px-8 py-3 text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300"
+              >
+                Book a Free Consultation
+              </Link>
+              <Link
+                href="/sessions-and-fees"
+                className="inline-block border border-[#808080] text-[#808080] px-8 py-3 text-sm tracking-wide hover:bg-[#808080] hover:text-white transition-all duration-300"
+              >
+                View Sessions &amp; Fees
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+  );
+}

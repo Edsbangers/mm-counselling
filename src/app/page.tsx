@@ -35,7 +35,43 @@ function generateStructuredData() {
         priceRange: "££",
         description:
           "Empathic and approachable counselling services in Portsmouth and Southsea. BACP registered. Individual and couples therapy.",
-        areaServed: ["Portsmouth", "Southsea", "Hampshire"],
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: siteConfig.hours.open,
+          closes: siteConfig.hours.close,
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: 5,
+          bestRating: 5,
+          reviewCount: siteConfig.testimonials.length,
+        },
+        review: siteConfig.testimonials.map((t) => ({
+          "@type": "Review",
+          author: { "@type": "Person", name: t.attribution },
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: 5,
+            bestRating: 5,
+          },
+          reviewBody: t.text,
+        })),
+        areaServed: [
+          ...siteConfig.serviceAreas.map((a) => ({
+            "@type": "City",
+            name: a.name,
+          })),
+          {
+            "@type": "GeoCircle",
+            geoMidpoint: {
+              "@type": "GeoCoordinates",
+              latitude: "50.7823",
+              longitude: "-1.0866",
+            },
+            geoRadius: "20 mi",
+          },
+        ],
         founder: {
           "@type": "Person",
           name: siteConfig.therapist.fullName,
@@ -54,6 +90,13 @@ function generateStructuredData() {
               },
               price: "50.00",
               priceCurrency: "GBP",
+              priceSpecification: {
+                "@type": "UnitPriceSpecification",
+                price: "50.00",
+                priceCurrency: "GBP",
+                unitCode: "HUR",
+                unitText: "per 50-minute session",
+              },
             },
             {
               "@type": "Offer",
@@ -64,6 +107,13 @@ function generateStructuredData() {
               },
               price: "60.00",
               priceCurrency: "GBP",
+              priceSpecification: {
+                "@type": "UnitPriceSpecification",
+                price: "60.00",
+                priceCurrency: "GBP",
+                unitCode: "HUR",
+                unitText: "per 50-minute session",
+              },
             },
           ],
         },
