@@ -97,7 +97,7 @@ function ChatInner({ sessionId }: { sessionId: string }) {
   };
 
   return (
-    <div className="fixed bottom-20 right-4 sm:right-6 z-50 w-[360px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[70vh] bg-white border border-[#e5e5e5] shadow-lg flex flex-col">
+    <div className="fixed bottom-20 right-4 sm:right-6 z-50 w-[360px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[70vh] bg-white border border-[#e5e5e5] shadow-lg flex flex-col max-md:bottom-[7.5rem]">
       {/* Header */}
       <div className="bg-[#808080] text-white px-4 py-3 flex items-center justify-between flex-shrink-0">
         <div>
@@ -221,11 +221,25 @@ function ChatInner({ sessionId }: { sessionId: string }) {
 export function ChatWidget() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(false);
+  const [promptDismissed, setPromptDismissed] = useState(false);
   const [sessionId, setSessionId] = useState("");
 
   useEffect(() => {
     setSessionId(getSessionId());
   }, []);
+
+  // Auto-show prompt bubble after 2 seconds
+  useEffect(() => {
+    if (isOpen || promptDismissed) return;
+    const timer = setTimeout(() => setShowPrompt(true), 2000);
+    return () => clearTimeout(timer);
+  }, [isOpen, promptDismissed]);
+
+  // Hide prompt when chat opens
+  useEffect(() => {
+    if (isOpen) setShowPrompt(false);
+  }, [isOpen]);
 
   // Hide on admin pages
   if (pathname.startsWith("/admin")) return null;
@@ -235,11 +249,39 @@ export function ChatWidget() {
       {/* Chat Window — only mount when open AND sessionId is ready */}
       {isOpen && sessionId && <ChatInner sessionId={sessionId} />}
 
-      {/* Floating Button */}
+      {/* Auto-open prompt bubble */}
+      {showPrompt && !isOpen && (
+        <div className="fixed bottom-[4.5rem] right-4 sm:right-6 z-50 md:bottom-[4.5rem] max-md:bottom-[5.5rem]">
+          <div className="bg-white border border-[#e5e5e5] shadow-lg px-4 py-3 max-w-[240px] relative">
+            <button
+              type="button"
+              onClick={() => {
+                setShowPrompt(false);
+                setPromptDismissed(true);
+              }}
+              className="absolute -top-2 -right-2 w-5 h-5 bg-white border border-[#e5e5e5] rounded-full flex items-center justify-center text-[#808080] hover:text-[#1b1b1b]"
+              aria-label="Dismiss"
+            >
+              <X className="h-3 w-3" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsOpen(true)}
+              className="text-left"
+            >
+              <p className="text-sm text-[#1b1b1b] leading-relaxed">
+                Hi! Have a question? I&apos;m here to help.
+              </p>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Button — sits above mobile call bar */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-4 right-4 sm:right-6 z-50 w-14 h-14 rounded-full bg-[#808080] text-white shadow-lg hover:bg-[#6a6a6a] transition-colors flex items-center justify-center"
+        className="fixed bottom-4 right-4 sm:right-6 z-50 w-14 h-14 rounded-full bg-[#808080] text-white shadow-lg hover:bg-[#6a6a6a] transition-colors flex items-center justify-center md:bottom-4 max-md:bottom-[4.25rem]"
         aria-label={isOpen ? "Close chat" : "Open chat with Marion"}
       >
         {isOpen ? (
