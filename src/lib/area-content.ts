@@ -11,6 +11,32 @@ export interface AreaData {
 }
 
 export const areaContent: Record<string, AreaData> = {
+  portsmouth: {
+    name: "Portsmouth",
+    slug: "portsmouth",
+    distance: "based in Southsea",
+    metaTitle: "Counselling in Portsmouth | MM Counselling Southsea",
+    metaDescription: `Professional counselling in Portsmouth. ${siteConfig.therapist.fullName}, BACP registered counsellor based in Southsea, offering individual and couples therapy for anxiety, depression, trauma and more.`,
+    heading: "Counselling in Portsmouth",
+    paragraphs: [
+      "MM Counselling is based in the heart of Southsea, Portsmouth, offering professional therapy for individuals and couples across the city. Whether you're in the city centre, Old Portsmouth, Fratton, Copnor, or anywhere on Portsea Island, the practice is easy to reach by car, bus, or on foot.",
+      `${siteConfig.therapist.fullName} is a BACP registered psychotherapeutic counsellor with experience in anxiety, depression, trauma and PTSD, relationship difficulties, neurodiversity (ADHD and autism), low self-worth, and addiction. Marion's psychodynamic approach explores how past experiences shape present feelings and behaviours, helping you develop deeper self-understanding and lasting change.`,
+      "Sessions take place in a comfortable, confidential therapy room in Southsea. Evening appointments are available to fit around work and family commitments, and a free initial consultation is offered so you can ask questions and see whether counselling feels right for you.",
+    ],
+  },
+  southsea: {
+    name: "Southsea",
+    slug: "southsea",
+    distance: "based locally",
+    metaTitle: "Counselling in Southsea | MM Counselling Portsmouth",
+    metaDescription: `Local counselling in Southsea, Portsmouth. ${siteConfig.therapist.fullName}, BACP registered counsellor offering individual and couples therapy. Free initial consultation available.`,
+    heading: "Counselling in Southsea",
+    paragraphs: [
+      "MM Counselling is based right here in Southsea, making it one of the most convenient options for local residents seeking professional therapy. Whether you live near Albert Road, Palmerston Road, the seafront, or anywhere in Southsea, you're just minutes from the practice.",
+      `${siteConfig.therapist.fullName} is a BACP registered psychotherapeutic counsellor offering a warm, non-judgmental space for individuals and couples. Marion works with a wide range of issues including anxiety, panic attacks, depression, trauma, relationship difficulties, occupational stress, and neurodiversity. Her psychodynamic approach helps you understand how past experiences and patterns influence your present life.`,
+      "Having a counsellor in your local area means therapy fits more easily into your routine. Sessions are held in a private, comfortable therapy room with evening appointments available. A free initial consultation is offered with no obligation — it's simply a chance to talk about what's brought you to counselling and to see if it feels like the right fit.",
+    ],
+  },
   gosport: {
     name: "Gosport",
     slug: "gosport",

@@ -6,22 +6,22 @@ import { areaContent, areaSlugs } from "@/lib/area-content";
 import { CtaBlock } from "@/components/shared/cta-block";
 
 interface Props {
-  params: Promise<{ area: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
-  return areaSlugs.map((area) => ({ area }));
+  return areaSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { area } = await params;
-  const data = areaContent[area];
+  const { slug } = await params;
+  const data = areaContent[slug];
   if (!data) return {};
 
   return {
     title: data.metaTitle,
     description: data.metaDescription,
-    alternates: { canonical: `/counselling-in-${area}` },
+    alternates: { canonical: `/counselling-in-${slug}` },
     openGraph: {
       title: data.metaTitle,
       description: data.metaDescription,
@@ -69,8 +69,8 @@ function generateStructuredData(areaName: string, slug: string) {
 }
 
 export default async function AreaPage({ params }: Props) {
-  const { area } = await params;
-  const data = areaContent[area];
+  const { slug } = await params;
+  const data = areaContent[slug];
 
   if (!data) notFound();
 
