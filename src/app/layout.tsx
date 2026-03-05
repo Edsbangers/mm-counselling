@@ -65,7 +65,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-GB">
-      <head>
+      <body
+        className={`${playfair.variable} ${inter.variable} min-h-screen flex flex-col`}
+      >
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-YE67QJNZ67"
           strategy="afterInteractive"
@@ -74,14 +76,11 @@ export default function RootLayout({
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
             gtag('js', new Date());
             gtag('config', 'G-YE67QJNZ67');
           `}
         </Script>
-      </head>
-      <body
-        className={`${playfair.variable} ${inter.variable} min-h-screen flex flex-col`}
-      >
         <SiteWrapper>{children}</SiteWrapper>
         <PageTracker />
         <Analytics />
