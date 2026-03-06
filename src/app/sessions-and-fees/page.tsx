@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 import { CtaBlock } from "@/components/shared/cta-block";
 
 export const metadata: Metadata = {
-  title: "Counselling Sessions & Fees | £50 Individual, £60 Couples | Portsmouth",
+  title: "Sessions & Fees | From £50 in Portsmouth",
   description:
     "MM-Counselling session fees: Individual counselling £50, Couples counselling £60. 50-minute sessions in Southsea, Portsmouth. Free introductory consultation available.",
 };

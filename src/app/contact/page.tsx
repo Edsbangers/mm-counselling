@@ -4,7 +4,7 @@ import { ContactForm } from "./contact-form";
 import { ContactTracking } from "./contact-tracking";
 
 export const metadata: Metadata = {
-  title: "Contact MM-Counselling | Book a Therapy Appointment in Portsmouth",
+  title: "Contact | Book a Therapy Appointment",
   description:
     "Get in touch to book a counselling session in Portsmouth or online. Free introductory consultation available. Based in Southsea, serving Hampshire.",
 };
