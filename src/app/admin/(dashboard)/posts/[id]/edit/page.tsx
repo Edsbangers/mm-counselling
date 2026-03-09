@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Upload, Loader2 } from "lucide-react";
+import { ArrowLeft, Upload, Loader2, Eye, Code } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
 
@@ -16,6 +16,8 @@ export default function EditPostPage({
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [preview, setPreview] = useState(false);
   const [form, setForm] = useState({
     title: "",
     slug: "",
@@ -67,14 +69,22 @@ export default function EditPostPage({
 
   const handleSave = async (status: string) => {
     setSaving(true);
-    const res = await fetch(`/api/admin/posts/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, status }),
-    });
+    setError("");
+    try {
+      const res = await fetch(`/api/admin/posts/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, status }),
+      });
 
-    if (res.ok) {
-      router.push("/admin/posts");
+      if (res.ok) {
+        router.push("/admin/posts");
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || `Failed to save (${res.status})`);
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Network error — please try again");
     }
     setSaving(false);
   };
@@ -117,15 +127,41 @@ export default function EditPostPage({
         </div>
 
         <div>
-          <label className="block text-sm text-[#595959] mb-1.5">
-            Content (HTML)
-          </label>
-          <textarea
-            value={form.content}
-            onChange={(e) => setForm({ ...form, content: e.target.value })}
-            rows={20}
-            className="w-full px-4 py-2 border border-[#e5e5e5] text-sm font-mono focus:outline-none focus:border-[#808080] resize-y"
-          />
+          <div className="flex items-center justify-between mb-1.5">
+            <label className="block text-sm text-[#595959]">Content (HTML)</label>
+            {form.content && (
+              <button
+                type="button"
+                onClick={() => setPreview(!preview)}
+                className="inline-flex items-center gap-1.5 text-xs text-[#595959] hover:text-[#1b1b1b] transition-colors"
+              >
+                {preview ? (
+                  <>
+                    <Code className="h-3.5 w-3.5" />
+                    Edit HTML
+                  </>
+                ) : (
+                  <>
+                    <Eye className="h-3.5 w-3.5" />
+                    Preview
+                  </>
+                )}
+              </button>
+            )}
+          </div>
+          {preview ? (
+            <div
+              className="w-full px-6 py-4 border border-[#e5e5e5] bg-white text-sm prose prose-sm max-w-none min-h-[500px] overflow-y-auto"
+              dangerouslySetInnerHTML={{ __html: form.content }}
+            />
+          ) : (
+            <textarea
+              value={form.content}
+              onChange={(e) => setForm({ ...form, content: e.target.value })}
+              rows={20}
+              className="w-full px-4 py-2 border border-[#e5e5e5] text-sm font-mono focus:outline-none focus:border-[#808080] resize-y"
+            />
+          )}
         </div>
 
         <div>
@@ -192,6 +228,9 @@ export default function EditPostPage({
         </div>
 
         {/* Actions */}
+        {error && (
+          <p className="text-sm text-red-600 bg-red-50 px-4 py-2">{error}</p>
+        )}
         <div className="flex gap-3 pt-4">
           <button
             type="button"
@@ -199,7 +238,7 @@ export default function EditPostPage({
             disabled={saving}
             className="border border-[#e5e5e5] text-[#1b1b1b] px-6 py-2 text-sm hover:bg-[#f9f9f9] transition-colors disabled:opacity-50"
           >
-            Save as Draft
+            {saving ? "Saving..." : "Save as Draft"}
           </button>
           <button
             type="button"

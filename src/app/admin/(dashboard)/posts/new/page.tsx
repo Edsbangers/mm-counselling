@@ -143,21 +143,29 @@ export default function NewPostPage() {
 
   const handleSave = async (status: string) => {
     setPageState("saving");
-    const res = await fetch("/api/admin/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, status }),
-    });
+    setError("");
+    try {
+      const res = await fetch("/api/admin/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, status }),
+      });
 
-    if (res.ok) {
-      if (status === "published") {
-        const post = await res.json();
-        setPublishedPostId(post.id);
-        setPageState("published");
+      if (res.ok) {
+        if (status === "published") {
+          const post = await res.json();
+          setPublishedPostId(post.id);
+          setPageState("published");
+        } else {
+          router.push("/admin/posts");
+        }
       } else {
-        router.push("/admin/posts");
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || `Failed to save (${res.status})`);
+        setPageState("editing");
       }
-    } else {
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Network error — please try again");
       setPageState("editing");
     }
   };
@@ -657,6 +665,9 @@ export default function NewPostPage() {
         </div>
 
         {/* Actions */}
+        {error && (
+          <p className="text-sm text-red-600 bg-red-50 px-4 py-2">{error}</p>
+        )}
         <div className="flex gap-3 pt-4">
           <button
             type="button"
@@ -664,7 +675,7 @@ export default function NewPostPage() {
             disabled={pageState === "saving" || !form.title || !form.content}
             className="border border-[#e5e5e5] text-[#1b1b1b] px-6 py-2 text-sm hover:bg-[#f9f9f9] transition-colors disabled:opacity-50"
           >
-            Save as Draft
+            {pageState === "saving" ? "Saving..." : "Save as Draft"}
           </button>
           <button
             type="button"
