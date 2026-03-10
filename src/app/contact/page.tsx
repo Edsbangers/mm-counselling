@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Contact | Book a Therapy Appointment",
   description:
     "Get in touch to book a counselling session in Portsmouth or online. Free introductory consultation available. Based in Southsea, serving Hampshire.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

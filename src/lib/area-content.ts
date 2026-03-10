@@ -15,7 +15,7 @@ export const areaContent: Record<string, AreaData> = {
     name: "Portsmouth",
     slug: "portsmouth",
     distance: "based in Southsea",
-    metaTitle: "Counselling in Portsmouth | MM Counselling Southsea",
+    metaTitle: "Counselling in Portsmouth | Southsea Practice",
     metaDescription: `Professional counselling in Portsmouth. ${siteConfig.therapist.fullName}, BACP registered counsellor based in Southsea, offering individual and couples therapy for anxiety, depression, trauma and more.`,
     heading: "Counselling in Portsmouth",
     paragraphs: [

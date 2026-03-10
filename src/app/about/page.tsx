@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "About Marion Morris | BACP Counsellor Portsmouth",
   description:
     "Meet Marion Morris, a BACP-registered psychotherapeutic counsellor based in Southsea, Portsmouth. Specialist training in trauma, attachment, couples work, and neurodiversity.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

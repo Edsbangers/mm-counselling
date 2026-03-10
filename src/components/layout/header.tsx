@@ -11,7 +11,6 @@ const navigation = [
   { name: "About", href: "/about" },
   { name: "Sessions and Fees", href: "/sessions-and-fees" },
   { name: "Blog", href: "/blog" },
-  { name: "Privacy Policy", href: "/privacy" },
   { name: "Contact Me", href: "/contact" },
 ];
 
@@ -30,7 +29,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -40,6 +39,12 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
+            <Link
+              href="/contact"
+              className="bg-[#1b1b1b] text-white px-4 py-2 text-sm hover:bg-[#333] transition-colors"
+            >
+              Book Free Call
+            </Link>
           </nav>
 
           {/* Mobile Menu Toggle */}
@@ -68,6 +73,13 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
+            <Link
+              href="/contact"
+              onClick={() => setIsOpen(false)}
+              className="block bg-[#1b1b1b] text-white text-center px-4 py-3 text-base hover:bg-[#333] transition-colors mt-2"
+            >
+              Book Free Call
+            </Link>
             <div className="pt-3 border-t border-border/40 space-y-1 text-sm text-muted-foreground">
               <a href={`tel:${siteConfig.contact.phone}`} onClick={trackPhoneClick} className="block py-1">
                 {siteConfig.contact.phone}

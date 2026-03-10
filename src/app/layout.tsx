@@ -36,11 +36,20 @@ export const metadata: Metadata = {
     title: siteConfig.seo.title,
     description: siteConfig.seo.description,
     siteName: siteConfig.name,
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "MM Counselling - Professional Counselling Services in Portsmouth",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.seo.title,
     description: siteConfig.seo.description,
+    images: ["/images/og-image.jpg"],
   },
   alternates: {
     canonical: "/",

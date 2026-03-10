@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "Blog | Mental Health & Wellbeing Articles",
   description:
     "Read articles on mental health, wellbeing, anxiety, depression, relationships and more from MM Counselling in Portsmouth.",
+  alternates: { canonical: "/blog" },
   openGraph: {
     title: "Blog | MM Counselling",
     description:

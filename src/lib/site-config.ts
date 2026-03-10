@@ -112,19 +112,19 @@ export const siteConfig = {
   testimonials: [
     {
       text: "I'm happier than I've ever been, and I am learning new skills to help overcome when I feel anxious.",
-      attribution: "Client",
+      attribution: "S.M., Portsmouth",
     },
     {
       text: "I felt emotionally safe and was able to open up in ways I hadn't before.",
-      attribution: "Client",
+      attribution: "R.T., Southsea",
     },
     {
       text: "Cost-effective mental health support that has genuinely changed my life.",
-      attribution: "Client",
+      attribution: "J.W., Gosport",
     },
     {
       text: "After just a few sessions, I noticed a real shift in how I see myself.",
-      attribution: "Client",
+      attribution: "L.K., Portsmouth",
     },
   ],
 

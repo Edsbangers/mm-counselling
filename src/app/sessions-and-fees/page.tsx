@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Sessions & Fees | From £50 in Portsmouth",
   description:
     "MM-Counselling session fees: Individual counselling £50, Couples counselling £60. 50-minute sessions in Southsea, Portsmouth. Free introductory consultation available.",
+  alternates: { canonical: "/sessions-and-fees" },
 };
 
 export default function SessionsAndFeesPage() {
