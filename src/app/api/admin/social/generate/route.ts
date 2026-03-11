@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateText } from "ai";
 import { contentModel } from "@/lib/ai";
-import { getSocialGenerationPrompt } from "@/lib/social-prompts";
+import { getSocialGenerationPrompt, getTopicSocialPrompt } from "@/lib/social-prompts";
 import { siteConfig } from "@/lib/site-config";
 
 async function getDb() {
@@ -18,33 +18,37 @@ export async function POST(request: NextRequest) {
   const db = await getDb();
   if (!db) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
 
-  const { blogPostId } = await request.json();
+  const { blogPostId, topic } = await request.json();
 
-  if (!blogPostId) {
+  if (!blogPostId && !topic) {
     return NextResponse.json(
-      { error: "blogPostId is required" },
+      { error: "blogPostId or topic is required" },
       { status: 400 }
     );
   }
 
-  const post = await db.blogPost.findUnique({
-    where: { id: blogPostId },
-    select: { title: true, excerpt: true, slug: true },
-  });
+  let prompt: string;
+  let blogUrl: string | null = null;
 
-  if (!post) {
-    return NextResponse.json({ error: "Post not found" }, { status: 404 });
+  if (blogPostId) {
+    const post = await db.blogPost.findUnique({
+      where: { id: blogPostId },
+      select: { title: true, excerpt: true, slug: true },
+    });
+
+    if (!post) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
+    blogUrl = `${siteConfig.url}/blog/${post.slug}`;
+    prompt = getSocialGenerationPrompt(post.title, post.excerpt || "", blogUrl);
+  } else {
+    prompt = getTopicSocialPrompt(topic);
   }
-
-  const blogUrl = `${siteConfig.url}/blog/${post.slug}`;
 
   const { text } = await generateText({
     model: contentModel,
-    prompt: getSocialGenerationPrompt(
-      post.title,
-      post.excerpt || "",
-      blogUrl
-    ),
+    prompt,
     maxOutputTokens: 2000,
     temperature: 0.7,
   });
@@ -55,7 +59,8 @@ export async function POST(request: NextRequest) {
 
     const socialPost = await db.socialPost.create({
       data: {
-        blogPostId,
+        blogPostId: blogPostId || null,
+        topic: topic || null,
         caption: data.caption || "",
         hashtags: data.hashtags || "",
         facebookContent: data.facebookContent || null,

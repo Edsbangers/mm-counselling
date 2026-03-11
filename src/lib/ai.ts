@@ -1,7 +1,7 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
 
 export const anthropic = createAnthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
+  apiKey: process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY_MM,
 });
 
 export const chatModel = anthropic("claude-haiku-4-5-20251001");

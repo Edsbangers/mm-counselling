@@ -73,8 +73,9 @@ model BlogPost {
 
 model SocialPost {
   id              String       @id @default(cuid())
-  blogPostId      String
-  blogPost        BlogPost     @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
+  blogPostId      String?
+  blogPost        BlogPost?    @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
+  topic           String?
   caption         String       @db.Text
   hashtags        String       @db.Text
   facebookContent String?      @db.Text

@@ -117,13 +117,13 @@ export async function publishToSocials(
         link: socialPost.blogUrl || undefined,
         imageUrl:
           socialPost.imageUrl ||
-          socialPost.blogPost.coverImageUrl ||
+          socialPost.blogPost?.coverImageUrl ||
           undefined,
       });
     } else {
       // Instagram requires an image
       const imageUrl =
-        socialPost.imageUrl || socialPost.blogPost.coverImageUrl;
+        socialPost.imageUrl || socialPost.blogPost?.coverImageUrl;
       if (!imageUrl) {
         result = {
           success: false,
