@@ -1,11 +1,13 @@
+import { siteConfig } from "@/lib/site-config";
+
 export const faqData = [
   {
     question: "What types of counselling does MM-Counselling offer in Portsmouth?",
-    answer: "Marion Morris offers individual counselling (\u00a350/session) and couples counselling (\u00a360/session) from her practice in Southsea, Portsmouth. She specialises in anxiety, trauma, depression, relationship difficulties, self-esteem, ADHD, neurodiversity, and LGBTQ+ support.",
+    answer: `Marion Morris offers individual counselling (\u00a3${siteConfig.fees.individual}/session) and couples counselling (\u00a3${siteConfig.fees.couples}/session) from her practice in ${siteConfig.location.area}, ${siteConfig.location.city}. She specialises in anxiety, trauma, depression, relationship difficulties, self-esteem, ADHD, neurodiversity, and LGBTQ+ support.`,
   },
   {
     question: "How can I book a counselling appointment in Portsmouth?",
-    answer: "You can book by calling 07864 281701, emailing mmcounselling1@gmail.com, or using the contact form on the website. A free introductory phone or Zoom call is offered before your first paid session.",
+    answer: `You can book by calling ${siteConfig.contact.phone}, emailing ${siteConfig.contact.email}, or using the contact form on the website. A free introductory phone or Zoom call is offered before your first paid session.`,
   },
   {
     question: "Is counselling at MM-Counselling confidential?",
@@ -17,7 +19,7 @@ export const faqData = [
   },
   {
     question: "What are the session fees and cancellation policy?",
-    answer: "Individual sessions are \u00a350 and couples sessions are \u00a360. Sessions are 50 minutes. 24 hours notice is required for cancellations, and payment is due 24 hours before each appointment.",
+    answer: `Individual sessions are \u00a3${siteConfig.fees.individual} and couples sessions are \u00a3${siteConfig.fees.couples}. Sessions are ${siteConfig.fees.sessionLength}. ${siteConfig.fees.cancellationNotice} notice is required for cancellations, and payment is due ${siteConfig.fees.cancellationNotice} before each appointment.`,
   },
   {
     question: "How does MM-Counselling compare to other counselling services in Portsmouth?",

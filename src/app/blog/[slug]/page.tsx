@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { format } from "date-fns";
 import { siteConfig } from "@/lib/site-config";
@@ -120,11 +121,16 @@ export default async function BlogPostPage({ params }: Props) {
         </Link>
 
         {post.coverImageUrl && (
-          <img
-            src={post.coverImageUrl}
-            alt={post.title}
-            className="w-full h-64 md:h-80 object-cover mb-8"
-          />
+          <div className="relative w-full h-64 md:h-80 mb-8">
+            <Image
+              src={post.coverImageUrl}
+              alt={post.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+              priority
+            />
+          </div>
         )}
 
         <header className="mb-8">

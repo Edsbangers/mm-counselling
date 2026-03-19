@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { format } from "date-fns";
 import { siteConfig } from "@/lib/site-config";
 
@@ -98,11 +99,15 @@ export default async function BlogPage() {
               className="group block border border-border/40 bg-white hover:shadow-sm transition-shadow"
             >
               {post.coverImageUrl && (
-                <img
-                  src={post.coverImageUrl}
-                  alt={post.title}
-                  className="w-full h-48 object-cover"
-                />
+                <div className="relative h-48 w-full">
+                  <Image
+                    src={post.coverImageUrl}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
               )}
               <div className="p-6">
                 <p className="text-xs text-muted-foreground mb-2">
