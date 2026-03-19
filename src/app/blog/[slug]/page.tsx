@@ -69,25 +69,39 @@ export default async function BlogPostPage({ params }: Props) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.metaDescription || post.excerpt || "",
-    datePublished: post.publishedAt?.toISOString(),
-    dateModified: post.updatedAt.toISOString(),
-    author: {
-      "@type": "Person",
-      name: siteConfig.therapist.fullName,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-    ...(post.coverImageUrl && { image: post.coverImageUrl }),
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `${siteConfig.url}/blog/${post.slug}`,
-    },
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.metaDescription || post.excerpt || "",
+        datePublished: post.publishedAt?.toISOString(),
+        dateModified: post.updatedAt.toISOString(),
+        author: {
+          "@type": "Person",
+          name: siteConfig.therapist.fullName,
+          "@id": `${siteConfig.url}/#therapist`,
+        },
+        publisher: {
+          "@id": `${siteConfig.url}/#localbusiness`,
+        },
+        isPartOf: {
+          "@id": `${siteConfig.url}/#website`,
+        },
+        ...(post.coverImageUrl && { image: post.coverImageUrl }),
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `${siteConfig.url}/blog/${post.slug}`,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+          { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.url}/blog` },
+          { "@type": "ListItem", position: 3, name: post.title, item: `${siteConfig.url}/blog/${post.slug}` },
+        ],
+      },
+    ],
   };
 
   return (

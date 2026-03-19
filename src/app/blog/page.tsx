@@ -27,8 +27,33 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
+function generateStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Blog",
+        name: "MM Counselling Blog",
+        description: "Articles on mental health, wellbeing, anxiety, depression, relationships and counselling from MM Counselling in Portsmouth.",
+        url: `${siteConfig.url}/blog`,
+        publisher: { "@id": `${siteConfig.url}/#localbusiness` },
+        author: { "@id": `${siteConfig.url}/#therapist` },
+        isPartOf: { "@id": `${siteConfig.url}/#website` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+          { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.url}/blog` },
+        ],
+      },
+    ],
+  };
+}
+
 export default async function BlogPage() {
   const db = await getDb();
+  const blogStructuredData = generateStructuredData();
 
   const posts = db
     ? await db.blogPost.findMany({
@@ -46,6 +71,11 @@ export default async function BlogPage() {
     : [];
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogStructuredData) }}
+      />
     <div className="max-w-5xl mx-auto px-6 py-16">
       <h1 className="font-serif text-3xl md:text-4xl text-foreground mb-3">
         Blog
@@ -96,5 +126,6 @@ export default async function BlogPage() {
         </div>
       )}
     </div>
+    </>
   );
 }

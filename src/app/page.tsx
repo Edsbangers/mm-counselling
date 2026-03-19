@@ -13,12 +13,11 @@ function generateStructuredData() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "HealthBusiness",
-        additionalType: "https://schema.org/ProfessionalService",
+        "@type": ["ProfessionalService", "HealthBusiness"],
         "@id": `${siteConfig.url}/#localbusiness`,
         name: "MM-Counselling",
         alternateName: "Marion Morris Counselling",
-        image: `${siteConfig.url}/logo.png`,
+        image: `${siteConfig.url}/images/og-image.jpg`,
         telephone: "+447864281701",
         email: siteConfig.contact.email,
         address: {
@@ -34,6 +33,9 @@ function generateStructuredData() {
           longitude: -1.0856,
         },
         url: siteConfig.url,
+        sameAs: [
+          siteConfig.social.instagram,
+        ],
         priceRange: "\u00a350-\u00a360",
         currenciesAccepted: "GBP",
         description:
@@ -67,6 +69,7 @@ function generateStructuredData() {
             bestRating: 5,
           },
           reviewBody: t.text,
+          datePublished: "2025-01-01",
         })),
         areaServed: [
           ...siteConfig.serviceAreas.map((a) => ({
@@ -134,8 +137,23 @@ function generateStructuredData() {
         "@id": `${siteConfig.url}/#website`,
         url: siteConfig.url,
         name: "MM-Counselling",
+        description: siteConfig.description,
         publisher: {
           "@id": `${siteConfig.url}/#localbusiness`,
+        },
+        inLanguage: "en-GB",
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${siteConfig.url}/#webpage`,
+        url: siteConfig.url,
+        name: siteConfig.seo.title,
+        isPartOf: { "@id": `${siteConfig.url}/#website` },
+        about: { "@id": `${siteConfig.url}/#localbusiness` },
+        description: siteConfig.seo.description,
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: ["h1", "h2", ".hero-description"],
         },
       },
       {

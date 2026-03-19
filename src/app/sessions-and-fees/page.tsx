@@ -9,8 +9,62 @@ export const metadata: Metadata = {
   alternates: { canonical: "/sessions-and-fees" },
 };
 
+function generateStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "OfferCatalog",
+        name: "MM Counselling Services & Fees",
+        description: "Counselling session fees for individual and couples therapy in Portsmouth",
+        provider: { "@id": `${siteConfig.url}/#localbusiness` },
+        itemListElement: [
+          {
+            "@type": "Offer",
+            name: "Individual Counselling Session",
+            description: "50-minute individual therapy session with a BACP registered counsellor",
+            price: "50.00",
+            priceCurrency: "GBP",
+            availability: "https://schema.org/InStock",
+          },
+          {
+            "@type": "Offer",
+            name: "Couples Counselling Session",
+            description: "50-minute couples therapy session with a BACP registered counsellor",
+            price: "60.00",
+            priceCurrency: "GBP",
+            availability: "https://schema.org/InStock",
+          },
+          {
+            "@type": "Offer",
+            name: "Free Introductory Consultation",
+            description: "Complimentary initial consultation via telephone or Zoom",
+            price: "0",
+            priceCurrency: "GBP",
+            availability: "https://schema.org/InStock",
+          },
+        ],
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+          { "@type": "ListItem", position: 2, name: "Sessions & Fees", item: `${siteConfig.url}/sessions-and-fees` },
+        ],
+      },
+    ],
+  };
+}
+
 export default function SessionsAndFeesPage() {
+  const structuredData = generateStructuredData();
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
     <div className="min-h-screen">
       {/* Hero */}
       <section className="py-16 md:py-24 bg-white">
@@ -132,5 +186,6 @@ export default function SessionsAndFeesPage() {
 
       <CtaBlock />
     </div>
+    </>
   );
 }

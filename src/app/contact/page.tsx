@@ -10,8 +10,39 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
+function generateStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ContactPage",
+        name: "Contact MM Counselling",
+        description: "Book a counselling appointment in Portsmouth. Free introductory consultation available.",
+        mainEntity: {
+          "@id": `${siteConfig.url}/#localbusiness`,
+        },
+        url: `${siteConfig.url}/contact`,
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+          { "@type": "ListItem", position: 2, name: "Contact", item: `${siteConfig.url}/contact` },
+        ],
+      },
+    ],
+  };
+}
+
 export default function ContactPage() {
+  const structuredData = generateStructuredData();
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
     <div className="min-h-screen">
       {/* Hero */}
       <section className="py-16 md:py-24 bg-white">
@@ -135,5 +166,6 @@ export default function ContactPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

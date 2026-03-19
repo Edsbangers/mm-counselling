@@ -24,7 +24,7 @@ export function HeroSection() {
           Professional Counselling Services in Portsmouth
         </h1>
 
-        <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+        <p className="hero-description text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
           MM-Counselling offers empathic and approachable counselling services
           at my Southsea based practice, providing clients with professional
           support for anxiety, trauma, depression, relationship difficulties

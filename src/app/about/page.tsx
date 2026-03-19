@@ -10,8 +10,64 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
+function generateStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${siteConfig.url}/#therapist`,
+        name: siteConfig.therapist.fullName,
+        jobTitle: "BACP Registered Psychotherapeutic Counsellor",
+        description:
+          "Marion Morris is a BACP registered psychotherapeutic counsellor based in Southsea, Portsmouth, specialising in individual and couples therapy using a psychodynamic approach.",
+        worksFor: {
+          "@id": `${siteConfig.url}/#localbusiness`,
+        },
+        knowsAbout: [
+          "Psychodynamic Counselling",
+          "Couples Therapy",
+          "Trauma Therapy",
+          "Anxiety Treatment",
+          "Depression Support",
+          "Neurodiversity (ADHD, Autism)",
+          "Attachment Theory",
+        ],
+        hasCredential: siteConfig.therapist.certifications.map((cert) => ({
+          "@type": "EducationalOccupationalCredential",
+          name: cert,
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteConfig.url,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "About",
+            item: `${siteConfig.url}/about`,
+          },
+        ],
+      },
+    ],
+  };
+}
+
 export default function AboutPage() {
+  const structuredData = generateStructuredData();
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
     <div className="min-h-screen">
       {/* Hero */}
       <section className="py-16 md:py-24 bg-white">
@@ -174,5 +230,6 @@ export default function AboutPage() {
 
       <CtaBlock />
     </div>
+    </>
   );
 }
