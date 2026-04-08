@@ -149,12 +149,34 @@ model Lead {
   notes          String?           @db.Text
   conversationId String?
   conversation   ChatConversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+  emails         EmailLog[]
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
 
   @@index([status])
   @@index([createdAt])
   @@index([email])
+}
+
+// ─── Email Log ────────────────────────────────────────────
+
+model EmailLog {
+  id        String   @id @default(cuid())
+  to        String
+  subject   String
+  type      String   // booking_confirmation, booking_reschedule, booking_cancellation, booking_notification, enquiry_notification, admin_reply
+  status    String   @default("sent") // sent, failed
+  error     String?  @db.Text
+  leadId    String?
+  lead      Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  bookingId String?
+  resendId  String?
+  createdAt DateTime @default(now())
+
+  @@index([type])
+  @@index([to])
+  @@index([leadId])
+  @@index([createdAt])
 }
 
 // ─── Admin Session ────────────────────────────────────────

@@ -27,7 +27,7 @@ export function Footer() {
           </p>
           <p className="text-white/80 text-sm">
             Email:{" "}
-            <a href={`mailto:${siteConfig.contact.email}`} onClick={trackEmailClick} className="hover:text-white transition-colors">
+            <a href="/contact" onClick={trackEmailClick} className="hover:text-white transition-colors">
               {siteConfig.contact.email}
             </a>
           </p>

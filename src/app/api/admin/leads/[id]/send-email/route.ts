@@ -39,6 +39,7 @@ export async function POST(
 
     // Try to send via Resend
     const { getResend, getFromEmail } = await import("@/lib/email-send");
+    const { logEmail } = await import("@/lib/email");
     const resend = getResend();
 
     if (!resend) {
@@ -70,12 +71,34 @@ ${siteConfig.contact.email} | ${siteConfig.contact.phone}
 </td></tr></table>
 </body></html>`;
 
-    await resend.emails.send({
-      from: getFromEmail(),
-      to: lead.email,
-      subject,
-      html: htmlBody,
-    });
+    try {
+      const result = await resend.emails.send({
+        from: getFromEmail(),
+        to: lead.email,
+        subject,
+        html: htmlBody,
+      });
+
+      await logEmail({
+        to: lead.email,
+        subject,
+        type: "admin_reply",
+        status: "sent",
+        leadId: id,
+        resendId: result.data?.id || null,
+      });
+    } catch (sendError) {
+      const errorMsg = sendError instanceof Error ? sendError.message : String(sendError);
+      await logEmail({
+        to: lead.email,
+        subject,
+        type: "admin_reply",
+        status: "failed",
+        error: errorMsg,
+        leadId: id,
+      });
+      return NextResponse.json({ error: errorMsg }, { status: 500 });
+    }
 
     // Update lead status to contacted
     await db.lead.update({

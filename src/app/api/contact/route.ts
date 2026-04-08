@@ -23,9 +23,10 @@ export async function POST(request: NextRequest) {
     }
 
     const db = await getDb();
+    let leadId: string | undefined;
 
     if (db) {
-      await db.lead.create({
+      const lead = await db.lead.create({
         data: {
           name,
           email,
@@ -34,10 +35,11 @@ export async function POST(request: NextRequest) {
           status: "new",
         },
       });
+      leadId = lead.id;
     }
 
-    // Send email notification to Marion
-    await sendNewEnquiryNotification({ name, email, phone });
+    // Send email notification to Marion (with message and leadId)
+    await sendNewEnquiryNotification({ name, email, phone, message, leadId });
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {

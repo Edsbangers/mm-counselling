@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create a Lead record
-    await db.lead.create({
+    const lead = await db.lead.create({
       data: {
         name: name || "Unknown",
         email: email || null,
@@ -53,15 +53,15 @@ export async function POST(request: NextRequest) {
         ...(conversation && { conversationId: conversation.id }),
       },
     });
+
+    // Notify Marion of new enquiry (fire-and-forget)
+    if (name && email) {
+      import("@/lib/email").then(({ sendNewEnquiryNotification }) =>
+        sendNewEnquiryNotification({ name, email, phone, leadId: lead.id }).catch(() => {})
+      );
+    }
   } catch (e) {
     console.error("Lead capture DB error:", e);
-  }
-
-  // Notify Marion of new enquiry (fire-and-forget)
-  if (name && email) {
-    import("@/lib/email").then(({ sendNewEnquiryNotification }) =>
-      sendNewEnquiryNotification({ name, email, phone }).catch(() => {})
-    );
   }
 
   return NextResponse.json({ success: true });

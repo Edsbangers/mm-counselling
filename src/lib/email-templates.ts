@@ -105,17 +105,22 @@ export function newEnquiryHtml(lead: {
   name: string;
   email: string;
   phone?: string;
+  message?: string;
 }): string {
   return layout(`
 <h2 style="margin:0 0 16px;font-size:18px;color:#1b1b1b;">New Website Enquiry</h2>
 <p style="margin:0 0 20px;font-size:14px;color:#595959;line-height:1.6;">
-A new potential client has provided their details via the website chat.
+A new potential client has provided their details via the website${lead.message ? " contact form" : " chat"}.
 </p>
 <table cellpadding="0" cellspacing="0" style="margin:0 0 20px;font-size:14px;color:#1b1b1b;">
 <tr><td style="padding:6px 20px 6px 0;color:#808080;">Name</td><td style="padding:6px 0;">${lead.name}</td></tr>
 <tr><td style="padding:6px 20px 6px 0;color:#808080;">Email</td><td style="padding:6px 0;"><a href="mailto:${lead.email}" style="color:#1b1b1b;">${lead.email}</a></td></tr>
 ${lead.phone ? `<tr><td style="padding:6px 20px 6px 0;color:#808080;">Phone</td><td style="padding:6px 0;"><a href="tel:${lead.phone}" style="color:#1b1b1b;">${lead.phone}</a></td></tr>` : ""}
 </table>
+${lead.message ? `<div style="margin:0 0 20px;padding:16px;background:#f9f9f9;border:1px solid #e5e5e5;">
+<p style="margin:0 0 8px;font-size:12px;color:#808080;text-transform:uppercase;letter-spacing:0.5px;">Their Message</p>
+<p style="margin:0;font-size:14px;color:#1b1b1b;line-height:1.6;white-space:pre-wrap;">${lead.message}</p>
+</div>` : ""}
 <p style="margin:0;font-size:13px;color:#808080;">
 You can view and manage leads in your <a href="${siteConfig.url}/admin/leads" style="color:#1b1b1b;">admin dashboard</a>.
 </p>

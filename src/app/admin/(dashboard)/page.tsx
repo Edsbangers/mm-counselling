@@ -23,6 +23,8 @@ export default async function AdminDashboardPage() {
   let conversations = 0;
   let leads = 0;
   let blogPosts = 0;
+  let emailsSent = 0;
+  let emailsFailed = 0;
   let recentConversations: Array<{
     id: string;
     visitorName: string | null;
@@ -33,11 +35,13 @@ export default async function AdminDashboardPage() {
 
   if (db) {
     try {
-      [pageViews, conversations, leads, blogPosts] = await Promise.all([
+      [pageViews, conversations, leads, blogPosts, emailsSent, emailsFailed] = await Promise.all([
         db.pageView.count(),
         db.chatConversation.count(),
         db.chatConversation.count({ where: { visitorEmail: { not: null } } }),
         db.blogPost.count(),
+        db.emailLog.count({ where: { status: "sent" } }),
+        db.emailLog.count({ where: { status: "failed" } }),
       ]);
 
       recentConversations = await db.chatConversation.findMany({
@@ -91,11 +95,12 @@ export default async function AdminDashboardPage() {
     <div>
       <h1 className="text-2xl font-semibold text-[#1b1b1b] mb-8">Dashboard</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
         <StatsCard label="Page Views" value={pageViews} description="Total all-time" />
         <StatsCard label="Conversations" value={conversations} description="Chat sessions" />
         <StatsCard label="Leads Captured" value={leads} description="With email address" />
         <StatsCard label="Blog Posts" value={blogPosts} description="Published & drafts" />
+        <StatsCard label="Emails Sent" value={emailsSent} description={emailsFailed > 0 ? `${emailsFailed} failed` : "All successful"} />
       </div>
 
       {/* Google Business Profile */}

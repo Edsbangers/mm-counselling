@@ -118,12 +118,12 @@ export default function ContactPage() {
 
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Email</p>
-                  <a
-                    href={`mailto:${siteConfig.contact.email}`}
-                    className="text-foreground hover:text-muted-foreground transition-colors"
-                  >
+                  <p className="text-foreground">
                     {siteConfig.contact.email}
-                  </a>
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Or use the form to get a quicker response
+                  </p>
                 </div>
 
                 <div>

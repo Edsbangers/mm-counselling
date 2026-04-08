@@ -19,6 +19,16 @@ interface ChatMessage {
   createdAt: string;
 }
 
+interface EmailLogEntry {
+  id: string;
+  to: string;
+  subject: string;
+  type: string;
+  status: string;
+  error: string | null;
+  createdAt: string;
+}
+
 interface LeadDetail {
   id: string;
   name: string;
@@ -61,9 +71,11 @@ export default function LeadDetailPage({
   const [sendingEmail, setSendingEmail] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const [emailHistory, setEmailHistory] = useState<EmailLogEntry[]>([]);
 
   useEffect(() => {
     fetchLead();
+    fetchEmailHistory();
   }, [id]);
 
   const fetchLead = async () => {
@@ -77,6 +89,18 @@ export default function LeadDetailPage({
       console.error("Failed to fetch lead:", e);
     }
     setLoading(false);
+  };
+
+  const fetchEmailHistory = async () => {
+    try {
+      const res = await fetch(`/api/admin/emails?leadId=${id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setEmailHistory(data);
+      }
+    } catch (e) {
+      console.error("Failed to fetch email history:", e);
+    }
   };
 
   const saveNotes = async () => {
@@ -143,6 +167,7 @@ export default function LeadDetailPage({
       }
       setEmailSent(true);
       setLead((prev) => (prev ? { ...prev, status: "contacted" } : null));
+      fetchEmailHistory();
     } catch (e) {
       setEmailError(e instanceof Error ? e.message : "Failed to send email");
     }
@@ -292,8 +317,8 @@ export default function LeadDetailPage({
           </div>
         </div>
 
-        {/* Right column: Email Reply */}
-        <div>
+        {/* Right column: Email Reply + History */}
+        <div className="space-y-6">
           <div className="bg-white border border-[#e5e5e5] p-6">
             <h2 className="text-sm font-semibold text-[#1b1b1b] mb-3 flex items-center gap-2">
               <Mail className="h-4 w-4" />
@@ -404,6 +429,62 @@ export default function LeadDetailPage({
               </>
             )}
           </div>
+
+          {/* Email History */}
+          {emailHistory.length > 0 && (
+            <div className="bg-white border border-[#e5e5e5] p-6">
+              <h2 className="text-sm font-semibold text-[#1b1b1b] mb-3 flex items-center gap-2">
+                <Mail className="h-4 w-4" />
+                Email History ({emailHistory.length})
+              </h2>
+              <div className="space-y-2">
+                {emailHistory.map((email) => (
+                  <div
+                    key={email.id}
+                    className="border border-[#e5e5e5] p-3"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span
+                            className={`text-[10px] px-1.5 py-0.5 ${
+                              email.status === "sent"
+                                ? "bg-green-50 text-green-700"
+                                : "bg-red-50 text-red-600"
+                            }`}
+                          >
+                            {email.status}
+                          </span>
+                          <span className="text-[10px] px-1.5 py-0.5 bg-gray-50 text-gray-600">
+                            {email.type.replace(/_/g, " ")}
+                          </span>
+                        </div>
+                        <p className="text-xs font-medium text-[#1b1b1b] truncate">
+                          {email.subject}
+                        </p>
+                        <p className="text-[10px] text-[#808080] mt-0.5">
+                          To: {email.to}
+                        </p>
+                        {email.error && (
+                          <p className="text-[10px] text-red-500 mt-0.5 truncate">
+                            {email.error}
+                          </p>
+                        )}
+                      </div>
+                      <p className="text-[10px] text-[#808080] whitespace-nowrap">
+                        {new Date(email.createdAt).toLocaleDateString("en-GB", {
+                          day: "numeric",
+                          month: "short",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

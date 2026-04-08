@@ -84,7 +84,7 @@ export function Header() {
               <a href={`tel:${siteConfig.contact.phone}`} onClick={trackPhoneClick} className="block py-1">
                 {siteConfig.contact.phone}
               </a>
-              <a href={`mailto:${siteConfig.contact.email}`} onClick={trackEmailClick} className="block py-1">
+              <a href="/contact" onClick={trackEmailClick} className="block py-1">
                 {siteConfig.contact.email}
               </a>
             </div>
