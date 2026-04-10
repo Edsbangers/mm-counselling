@@ -5,10 +5,9 @@ const globalForRedis = globalThis as unknown as {
 };
 
 function createRedisClient() {
-  return new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL!,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-  });
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  return new Redis({ url: url!, token: token! });
 }
 
 export const redis =
@@ -18,11 +17,9 @@ if (process.env.NODE_ENV !== "production") globalForRedis.redis = redis;
 
 export async function getKv(): Promise<Redis | null> {
   try {
-    if (
-      !process.env.UPSTASH_REDIS_REST_URL ||
-      !process.env.UPSTASH_REDIS_REST_TOKEN
-    )
-      return null;
+    const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+    const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+    if (!url || !token) return null;
     return redis;
   } catch {
     return null;
