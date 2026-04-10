@@ -68,6 +68,11 @@ export default async function BlogPostPage({ params }: Props) {
     data: { viewCount: { increment: 1 } },
   });
 
+  // Strip HTML tags for plain text extraction
+  const plainText = post.content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  const wordCount = plainText.split(/\s+/).filter(Boolean).length;
+  const articleBody = plainText.slice(0, 500);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -77,6 +82,8 @@ export default async function BlogPostPage({ params }: Props) {
         description: post.metaDescription || post.excerpt || "",
         datePublished: post.publishedAt?.toISOString(),
         dateModified: post.updatedAt.toISOString(),
+        wordCount,
+        articleBody,
         author: {
           "@type": "Person",
           name: siteConfig.therapist.fullName,

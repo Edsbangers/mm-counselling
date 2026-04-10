@@ -24,6 +24,40 @@ function generateStructuredData() {
         url: `${siteConfig.url}/contact`,
       },
       {
+        "@type": "ProfessionalService",
+        "@id": `${siteConfig.url}/#localbusiness`,
+        name: "MM-Counselling",
+        telephone: "+447864281701",
+        email: siteConfig.contact.email,
+        url: siteConfig.url,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Southsea",
+          addressRegion: "Hampshire",
+          postalCode: siteConfig.location.postcode,
+          addressCountry: "GB",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 50.7811,
+          longitude: -1.0856,
+        },
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            opens: siteConfig.hours.open,
+            closes: siteConfig.hours.close,
+          },
+        ],
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: 5,
+          bestRating: 5,
+          reviewCount: siteConfig.testimonials.length,
+        },
+      },
+      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },

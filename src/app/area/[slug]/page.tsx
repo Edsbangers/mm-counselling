@@ -30,10 +30,66 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const areaGeoCoordinates: Record<string, { latitude: number; longitude: number }> = {
+  portsmouth: { latitude: 50.8198, longitude: -1.0880 },
+  southsea: { latitude: 50.7811, longitude: -1.0856 },
+  gosport: { latitude: 50.7948, longitude: -1.1243 },
+  fareham: { latitude: 50.8521, longitude: -1.1784 },
+  havant: { latitude: 50.8518, longitude: -0.9847 },
+  waterlooville: { latitude: 50.8808, longitude: -1.0305 },
+  chichester: { latitude: 50.8365, longitude: -0.7792 },
+};
+
 function generateStructuredData(areaName: string, slug: string) {
+  const geo = areaGeoCoordinates[slug] || areaGeoCoordinates.portsmouth;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": `${siteConfig.url}/#localbusiness`,
+        name: "MM-Counselling",
+        alternateName: "Marion Morris Counselling",
+        image: `${siteConfig.url}/images/og-image.jpg`,
+        telephone: "+447864281701",
+        email: siteConfig.contact.email,
+        url: siteConfig.url,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Southsea",
+          postalCode: siteConfig.location.postcode,
+          addressRegion: "Hampshire",
+          addressCountry: "GB",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 50.7811,
+          longitude: -1.0856,
+        },
+        priceRange: "\u00a350-\u00a360",
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: siteConfig.hours.open,
+          closes: siteConfig.hours.close,
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: 5,
+          bestRating: 5,
+          reviewCount: siteConfig.testimonials.length,
+        },
+        areaServed: {
+          "@type": "City",
+          name: areaName,
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: geo.latitude,
+            longitude: geo.longitude,
+          },
+        },
+      },
       {
         "@type": "Service",
         name: `Counselling in ${areaName}`,
@@ -44,6 +100,11 @@ function generateStructuredData(areaName: string, slug: string) {
         areaServed: {
           "@type": "City",
           name: areaName,
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: geo.latitude,
+            longitude: geo.longitude,
+          },
         },
         serviceType: "Counselling",
       },

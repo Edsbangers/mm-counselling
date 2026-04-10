@@ -46,6 +46,38 @@ function generateStructuredData() {
         ],
       },
       {
+        "@type": "HowTo",
+        name: "How Counselling Sessions Work at MM Counselling",
+        description: "A step-by-step guide to starting counselling with MM Counselling in Portsmouth, from your free consultation through to ongoing sessions.",
+        step: [
+          {
+            "@type": "HowToStep",
+            position: 1,
+            name: "Initial Consultation",
+            text: "Book a complimentary introductory discussion via telephone or Zoom. This allows you to discuss your circumstances and determine compatibility before committing to paid sessions.",
+          },
+          {
+            "@type": "HowToStep",
+            position: 2,
+            name: "Session Format",
+            text: "Sessions are 50 minutes in length and can be scheduled weekly, fortnightly, or monthly based on your needs. Counselling takes place in-person at the Southsea practice, or via telephone or Zoom.",
+          },
+          {
+            "@type": "HowToStep",
+            position: 3,
+            name: "Payment & Cancellation",
+            text: "Payment is required 24 hours before each appointment, with 24 hours cancellation notice required to avoid charges.",
+          },
+          {
+            "@type": "HowToStep",
+            position: 4,
+            name: "Location & Parking",
+            text: "The practice is based in Southsea, Portsmouth (PO4). Street parking is available locally, with alternative parking options within a 5-minute walk.",
+          },
+        ],
+        isPartOf: { "@id": `${siteConfig.url}/#website` },
+      },
+      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
