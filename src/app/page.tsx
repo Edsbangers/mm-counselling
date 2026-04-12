@@ -22,6 +22,7 @@ function generateStructuredData() {
         email: siteConfig.contact.email,
         address: {
           "@type": "PostalAddress",
+          streetAddress: siteConfig.location.street,
           addressLocality: "Southsea",
           postalCode: siteConfig.location.postcode,
           addressRegion: "Hampshire",

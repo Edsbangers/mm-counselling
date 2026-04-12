@@ -5,11 +5,12 @@ export const siteConfig = {
 
   // Contact & Location
   location: {
+    street: "66 Collins Road",
     area: "Southsea",
     city: "Portsmouth",
     county: "Hampshire",
     country: "United Kingdom",
-    postcode: "PO4",
+    postcode: "PO4 9NZ",
   },
 
   // Therapist Info

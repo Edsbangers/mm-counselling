@@ -57,6 +57,7 @@ function generateStructuredData(areaName: string, slug: string) {
         url: siteConfig.url,
         address: {
           "@type": "PostalAddress",
+          streetAddress: siteConfig.location.street,
           addressLocality: "Southsea",
           postalCode: siteConfig.location.postcode,
           addressRegion: "Hampshire",
