@@ -33,8 +33,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) return {};
 
+  // Template adds " | MM Counselling" (17 chars) — keep total under 60
+  const templateSuffix = ` | ${siteConfig.name}`;
+  const maxTitleWithTemplate = 60 - templateSuffix.length;
+  const needsTruncation = post.title.length > maxTitleWithTemplate;
+
+  // For long titles, truncate and use absolute to skip the template suffix
+  const seoTitle = needsTruncation
+    ? post.title.slice(0, 57) + "..."
+    : post.title;
+
   return {
-    title: post.title,
+    title: needsTruncation ? { absolute: seoTitle } : post.title,
     description: post.metaDescription || post.excerpt || undefined,
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {

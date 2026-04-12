@@ -15,7 +15,7 @@ export const areaContent: Record<string, AreaData> = {
     name: "Portsmouth",
     slug: "portsmouth",
     distance: "based in Southsea",
-    metaTitle: "Counselling in Portsmouth | Southsea Practice",
+    metaTitle: "Counselling in Portsmouth | Southsea",
     metaDescription: `Professional counselling in Portsmouth. ${siteConfig.therapist.fullName}, BACP registered counsellor based in Southsea, offering individual and couples therapy for anxiety, depression, trauma and more.`,
     heading: "Counselling in Portsmouth",
     paragraphs: [
@@ -28,7 +28,7 @@ export const areaContent: Record<string, AreaData> = {
     name: "Southsea",
     slug: "southsea",
     distance: "based locally",
-    metaTitle: "Counselling in Southsea | MM Counselling Portsmouth",
+    metaTitle: "Counselling in Southsea | Portsmouth",
     metaDescription: `Local counselling in Southsea, Portsmouth. ${siteConfig.therapist.fullName}, BACP registered counsellor offering individual and couples therapy. Free initial consultation available.`,
     heading: "Counselling in Southsea",
     paragraphs: [
@@ -41,7 +41,7 @@ export const areaContent: Record<string, AreaData> = {
     name: "Gosport",
     slug: "gosport",
     distance: "around 20 minutes",
-    metaTitle: "Counselling in Gosport | MM Counselling Portsmouth",
+    metaTitle: "Counselling in Gosport | Portsmouth",
     metaDescription: `Professional counselling for Gosport residents. ${siteConfig.therapist.fullName}, BACP registered counsellor based in Southsea, offering individual and couples therapy. Book a free consultation.`,
     heading: "Counselling for Gosport Residents",
     paragraphs: [
@@ -54,7 +54,7 @@ export const areaContent: Record<string, AreaData> = {
     name: "Fareham",
     slug: "fareham",
     distance: "around 20 minutes",
-    metaTitle: "Counselling in Fareham | MM Counselling Portsmouth",
+    metaTitle: "Counselling in Fareham | Portsmouth",
     metaDescription: `Counselling services for Fareham residents. ${siteConfig.therapist.fullName}, BACP registered counsellor in Southsea, offers individual and couples therapy for anxiety, depression, trauma and more.`,
     heading: "Counselling for Fareham Residents",
     paragraphs: [
@@ -67,7 +67,7 @@ export const areaContent: Record<string, AreaData> = {
     name: "Havant",
     slug: "havant",
     distance: "around 15 minutes",
-    metaTitle: "Counselling in Havant | MM Counselling Portsmouth",
+    metaTitle: "Counselling in Havant | Portsmouth",
     metaDescription: `Counselling for Havant residents. ${siteConfig.therapist.fullName}, BACP registered counsellor in Southsea, Portsmouth. Individual and couples therapy for anxiety, trauma, depression and more.`,
     heading: "Counselling for Havant Residents",
     paragraphs: [
@@ -80,7 +80,7 @@ export const areaContent: Record<string, AreaData> = {
     name: "Waterlooville",
     slug: "waterlooville",
     distance: "around 20 minutes",
-    metaTitle: "Counselling in Waterlooville | MM Counselling Portsmouth",
+    metaTitle: "Counselling in Waterlooville | Portsmouth",
     metaDescription: `Counselling services for Waterlooville residents. ${siteConfig.therapist.fullName}, BACP registered counsellor in Southsea. Therapy for anxiety, depression, trauma, couples and more.`,
     heading: "Counselling for Waterlooville Residents",
     paragraphs: [
@@ -93,7 +93,7 @@ export const areaContent: Record<string, AreaData> = {
     name: "Chichester",
     slug: "chichester",
     distance: "around 30 minutes",
-    metaTitle: "Counselling near Chichester | MM Counselling Portsmouth",
+    metaTitle: "Counselling near Chichester | Portsmouth",
     metaDescription: `Counselling for Chichester area residents. ${siteConfig.therapist.fullName}, BACP registered counsellor in Southsea, Portsmouth. Individual and couples therapy with evening appointments available.`,
     heading: "Counselling for Chichester Area Residents",
     paragraphs: [

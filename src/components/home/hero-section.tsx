@@ -12,6 +12,7 @@ export function HeroSection() {
         src="/images/trees.webp"
         alt="Sunlight filtering through trees"
         fill
+        sizes="100vw"
         className="object-cover"
         priority
       />
