@@ -34,6 +34,16 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "mm-counselling.co.uk" }],
+        destination: "https://www.mm-counselling.co.uk/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

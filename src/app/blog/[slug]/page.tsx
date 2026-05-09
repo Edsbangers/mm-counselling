@@ -43,6 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? post.title.slice(0, 57) + "..."
     : post.title;
 
+  const ogImage = post.coverImageUrl || `${siteConfig.url}/images/og-image.jpg`;
+
   return {
     title: needsTruncation ? { absolute: seoTitle } : post.title,
     description: post.metaDescription || post.excerpt || undefined,
@@ -51,7 +53,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: post.title,
       description: post.metaDescription || post.excerpt || undefined,
       type: "article",
-      ...(post.coverImageUrl && { images: [{ url: post.coverImageUrl }] }),
+      url: `${siteConfig.url}/blog/${slug}`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.metaDescription || post.excerpt || undefined,
+      images: [ogImage],
     },
   };
 }
@@ -71,6 +80,14 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post || post.status !== "published") {
     notFound();
   }
+
+  // Fetch up to 3 other published posts (most recent) for the related-articles block
+  const relatedPosts = await db.blogPost.findMany({
+    where: { status: "published", slug: { not: slug } },
+    orderBy: { publishedAt: "desc" },
+    take: 3,
+    select: { slug: true, title: true },
+  });
 
   // Increment view count
   await db.blogPost.update({
@@ -105,7 +122,7 @@ export default async function BlogPostPage({ params }: Props) {
         isPartOf: {
           "@id": `${siteConfig.url}/#website`,
         },
-        ...(post.coverImageUrl && { image: post.coverImageUrl }),
+        image: post.coverImageUrl || `${siteConfig.url}/images/og-image.jpg`,
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": `${siteConfig.url}/blog/${post.slug}`,
@@ -174,17 +191,50 @@ export default async function BlogPostPage({ params }: Props) {
 
         <BlogScrollTracker />
 
-        <div className="mt-16 pt-8 border-t border-border/40">
-          <p className="text-sm text-muted-foreground">
-            If you&apos;d like to talk about anything raised in this article,{" "}
-            <TrackedBookingLink
-              href="/contact"
-              className="text-foreground underline underline-offset-4"
-            >
-              get in touch
-            </TrackedBookingLink>{" "}
-            to book a session.
-          </p>
+        <div className="mt-16 pt-8 border-t border-border/40 space-y-6">
+          <div>
+            <h2 className="font-serif text-xl text-foreground mb-3">
+              Talk it through with Marion
+            </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              If anything in this article resonates,{" "}
+              <TrackedBookingLink
+                href="/contact"
+                location="blog_post_footer"
+                className="text-foreground underline underline-offset-4"
+              >
+                book a free introductory call
+              </TrackedBookingLink>{" "}
+              with Marion, or read more about{" "}
+              <Link
+                href="/sessions-and-fees"
+                className="text-foreground underline underline-offset-4"
+              >
+                sessions and fees
+              </Link>
+              .
+            </p>
+          </div>
+
+          {relatedPosts.length > 0 && (
+            <div>
+              <h2 className="font-serif text-xl text-foreground mb-3">
+                You may also find useful
+              </h2>
+              <ul className="space-y-2">
+                {relatedPosts.map((rp) => (
+                  <li key={rp.slug}>
+                    <Link
+                      href={`/blog/${rp.slug}`}
+                      className="text-sm text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+                    >
+                      {rp.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </article>
     </>

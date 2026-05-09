@@ -35,7 +35,10 @@ function generateStructuredData() {
         },
         url: siteConfig.url,
         sameAs: [
-          siteConfig.social.instagram,
+          siteConfig.profiles.instagram,
+          siteConfig.profiles.bacp,
+          siteConfig.profiles.counsellingDirectory,
+          siteConfig.profiles.psychologyToday,
         ],
         priceRange: "\u00a350-\u00a360",
         currenciesAccepted: "GBP",
@@ -189,6 +192,12 @@ function generateStructuredData() {
         worksFor: {
           "@id": `${siteConfig.url}/#localbusiness`,
         },
+        sameAs: [
+          siteConfig.profiles.instagram,
+          siteConfig.profiles.bacp,
+          siteConfig.profiles.counsellingDirectory,
+          siteConfig.profiles.psychologyToday,
+        ],
         hasCredential: [
           {
             "@type": "EducationalOccupationalCredential",

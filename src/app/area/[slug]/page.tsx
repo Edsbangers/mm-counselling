@@ -26,6 +26,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: data.metaTitle,
       description: data.metaDescription,
       type: "website",
+      url: `${siteConfig.url}/counselling-in-${slug}`,
+      images: [
+        {
+          url: "/images/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: data.metaTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: data.metaTitle,
+      description: data.metaDescription,
+      images: ["/images/og-image.jpg"],
     },
   };
 }

@@ -5,6 +5,7 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { usePathname } from "next/navigation";
 import { MessageCircle, X, Send } from "lucide-react";
+import { trackChatOpen, trackChatMessageSent } from "@/lib/analytics";
 
 function getSessionId() {
   if (typeof window === "undefined") return "";
@@ -93,6 +94,7 @@ function ChatInner({ sessionId }: { sessionId: string }) {
     e.preventDefault();
     if (!inputValue.trim() || isLoading) return;
     sendMessage({ text: inputValue });
+    trackChatMessageSent();
     setInputValue("");
   };
 
@@ -229,12 +231,14 @@ export function ChatWidget() {
     setSessionId(getSessionId());
   }, []);
 
-  // Auto-show prompt bubble after 2 seconds
+  // Auto-show prompt bubble after 2 seconds — but not on the contact page,
+  // where the form is the primary action and the prompt would compete with it.
   useEffect(() => {
     if (isOpen || promptDismissed) return;
+    if (pathname === "/contact") return;
     const timer = setTimeout(() => setShowPrompt(true), 2000);
     return () => clearTimeout(timer);
-  }, [isOpen, promptDismissed]);
+  }, [isOpen, promptDismissed, pathname]);
 
   // Hide prompt when chat opens
   useEffect(() => {
@@ -266,7 +270,12 @@ export function ChatWidget() {
             </button>
             <button
               type="button"
-              onClick={() => setIsOpen(true)}
+              onClick={() => {
+                setIsOpen(true);
+                trackChatOpen();
+              }}
+              data-cta="chat-open"
+              data-cta-location="prompt_bubble"
               className="text-left"
             >
               <p className="text-sm text-[#1b1b1b] leading-relaxed">
@@ -280,7 +289,13 @@ export function ChatWidget() {
       {/* Floating Button — sits above mobile call bar */}
       <button
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          const willOpen = !isOpen;
+          setIsOpen(willOpen);
+          if (willOpen) trackChatOpen();
+        }}
+        data-cta="chat-toggle"
+        data-cta-location="floating_button"
         className="fixed right-4 sm:right-6 z-50 w-14 h-14 rounded-full bg-[#808080] text-white shadow-lg hover:bg-[#6a6a6a] transition-colors flex items-center justify-center bottom-4 md:bottom-4 max-md:bottom-[5.5rem]"
         aria-label={isOpen ? "Close chat" : "Open chat with Marion"}
       >

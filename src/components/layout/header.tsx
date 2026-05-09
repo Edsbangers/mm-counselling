@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
-import { trackPhoneClick, trackEmailClick } from "@/lib/analytics";
+import { trackPhoneClick, trackEmailClick, trackFreeCallClick } from "@/lib/analytics";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -41,6 +41,9 @@ export function Header() {
             ))}
             <Link
               href="/contact"
+              onClick={() => trackFreeCallClick("header_desktop")}
+              data-cta="book-free-call"
+              data-cta-location="header_desktop"
               className="bg-[#1b1b1b] text-white px-4 py-2 text-sm hover:bg-[#333] transition-colors"
             >
               Book Free Call
@@ -75,16 +78,33 @@ export function Header() {
             ))}
             <Link
               href="/contact"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false);
+                trackFreeCallClick("header_mobile");
+              }}
+              data-cta="book-free-call"
+              data-cta-location="header_mobile"
               className="block bg-[#1b1b1b] text-white text-center px-4 py-3 text-base hover:bg-[#333] transition-colors mt-2"
             >
               Book Free Call
             </Link>
             <div className="pt-3 border-t border-border/40 space-y-1 text-sm text-muted-foreground">
-              <a href={`tel:${siteConfig.contact.phone}`} onClick={trackPhoneClick} className="block py-1">
+              <a
+                href={`tel:${siteConfig.contact.phone}`}
+                onClick={() => trackPhoneClick("header_mobile")}
+                data-cta="phone-click"
+                data-cta-location="header_mobile"
+                className="block py-1"
+              >
                 {siteConfig.contact.phone}
               </a>
-              <a href="/contact" onClick={trackEmailClick} className="block py-1">
+              <a
+                href="/contact"
+                onClick={() => trackEmailClick("header_mobile")}
+                data-cta="email-click"
+                data-cta-location="header_mobile"
+                className="block py-1"
+              >
                 {siteConfig.contact.email}
               </a>
             </div>

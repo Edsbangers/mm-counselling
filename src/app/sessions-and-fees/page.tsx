@@ -5,7 +5,7 @@ import { CtaBlock } from "@/components/shared/cta-block";
 export const metadata: Metadata = {
   title: "Sessions & Fees | From £50 in Portsmouth",
   description:
-    "MM-Counselling session fees: Individual counselling £50, Couples counselling £60. 50-minute sessions in Southsea, Portsmouth. Free introductory consultation available.",
+    "Counselling sessions in Southsea from £50 for individuals and £60 for couples, with a free introductory phone or Zoom call.",
   alternates: { canonical: "/sessions-and-fees" },
 };
 

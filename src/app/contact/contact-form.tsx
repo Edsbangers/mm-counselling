@@ -142,6 +142,8 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
+        data-cta="contact-form-submit"
+        data-cta-location="contact_page"
         className="w-full border border-foreground text-foreground px-8 py-3 min-h-[48px] text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300 disabled:opacity-50"
       >
         {isSubmitting ? "Sending..." : "Send Message"}

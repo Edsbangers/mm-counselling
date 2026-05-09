@@ -122,11 +122,23 @@ export default function ContactPage() {
                 <li>&#10003; Everything you share is confidential</li>
               </ul>
 
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                 Taking this step takes courage, and I want you to know
                 there&apos;s absolutely no pressure. You can ask questions,
                 share what&apos;s on your mind, or simply see if it feels right.
               </p>
+
+              <div className="bg-white border border-border p-4 mb-6">
+                <p className="text-sm font-medium text-foreground mb-2">
+                  What to include in your message
+                </p>
+                <ul className="text-xs text-muted-foreground space-y-1 leading-relaxed">
+                  <li>&#8226; Your first name and a contact number or email</li>
+                  <li>&#8226; A brief sense of what brings you to counselling — only as much as feels comfortable</li>
+                  <li>&#8226; Whether you&apos;re looking for individual or couples sessions</li>
+                  <li>&#8226; Times of day that suit you best for a call back</li>
+                </ul>
+              </div>
 
               <ContactForm />
             </div>

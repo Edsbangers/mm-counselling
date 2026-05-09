@@ -16,7 +16,7 @@ export const areaContent: Record<string, AreaData> = {
     slug: "portsmouth",
     distance: "based in Southsea",
     metaTitle: "Counselling in Portsmouth | Southsea",
-    metaDescription: `Professional counselling in Portsmouth. ${siteConfig.therapist.fullName}, BACP registered counsellor based in Southsea, offering individual and couples therapy for anxiety, depression, trauma and more.`,
+    metaDescription: "BACP-registered counselling in Portsmouth and Southsea for anxiety, trauma, depression, relationships and couples support.",
     heading: "Counselling in Portsmouth",
     paragraphs: [
       "MM Counselling is based in the heart of Southsea, Portsmouth, offering professional therapy for individuals and couples across the city. Whether you're in the city centre, Old Portsmouth, Fratton, Copnor, or anywhere on Portsea Island, the practice is easy to reach by car, bus, or on foot.",
@@ -29,7 +29,7 @@ export const areaContent: Record<string, AreaData> = {
     slug: "southsea",
     distance: "based locally",
     metaTitle: "Counselling in Southsea | Portsmouth",
-    metaDescription: `Local counselling in Southsea, Portsmouth. ${siteConfig.therapist.fullName}, BACP registered counsellor offering individual and couples therapy. Free initial consultation available.`,
+    metaDescription: "Local counselling in Southsea with Marion Morris, offering individual and couples therapy in person, online or by phone.",
     heading: "Counselling in Southsea",
     paragraphs: [
       "MM Counselling is based right here in Southsea, making it one of the most convenient options for local residents seeking professional therapy. Whether you live near Albert Road, Palmerston Road, the seafront, or anywhere in Southsea, you're just minutes from the practice.",
@@ -42,7 +42,7 @@ export const areaContent: Record<string, AreaData> = {
     slug: "gosport",
     distance: "around 20 minutes",
     metaTitle: "Counselling in Gosport | Portsmouth",
-    metaDescription: `Professional counselling for Gosport residents. ${siteConfig.therapist.fullName}, BACP registered counsellor based in Southsea, offering individual and couples therapy. Book a free consultation.`,
+    metaDescription: "Counselling for Gosport residents with Marion Morris in Southsea, offering individual and couples therapy with a free intro call.",
     heading: "Counselling for Gosport Residents",
     paragraphs: [
       "If you're looking for a counsellor near Gosport, MM Counselling is based just across the harbour in Southsea, Portsmouth — around 20 minutes by car via the A32 or a short trip on the Gosport Ferry followed by a brief bus ride.",
@@ -55,7 +55,7 @@ export const areaContent: Record<string, AreaData> = {
     slug: "fareham",
     distance: "around 20 minutes",
     metaTitle: "Counselling in Fareham | Portsmouth",
-    metaDescription: `Counselling services for Fareham residents. ${siteConfig.therapist.fullName}, BACP registered counsellor in Southsea, offers individual and couples therapy for anxiety, depression, trauma and more.`,
+    metaDescription: "Counselling for Fareham residents, including support for anxiety, trauma, depression, self-esteem and relationships.",
     heading: "Counselling for Fareham Residents",
     paragraphs: [
       "MM Counselling serves clients from Fareham and the surrounding area. Based in Southsea, Portsmouth, the practice is around 20 minutes from Fareham by car along the M27 or A27, with good transport links making it an easy journey.",
@@ -68,7 +68,7 @@ export const areaContent: Record<string, AreaData> = {
     slug: "havant",
     distance: "around 15 minutes",
     metaTitle: "Counselling in Havant | Portsmouth",
-    metaDescription: `Counselling for Havant residents. ${siteConfig.therapist.fullName}, BACP registered counsellor in Southsea, Portsmouth. Individual and couples therapy for anxiety, trauma, depression and more.`,
+    metaDescription: "Counselling for Havant residents with a BACP-registered Southsea counsellor offering in-person, online and phone sessions.",
     heading: "Counselling for Havant Residents",
     paragraphs: [
       "If you live in Havant or the surrounding area and are looking for professional counselling support, MM Counselling is conveniently located in Southsea, Portsmouth — around 15 minutes by car along the A2030 or A27.",
@@ -81,7 +81,7 @@ export const areaContent: Record<string, AreaData> = {
     slug: "waterlooville",
     distance: "around 20 minutes",
     metaTitle: "Counselling in Waterlooville | Portsmouth",
-    metaDescription: `Counselling services for Waterlooville residents. ${siteConfig.therapist.fullName}, BACP registered counsellor in Southsea. Therapy for anxiety, depression, trauma, couples and more.`,
+    metaDescription: "Counselling for Waterlooville residents, with individual and couples sessions from Marion Morris in Southsea.",
     heading: "Counselling for Waterlooville Residents",
     paragraphs: [
       "MM Counselling offers professional therapy for individuals and couples from Waterlooville and the surrounding area. The practice is based in Southsea, Portsmouth, around 20 minutes south by car via the A3 or B2150.",
@@ -94,7 +94,7 @@ export const areaContent: Record<string, AreaData> = {
     slug: "chichester",
     distance: "around 30 minutes",
     metaTitle: "Counselling near Chichester | Portsmouth",
-    metaDescription: `Counselling for Chichester area residents. ${siteConfig.therapist.fullName}, BACP registered counsellor in Southsea, Portsmouth. Individual and couples therapy with evening appointments available.`,
+    metaDescription: "Counselling for Chichester area residents with Marion Morris, offering individual and couples therapy from Southsea and online.",
     heading: "Counselling for Chichester Area Residents",
     paragraphs: [
       "If you're based in or around Chichester and looking for counselling, MM Counselling is located in Southsea, Portsmouth — around 30 minutes east along the A27. While there are counsellors in Chichester itself, some clients prefer to see a therapist outside their immediate area for added privacy and a fresh perspective.",

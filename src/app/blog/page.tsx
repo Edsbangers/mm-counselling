@@ -23,6 +23,23 @@ export const metadata: Metadata = {
     title: "Blog | MM Counselling",
     description:
       "Articles on mental health, wellbeing and counselling from MM Counselling in Portsmouth.",
+    url: `${siteConfig.url}/blog`,
+    type: "website",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "MM Counselling Blog",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog | MM Counselling",
+    description:
+      "Articles on mental health, wellbeing and counselling from MM Counselling in Portsmouth.",
+    images: ["/images/og-image.jpg"],
   },
 };
 

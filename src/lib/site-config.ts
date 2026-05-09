@@ -109,6 +109,14 @@ export const siteConfig = {
     instagram: "https://www.instagram.com/mmcounselling1",
   },
 
+  // Verified professional profiles for sameAs schema
+  profiles: {
+    instagram: "https://www.instagram.com/mmcounselling1",
+    bacp: "https://www.bacp.co.uk/profile/b2342788-cd49-eb11-a812-0022489b842e",
+    counsellingDirectory: "https://www.counselling-directory.org.uk/counsellors/marion-morris",
+    psychologyToday: "https://www.psychologytoday.com/gb/counselling/marion-morris-southsea/908615",
+  },
+
   // Testimonials from the GoDaddy site
   testimonials: [
     {

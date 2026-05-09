@@ -21,13 +21,25 @@ export function Footer() {
           </p>
           <p className="text-white/80 text-sm mt-2">
             Phone:{" "}
-            <a href={`tel:${siteConfig.contact.phone}`} onClick={trackPhoneClick} className="hover:text-white transition-colors">
+            <a
+              href={`tel:${siteConfig.contact.phone}`}
+              onClick={() => trackPhoneClick("footer")}
+              data-cta="phone-click"
+              data-cta-location="footer"
+              className="hover:text-white transition-colors"
+            >
               {siteConfig.contact.phone}
             </a>
           </p>
           <p className="text-white/80 text-sm">
             Email:{" "}
-            <a href="/contact" onClick={trackEmailClick} className="hover:text-white transition-colors">
+            <a
+              href="/contact"
+              onClick={() => trackEmailClick("footer")}
+              data-cta="email-click"
+              data-cta-location="footer"
+              className="hover:text-white transition-colors"
+            >
               {siteConfig.contact.email}
             </a>
           </p>

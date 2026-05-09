@@ -40,7 +40,22 @@ export function ServicesSection() {
               defences that we needed in our early and formative years or helped
               us survive trauma, but which may not help us going forwards and may
               be affecting our current relationships in a negative way. I will
-              work with the best method to help you.
+              work with the best method to help you. You may also find these
+              articles helpful:{" "}
+              <Link
+                href="/blog/managing-anxiety-cold-wet-dark-days-portsmouth"
+                className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+              >
+                Managing anxiety through dark days
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/blog/imposter-syndrome-is-it-holding-you-back"
+                className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+              >
+                Imposter syndrome
+              </Link>
+              .
             </p>
             <Link
               href="/sessions-and-fees"
@@ -66,11 +81,21 @@ export function ServicesSection() {
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Whether you are dealing with communication breakdown, trust issues,
-              or simply growing apart, couples counselling can help.
+              or simply growing apart, couples counselling can help. You may also
+              find this article useful:{" "}
+              <Link
+                href="/blog/are-you-really-listening-communication-in-relationships"
+                className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+              >
+                Are You Really Listening? How Communication Can Make or Break Your Relationship
+              </Link>
+              .
             </p>
             <Link
               href="/contact"
-              onClick={trackBookingClick}
+              onClick={() => trackBookingClick("home_services_couples")}
+              data-cta="book-couples-session"
+              data-cta-location="home_services_couples"
               className="inline-block text-sm text-foreground border-b border-foreground pb-0.5 hover:text-muted-foreground hover:border-muted-foreground transition-colors"
             >
               Book a Couples Session

@@ -38,7 +38,9 @@ export function MobileCallBar() {
         <div className="flex items-center gap-3">
           <a
             href="tel:+447864281701"
-            onClick={trackPhoneClick}
+            onClick={() => trackPhoneClick("mobile_call_bar")}
+            data-cta="phone-click"
+            data-cta-location="mobile_call_bar"
             className="inline-flex items-center gap-2 bg-[#6b8f71] text-white px-4 py-2 rounded-md text-sm font-medium"
           >
             <Phone className="h-4 w-4" />

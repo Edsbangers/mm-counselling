@@ -6,7 +6,7 @@ import { CtaBlock } from "@/components/shared/cta-block";
 export const metadata: Metadata = {
   title: "About Marion Morris | BACP Counsellor",
   description:
-    "Meet Marion Morris, a BACP-registered psychotherapeutic counsellor based in Southsea, Portsmouth. Specialist training in trauma, attachment, couples work, and neurodiversity.",
+    "Meet Marion Morris, a BACP-registered counsellor in Southsea, Portsmouth, offering compassionate support for individuals and couples.",
   alternates: { canonical: "/about" },
 };
 
@@ -24,6 +24,12 @@ function generateStructuredData() {
         worksFor: {
           "@id": `${siteConfig.url}/#localbusiness`,
         },
+        sameAs: [
+          siteConfig.profiles.instagram,
+          siteConfig.profiles.bacp,
+          siteConfig.profiles.counsellingDirectory,
+          siteConfig.profiles.psychologyToday,
+        ],
         knowsAbout: [
           "Psychodynamic Counselling",
           "Couples Therapy",

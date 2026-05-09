@@ -56,7 +56,9 @@ export function FeesSection() {
         <div className="text-center mt-10">
           <Link
             href="/contact"
-            onClick={trackBookingClick}
+            onClick={() => trackBookingClick("home_fees_section")}
+            data-cta="book-appointment"
+            data-cta-location="home_fees_section"
             className="inline-block border border-foreground text-foreground px-8 py-3 text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300"
           >
             Book Your Therapy Appointment
