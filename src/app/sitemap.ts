@@ -19,6 +19,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
     { url: `${baseUrl}/about`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/sessions-and-fees`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/couples-counselling-portsmouth`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/anxiety-counselling-portsmouth`, changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/contact`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/blog`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/privacy`, changeFrequency: "yearly", priority: 0.3 },

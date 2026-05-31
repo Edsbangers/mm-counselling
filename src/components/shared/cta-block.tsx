@@ -1,8 +1,5 @@
-"use client";
-
-import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
-import { trackFreeCallClick, trackPhoneClick } from "@/lib/analytics";
+import { TrackedLink, TrackedPhoneLink } from "@/components/shared/tracked-link";
 
 export function CtaBlock() {
   return (
@@ -18,27 +15,24 @@ export function CtaBlock() {
           session is a chance to meet me and decide if my approach works for you.
         </p>
 
-        <Link
+        <TrackedLink
           href="/contact"
-          onClick={() => trackFreeCallClick("cta_block")}
-          data-cta="book-free-call"
-          data-cta-location="cta_block"
+          event="free_call"
+          location="cta_block"
           className="inline-block border border-foreground text-foreground px-8 py-3 text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300 mb-4"
         >
           Get in Touch
-        </Link>
+        </TrackedLink>
 
         <p className="text-sm text-muted-foreground mb-6">
           Or call me directly on{" "}
-          <a
-            href={`tel:+447864281701`}
-            onClick={() => trackPhoneClick("cta_block")}
-            data-cta="phone-click"
-            data-cta-location="cta_block"
+          <TrackedPhoneLink
+            phone={siteConfig.contact.phone}
+            location="cta_block"
             className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
           >
             {siteConfig.contact.phone}
-          </a>
+          </TrackedPhoneLink>
         </p>
 
         <p className="text-xs text-muted-foreground">

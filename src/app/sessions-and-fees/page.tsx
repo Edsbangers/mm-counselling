@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { CtaBlock } from "@/components/shared/cta-block";
 
@@ -13,6 +14,52 @@ function generateStructuredData() {
   return {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "ItemList",
+        name: "Counselling Session Fees",
+        description: "Counselling session fees at MM Counselling in Southsea, Portsmouth.",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Individual Counselling Session",
+            item: {
+              "@type": "Offer",
+              name: "Individual Counselling Session",
+              description: "50-minute individual therapy session with a BACP registered counsellor",
+              price: "50.00",
+              priceCurrency: "GBP",
+              availability: "https://schema.org/InStock",
+            },
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Couples Counselling Session",
+            item: {
+              "@type": "Offer",
+              name: "Couples Counselling Session",
+              description: "50-minute couples therapy session with a BACP registered counsellor",
+              price: "60.00",
+              priceCurrency: "GBP",
+              availability: "https://schema.org/InStock",
+            },
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Free Introductory Consultation",
+            item: {
+              "@type": "Offer",
+              name: "Free Introductory Consultation",
+              description: "Complimentary initial consultation via telephone or Zoom",
+              price: "0",
+              priceCurrency: "GBP",
+              availability: "https://schema.org/InStock",
+            },
+          },
+        ],
+      },
       {
         "@type": "OfferCatalog",
         name: "MM Counselling Services & Fees",
@@ -134,6 +181,16 @@ export default function SessionsAndFeesPage() {
                 <li>&#8226; Anxiety, trauma, depression, self-esteem</li>
                 <li>&#8226; Neurodiversity, ADHD, LGBTQ+ support</li>
               </ul>
+              <p className="text-sm text-muted-foreground mt-6 text-left">
+                Learn more about{" "}
+                <Link
+                  href="/anxiety-counselling-portsmouth"
+                  className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+                >
+                  anxiety counselling in Portsmouth
+                </Link>
+                .
+              </p>
             </div>
 
             {/* Couples */}
@@ -153,6 +210,16 @@ export default function SessionsAndFeesPage() {
                 <li>&#8226; Infidelity recovery &amp; trust restoration</li>
                 <li>&#8226; Communication &amp; relationship repair</li>
               </ul>
+              <p className="text-sm text-muted-foreground mt-6 text-left">
+                Learn more about{" "}
+                <Link
+                  href="/couples-counselling-portsmouth"
+                  className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+                >
+                  couples counselling in Portsmouth
+                </Link>
+                .
+              </p>
             </div>
           </div>
         </div>

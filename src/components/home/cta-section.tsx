@@ -1,8 +1,5 @@
-"use client";
-
-import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
-import { trackFreeCallClick, trackPhoneClick } from "@/lib/analytics";
+import { TrackedLink, TrackedPhoneLink } from "@/components/shared/tracked-link";
 
 export function CTASection() {
   return (
@@ -23,24 +20,21 @@ export function CTASection() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Link
+          <TrackedLink
             href="/contact"
-            onClick={() => trackFreeCallClick("home_cta_section")}
-            data-cta="book-free-call"
-            data-cta-location="home_cta_section"
+            event="free_call"
+            location="home_cta_section"
             className="inline-block border border-foreground text-foreground px-8 py-3 text-sm tracking-wide hover:bg-foreground hover:text-white transition-all duration-300"
           >
             Schedule an Introductory Session
-          </Link>
-          <a
-            href={`tel:${siteConfig.contact.phone}`}
-            onClick={() => trackPhoneClick("home_cta_section")}
-            data-cta="phone-click"
-            data-cta-location="home_cta_section"
+          </TrackedLink>
+          <TrackedPhoneLink
+            phone={siteConfig.contact.phone}
+            location="home_cta_section"
             className="inline-block border border-[#808080] text-[#808080] px-8 py-3 text-sm tracking-wide hover:bg-[#808080] hover:text-white transition-all duration-300"
           >
             Call {siteConfig.contact.phone}
-          </a>
+          </TrackedPhoneLink>
         </div>
 
         {/* Trust indicators */}

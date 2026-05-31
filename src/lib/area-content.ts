@@ -1,5 +1,15 @@
 import { siteConfig } from "@/lib/site-config";
 
+export interface AreaSection {
+  heading: string;
+  body: string[];
+}
+
+export interface AreaFaq {
+  question: string;
+  answer: string;
+}
+
 export interface AreaData {
   name: string;
   slug: string;
@@ -8,6 +18,10 @@ export interface AreaData {
   metaDescription: string;
   heading: string;
   paragraphs: string[];
+  /** Optional rich sections rendered after the intro (priority local pages). */
+  sections?: AreaSection[];
+  /** Optional FAQs rendered with FAQPage schema. */
+  faqs?: AreaFaq[];
 }
 
 export const areaContent: Record<string, AreaData> = {
@@ -23,6 +37,56 @@ export const areaContent: Record<string, AreaData> = {
       `${siteConfig.therapist.fullName} is a BACP registered psychotherapeutic counsellor with experience in anxiety, depression, trauma and PTSD, relationship difficulties, neurodiversity (ADHD and autism), low self-worth, and addiction. Marion's psychodynamic approach explores how past experiences shape present feelings and behaviours, helping you develop deeper self-understanding and lasting change.`,
       "Sessions take place in a comfortable, confidential therapy room in Southsea. Evening appointments are available to fit around work and family commitments, and a free initial consultation is offered so you can ask questions and see whether counselling feels right for you.",
     ],
+    sections: [
+      {
+        heading: "Getting to the practice from across Portsmouth",
+        body: [
+          "The practice is based in Southsea on Portsea Island, making it straightforward to reach from anywhere in Portsmouth. From the city centre, Fratton, Copnor, North End, Hilsea, or Old Portsmouth you can usually be here within ten to fifteen minutes by car. The A2030 and A288 bring you into Southsea, and there is local on-street parking close by, with some bays requiring a permit or paid ticket at busier times.",
+          "If you prefer not to drive, several bus routes run through Southsea, and Fratton and Portsmouth & Southsea railway stations are both a short bus ride or walk away. The room is on a quiet residential street, so it's an easy and discreet place to come for your sessions.",
+        ],
+      },
+      {
+        heading: "How I can help — services for Portsmouth residents",
+        body: [
+          "I offer counselling for individuals and couples across a wide range of difficulties. Many people come for support with anxiety, low mood and depression, the effects of trauma, relationship difficulties, low self-worth, stress, or neurodiversity such as ADHD and autism. Whatever has brought you here, the aim is the same: a calm, confidential space to be heard without judgement.",
+          "If you're looking for support with a specific issue, you may find my dedicated pages on anxiety counselling and couples counselling helpful. We can talk through what you're experiencing during your free introductory call and decide together how best to work.",
+        ],
+      },
+      {
+        heading: "Who counselling is for",
+        body: [
+          "You don't need to be in crisis to benefit from counselling, and there's no threshold of difficulty you need to reach before your feelings count. If something is weighing on you — whether that's a recent change, a long-standing pattern, or simply a sense that things aren't quite right — counselling offers room to understand it. People come at all stages of life and from all walks of life across Portsmouth.",
+        ],
+      },
+      {
+        heading: "In-person, telephone and online sessions",
+        body: [
+          "Most clients see me in person at the Southsea practice, but sessions are also available by telephone and Zoom. Remote sessions can be a good fit if you have a busy schedule, live a little further out, or simply feel more comfortable talking from home. Whichever format you choose, sessions are 50 minutes and the same confidential, considered approach applies.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Where exactly is the counselling practice in Portsmouth?",
+        answer:
+          "The practice is in Southsea, on Portsea Island in Portsmouth (PO4). The full address and directions are shared when you book. It's easy to reach from across the city by car or bus, with local street parking nearby.",
+      },
+      {
+        question: "Is there parking near the practice?",
+        answer:
+          "Yes, there is on-street parking close to the practice. Some bays require a permit or paid ticket at busier times, and there are alternative parking options within a short walk.",
+      },
+      {
+        question: "How much do sessions cost?",
+        answer:
+          "Individual sessions are £50 and couples sessions are £60, each lasting 50 minutes. A free introductory call by phone or Zoom is offered before your first paid session.",
+      },
+      {
+        question: "Do I need a GP referral to start counselling in Portsmouth?",
+        answer:
+          "No. You can contact me directly to arrange a free introductory call — there's no need for a referral from your GP or anyone else.",
+      },
+    ],
   },
   southsea: {
     name: "Southsea",
@@ -35,6 +99,56 @@ export const areaContent: Record<string, AreaData> = {
       "MM Counselling is based right here in Southsea, making it one of the most convenient options for local residents seeking professional therapy. Whether you live near Albert Road, Palmerston Road, the seafront, or anywhere in Southsea, you're just minutes from the practice.",
       `${siteConfig.therapist.fullName} is a BACP registered psychotherapeutic counsellor offering a warm, non-judgmental space for individuals and couples. Marion works with a wide range of issues including anxiety, panic attacks, depression, trauma, relationship difficulties, occupational stress, and neurodiversity. Her psychodynamic approach helps you understand how past experiences and patterns influence your present life.`,
       "Having a counsellor in your local area means therapy fits more easily into your routine. Sessions are held in a private, comfortable therapy room with evening appointments available. A free initial consultation is offered with no obligation — it's simply a chance to talk about what's brought you to counselling and to see if it feels like the right fit.",
+    ],
+    sections: [
+      {
+        heading: "A local practice, right on your doorstep",
+        body: [
+          "Being based in Southsea means many of my clients are able to walk or cycle to their sessions. Whether you live near Albert Road, Palmerston Road, Eastney, the seafront, or out towards Fratton, the practice is only a short journey away. For a counsellor, this kind of local familiarity matters — it removes one more barrier to getting started, and makes it easier to keep sessions a steady, regular part of your week.",
+          "There is on-street parking close to the practice for those who drive, with some bays requiring a permit or ticket at busier times, and frequent local bus routes pass through Southsea. The therapy room is on a quiet residential street, offering a calm and discreet setting.",
+        ],
+      },
+      {
+        heading: "Support for a wide range of difficulties",
+        body: [
+          "I work with individuals and couples on issues including anxiety, panic attacks, depression and low mood, trauma, relationship difficulties, occupational stress, low self-worth, and neurodiversity such as ADHD and autism. Sessions are warm and non-judgemental, and shaped around what you need rather than a fixed programme.",
+          "If you have a particular concern in mind, you might like to read more about anxiety counselling or couples and relationship counselling. We can also talk it through together during your free introductory call.",
+        ],
+      },
+      {
+        heading: "Who I work with",
+        body: [
+          "Counselling is for anyone who wants to feel more like themselves, not only people in crisis. Clients in Southsea come at every stage of life — students, working people, parents, and those navigating retirement or later-life change. If something is affecting your wellbeing or your relationships, that's reason enough to reach out.",
+        ],
+      },
+      {
+        heading: "Flexible in-person, telephone and online sessions",
+        body: [
+          "As well as face-to-face sessions in Southsea, I offer counselling by telephone and Zoom. This flexibility means therapy can fit around work, caring responsibilities, or days when getting out feels harder. Sessions are 50 minutes, and we can arrange them weekly, fortnightly, or monthly to suit you.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Whereabouts in Southsea is the practice?",
+        answer:
+          "The practice is in a quiet residential part of Southsea (PO4), within easy reach of Albert Road, Palmerston Road and the seafront. Full directions are shared when you book your first session.",
+      },
+      {
+        question: "Can I have sessions online if I live in Southsea?",
+        answer:
+          "Yes. Although the practice is local, many Southsea clients choose telephone or Zoom sessions for convenience. In-person and remote sessions follow the same confidential, considered approach.",
+      },
+      {
+        question: "How much does counselling cost in Southsea?",
+        answer:
+          "Individual sessions are £50 and couples sessions are £60, each lasting 50 minutes, with a free introductory call beforehand.",
+      },
+      {
+        question: "Are evening appointments available?",
+        answer:
+          "Yes. Evening appointments are available to fit around work and family commitments — we can find a time that works for you when you get in touch.",
+      },
     ],
   },
   gosport: {

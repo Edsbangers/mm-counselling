@@ -1,13 +1,10 @@
-"use client";
-
 import Image from "next/image";
-import Link from "next/link";
-import { trackFreeCallClick } from "@/lib/analytics";
+import { TrackedLink } from "@/components/shared/tracked-link";
 
 export function HeroSection() {
   return (
     <section className="relative min-h-[75vh] flex items-center justify-center">
-      {/* Background image */}
+      {/* Background image — LCP element: eagerly loaded + high priority */}
       <Image
         src="/images/trees.webp"
         alt="Sunlight filtering through trees"
@@ -15,6 +12,7 @@ export function HeroSection() {
         sizes="100vw"
         className="object-cover"
         priority
+        fetchPriority="high"
       />
 
       {/* Dark overlay */}
@@ -33,15 +31,14 @@ export function HeroSection() {
           counsellor.
         </p>
 
-        <Link
+        <TrackedLink
           href="/contact"
-          onClick={() => trackFreeCallClick("home_hero")}
-          data-cta="book-free-call"
-          data-cta-location="home_hero"
+          event="free_call"
+          location="home_hero"
           className="inline-block border border-white text-white px-8 py-4 text-sm tracking-wide hover:bg-white hover:text-[#1b1b1b] transition-all duration-300"
         >
           Schedule an Introductory Session
-        </Link>
+        </TrackedLink>
       </div>
     </section>
   );

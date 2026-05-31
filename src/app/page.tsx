@@ -13,7 +13,7 @@ function generateStructuredData() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "ProfessionalService",
+        "@type": ["ProfessionalService", "LocalBusiness"],
         "@id": `${siteConfig.url}/#localbusiness`,
         name: "MM-Counselling",
         alternateName: "Marion Morris Counselling",

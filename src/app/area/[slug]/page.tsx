@@ -2,8 +2,14 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
-import { areaContent, areaSlugs } from "@/lib/area-content";
+import { areaContent, areaSlugs, type AreaData } from "@/lib/area-content";
 import { CtaBlock } from "@/components/shared/cta-block";
+
+// Specialisms that have a dedicated landing page to deep-link to.
+const specialismLinks: Record<string, string> = {
+  couples: "/couples-counselling-portsmouth",
+  "anxiety-depression": "/anxiety-counselling-portsmouth",
+};
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -55,14 +61,14 @@ const areaGeoCoordinates: Record<string, { latitude: number; longitude: number }
   chichester: { latitude: 50.8365, longitude: -0.7792 },
 };
 
-function generateStructuredData(areaName: string, slug: string) {
+function generateStructuredData(data: AreaData) {
+  const areaName = data.name;
+  const slug = data.slug;
   const geo = areaGeoCoordinates[slug] || areaGeoCoordinates.portsmouth;
 
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
+  const graph: object[] = [
       {
-        "@type": "ProfessionalService",
+        "@type": ["ProfessionalService", "LocalBusiness"],
         "@id": `${siteConfig.url}/#localbusiness`,
         name: "MM-Counselling",
         alternateName: "Marion Morris Counselling",
@@ -141,7 +147,22 @@ function generateStructuredData(areaName: string, slug: string) {
           },
         ],
       },
-    ],
+  ];
+
+  if (data.faqs && data.faqs.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      mainEntity: data.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.question,
+        acceptedAnswer: { "@type": "Answer", text: f.answer },
+      })),
+    });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
   };
 }
 
@@ -151,7 +172,7 @@ export default async function AreaPage({ params }: Props) {
 
   if (!data) notFound();
 
-  const structuredData = generateStructuredData(data.name, data.slug);
+  const structuredData = generateStructuredData(data);
 
   return (
     <>
@@ -186,6 +207,28 @@ export default async function AreaPage({ params }: Props) {
                 </p>
               ))}
             </div>
+
+            {data.sections && data.sections.length > 0 && (
+              <div className="mt-12 space-y-10">
+                {data.sections.map((section, i) => (
+                  <div key={i}>
+                    <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-4">
+                      {section.heading}
+                    </h2>
+                    <div className="space-y-4">
+                      {section.body.map((paragraph, j) => (
+                        <p
+                          key={j}
+                          className="text-muted-foreground leading-relaxed"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
@@ -196,19 +239,31 @@ export default async function AreaPage({ params }: Props) {
               How I Can Help
             </h2>
             <div className="grid sm:grid-cols-2 gap-6">
-              {siteConfig.specialisms.map((specialism) => (
-                <div
-                  key={specialism.slug}
-                  className="bg-white p-6 border border-border"
-                >
-                  <h3 className="font-serif text-lg text-foreground mb-2">
-                    {specialism.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {specialism.description}
-                  </p>
-                </div>
-              ))}
+              {siteConfig.specialisms.map((specialism) => {
+                const href = specialismLinks[specialism.slug];
+                return (
+                  <div
+                    key={specialism.slug}
+                    className="bg-white p-6 border border-border"
+                  >
+                    <h3 className="font-serif text-lg text-foreground mb-2">
+                      {href ? (
+                        <Link
+                          href={href}
+                          className="hover:text-muted-foreground transition-colors underline underline-offset-4 decoration-border"
+                        >
+                          {specialism.name}
+                        </Link>
+                      ) : (
+                        specialism.name
+                      )}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {specialism.description}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -235,6 +290,32 @@ export default async function AreaPage({ params }: Props) {
           </div>
         </section>
 
+        {/* FAQs */}
+        {data.faqs && data.faqs.length > 0 && (
+          <section className="py-16 md:py-24 bg-[#f9f9f9]">
+            <div className="max-w-3xl mx-auto px-6">
+              <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-8 text-center">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-8">
+                {data.faqs.map((item, i) => (
+                  <div
+                    key={i}
+                    className="border-b border-border pb-8 last:border-b-0"
+                  >
+                    <h3 className="font-serif text-lg text-foreground mb-3">
+                      {item.question}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {item.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Learn More */}
         <section className="py-12 md:py-16 bg-white">
           <div className="max-w-3xl mx-auto px-6">
@@ -253,6 +334,18 @@ export default async function AreaPage({ params }: Props) {
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
               >
                 View sessions and fees
+              </Link>
+              <Link
+                href="/couples-counselling-portsmouth"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
+              >
+                Couples counselling
+              </Link>
+              <Link
+                href="/anxiety-counselling-portsmouth"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
+              >
+                Anxiety counselling
               </Link>
               <Link
                 href="/blog"

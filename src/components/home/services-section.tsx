@@ -1,7 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { trackBookingClick } from "@/lib/analytics";
+import { TrackedLink } from "@/components/shared/tracked-link";
 
 export function ServicesSection() {
   return (
@@ -57,6 +55,16 @@ export function ServicesSection() {
               </Link>
               .
             </p>
+            <p className="text-muted-foreground leading-relaxed">
+              If anxiety is what brings you here, you can read more about{" "}
+              <Link
+                href="/anxiety-counselling-portsmouth"
+                className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+              >
+                anxiety counselling in Portsmouth and Southsea
+              </Link>
+              .
+            </p>
             <Link
               href="/sessions-and-fees"
               className="inline-block text-sm text-foreground border-b border-foreground pb-0.5 hover:text-muted-foreground hover:border-muted-foreground transition-colors"
@@ -81,8 +89,14 @@ export function ServicesSection() {
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Whether you are dealing with communication breakdown, trust issues,
-              or simply growing apart, couples counselling can help. You may also
-              find this article useful:{" "}
+              or simply growing apart,{" "}
+              <Link
+                href="/couples-counselling-portsmouth"
+                className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+              >
+                couples counselling in Portsmouth and Southsea
+              </Link>{" "}
+              can help. You may also find this article useful:{" "}
               <Link
                 href="/blog/are-you-really-listening-communication-in-relationships"
                 className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
@@ -91,15 +105,14 @@ export function ServicesSection() {
               </Link>
               .
             </p>
-            <Link
+            <TrackedLink
               href="/contact"
-              onClick={() => trackBookingClick("home_services_couples")}
-              data-cta="book-couples-session"
-              data-cta-location="home_services_couples"
+              event="booking"
+              location="home_services_couples"
               className="inline-block text-sm text-foreground border-b border-foreground pb-0.5 hover:text-muted-foreground hover:border-muted-foreground transition-colors"
             >
               Book a Couples Session
-            </Link>
+            </TrackedLink>
           </div>
         </div>
       </div>
