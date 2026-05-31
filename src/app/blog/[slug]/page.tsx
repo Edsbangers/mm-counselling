@@ -100,6 +100,15 @@ export default async function BlogPostPage({ params }: Props) {
   const wordCount = plainText.split(/\s+/).filter(Boolean).length;
   const articleBody = plainText.slice(0, 500);
 
+  const keywords = [
+    "counselling Portsmouth",
+    "counselling Southsea",
+    "mental health",
+    "wellbeing",
+    siteConfig.therapist.fullName,
+    post.title,
+  ].join(", ");
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -110,6 +119,8 @@ export default async function BlogPostPage({ params }: Props) {
         datePublished: post.publishedAt?.toISOString(),
         dateModified: post.updatedAt.toISOString(),
         wordCount,
+        keywords,
+        inLanguage: "en-GB",
         articleBody,
         author: {
           "@type": "Person",

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { ContactForm } from "./contact-form";
 import { ContactTracking } from "./contact-tracking";
@@ -24,7 +25,7 @@ function generateStructuredData() {
         url: `${siteConfig.url}/contact`,
       },
       {
-        "@type": "ProfessionalService",
+        "@type": ["ProfessionalService", "LocalBusiness"],
         "@id": `${siteConfig.url}/#localbusiness`,
         name: "MM-Counselling",
         telephone: "+447864281701",
@@ -186,6 +187,32 @@ export default function ContactPage() {
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Sessions Available</p>
                   <p className="text-foreground">In-Person, Telephone &amp; Zoom</p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Popular Services</p>
+                  <p className="text-foreground text-sm leading-relaxed">
+                    <Link
+                      href="/couples-counselling-portsmouth"
+                      className="underline underline-offset-4 hover:text-muted-foreground transition-colors"
+                    >
+                      Couples counselling
+                    </Link>
+                    {" · "}
+                    <Link
+                      href="/anxiety-counselling-portsmouth"
+                      className="underline underline-offset-4 hover:text-muted-foreground transition-colors"
+                    >
+                      Anxiety counselling
+                    </Link>
+                    {" · "}
+                    <Link
+                      href="/sessions-and-fees"
+                      className="underline underline-offset-4 hover:text-muted-foreground transition-colors"
+                    >
+                      Sessions &amp; fees
+                    </Link>
+                  </p>
                 </div>
               </div>
 

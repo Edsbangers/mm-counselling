@@ -48,11 +48,12 @@ export function Footer() {
         {/* BACP Logo */}
         <div className="flex justify-center mb-6">
           <Image
-            src="/images/bacp-logo.png"
+            src="/images/bacp-logo.webp"
             alt="BACP Registered Member 388689 - Accredited Register"
             width={160}
-            height={64}
+            height={71}
             className="object-contain"
+            loading="lazy"
           />
         </div>
 
@@ -67,6 +68,25 @@ export function Footer() {
           >
             <Instagram className="h-5 w-5" />
           </a>
+        </div>
+
+        {/* Services */}
+        <div className="text-center mb-6">
+          <p className="text-white/80 text-xs mb-2">Services</p>
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-white/60">
+            <Link href="/couples-counselling-portsmouth" className="hover:text-white transition-colors">
+              Couples Counselling
+            </Link>
+            <Link href="/anxiety-counselling-portsmouth" className="hover:text-white transition-colors">
+              Anxiety Counselling
+            </Link>
+            <Link href="/sessions-and-fees" className="hover:text-white transition-colors">
+              Sessions &amp; Fees
+            </Link>
+            <Link href="/about" className="hover:text-white transition-colors">
+              About Marion
+            </Link>
+          </div>
         </div>
 
         {/* Areas We Serve */}

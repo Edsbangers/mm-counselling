@@ -49,11 +49,12 @@ export function AboutSection() {
             {/* BACP Logo */}
             <div className="pt-4">
               <Image
-                src="/images/bacp-logo.png"
+                src="/images/bacp-logo.webp"
                 alt="BACP Registered Member 388689 - Accredited Register"
                 width={200}
-                height={80}
+                height={89}
                 className="object-contain"
+                loading="lazy"
               />
             </div>
 
