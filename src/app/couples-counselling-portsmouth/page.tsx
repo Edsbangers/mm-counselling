@@ -404,6 +404,39 @@ export default function CouplesCounsellingPage() {
           </div>
         </section>
 
+        {/* Areas we cover */}
+        <section className="py-12 md:py-16 bg-[#f9f9f9]">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="text-xl font-serif text-foreground mb-3 text-center">
+              Couples counselling across the Portsmouth area
+            </h2>
+            <p className="text-muted-foreground leading-relaxed text-center max-w-2xl mx-auto mb-6">
+              I see couples in person at the Southsea practice and online across
+              Hampshire. Find couples counselling local to you:
+            </p>
+            <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm">
+              <Link href="/couples-counselling-southsea" className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors">
+                Southsea
+              </Link>
+              <Link href="/couples-counselling-gosport" className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors">
+                Gosport
+              </Link>
+              <Link href="/couples-counselling-fareham" className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors">
+                Fareham
+              </Link>
+              <Link href="/couples-counselling-havant" className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors">
+                Havant
+              </Link>
+              <Link href="/couples-counselling-waterlooville" className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors">
+                Waterlooville
+              </Link>
+              <Link href="/couples-counselling-chichester" className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors">
+                Chichester
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <CtaBlock />
       </div>
     </>
