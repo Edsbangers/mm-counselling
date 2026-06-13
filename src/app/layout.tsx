@@ -93,6 +93,7 @@ export default function RootLayout({
             window.gtag = gtag;
             gtag('js', new Date());
             gtag('config', 'G-YE67QJNZ67');
+            gtag('config', 'AW-18152509976');
           `}
         </Script>
         <SiteWrapper>{children}</SiteWrapper>

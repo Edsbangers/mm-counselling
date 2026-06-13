@@ -13,6 +13,21 @@ export function trackEvent(
   }
 }
 
+// Google Ads conversion tracking (account AW-18152509976).
+const GOOGLE_ADS_ID = "AW-18152509976";
+
+export const ADS_CONVERSION_LABELS = {
+  // "Book appointment" website conversion — fired on contact-form submission.
+  bookAppointment: "s3gICKff1aocEJik5c9D",
+} as const;
+
+/** Fire a Google Ads conversion for the given action label. */
+export function trackAdsConversion(label: string) {
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", "conversion", { send_to: `${GOOGLE_ADS_ID}/${label}` });
+  }
+}
+
 function pagePath(): string | undefined {
   if (typeof window === "undefined") return undefined;
   return window.location.pathname + window.location.search;
@@ -60,6 +75,8 @@ export function trackContactFormSubmit() {
     event_label: "contact_page_form",
     page_path: pagePath() || "",
   });
+  // Report the enquiry to Google Ads as a "Book appointment" conversion.
+  trackAdsConversion(ADS_CONVERSION_LABELS.bookAppointment);
 }
 
 export function trackContactFormStart() {
