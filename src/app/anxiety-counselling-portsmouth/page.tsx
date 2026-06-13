@@ -67,6 +67,16 @@ const faqs = [
       "Yes. Sessions are available in person at the Southsea practice, or by telephone and Zoom. Remote sessions can feel more comfortable if leaving the house adds to your anxiety, and evening appointments are available.",
   },
   {
+    question: "Can counselling help with panic attacks?",
+    answer:
+      "Yes. Panic attacks can be frightening, but they are not dangerous, and they make sense once we understand what your mind and body are responding to. In counselling we work to reduce the fear of the panic itself and to address what is keeping the alarm system on high alert, so the attacks tend to become less frequent and less overwhelming over time.",
+  },
+  {
+    question: "I can't stop overthinking — can therapy help with that?",
+    answer:
+      "Overthinking and rumination are very common with anxiety. Counselling offers a space to slow the thinking down, notice the patterns that keep it spinning, and understand what the worry is trying to protect you from. Many people find that as the underlying feelings are understood, the constant mental churn begins to settle.",
+  },
+  {
     question: "What if my anxiety feels like a crisis?",
     answer:
       "Counselling is not an emergency service. If you are in crisis or worried about your safety, please use the urgent support options listed on this page — including NHS 111, Samaritans on 116 123, or 999 in an emergency.",
@@ -211,6 +221,29 @@ export default function AnxietyCounsellingPage() {
                   Marion&apos;s background and training
                 </Link>
                 .
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-4">
+                When anxiety affects self-esteem and relationships
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Anxiety rarely stays in one place. Persistent worry can chip away
+                at self-esteem, leaving you second-guessing yourself or feeling
+                like you&apos;re never quite enough. It can also spill into your
+                closest relationships — when one partner is anxious, the other
+                often feels the strain too, and small misunderstandings can
+                escalate. We make space for all of this in our work together. If
+                anxiety is putting your relationship under pressure, you might also
+                find{" "}
+                <Link
+                  href="/couples-counselling-portsmouth"
+                  className="text-foreground underline underline-offset-4 hover:text-foreground/70 transition-colors"
+                >
+                  couples counselling in Portsmouth
+                </Link>{" "}
+                helpful, either alongside individual sessions or on its own.
               </p>
             </div>
 

@@ -80,6 +80,9 @@ export function Footer() {
             <Link href="/anxiety-counselling-portsmouth" className="hover:text-white transition-colors">
               Anxiety Counselling
             </Link>
+            <Link href="/adhd-counselling-portsmouth" className="hover:text-white transition-colors">
+              ADHD Counselling
+            </Link>
             <Link href="/sessions-and-fees" className="hover:text-white transition-colors">
               Sessions &amp; Fees
             </Link>

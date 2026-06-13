@@ -67,6 +67,21 @@ const faqs = [
       "Yes. Sessions are available in person at the Southsea practice, or by telephone and Zoom if that is easier for your schedules. Evening appointments are available to fit around work and family commitments.",
   },
   {
+    question: "How many couples counselling sessions will we need?",
+    answer:
+      "There is no fixed number. Some couples come for a focused piece of work over a few weeks, while others value longer-term support. We review how things are going together, and you decide the pace. Many couples find weekly or fortnightly sessions helpful at first, easing off as things improve.",
+  },
+  {
+    question: "Do we have to be married to come for couples counselling?",
+    answer:
+      "Not at all. I work with partners at every stage — dating, living together, engaged, married, or rebuilding after a separation, and with couples of all backgrounds and orientations. If you are in a relationship that matters to you, couples counselling is for you.",
+  },
+  {
+    question: "What is the difference between couples counselling and relationship counselling?",
+    answer:
+      "In practice they describe the same thing — both are about the relationship between you, rather than either person individually. Whether you call it couples counselling or relationship counselling in Portsmouth, the work is the same: understanding the patterns between you and finding a way to reconnect.",
+  },
+  {
     question: "What if we are not sure whether to stay together?",
     answer:
       "Counselling is not about pushing you in any particular direction. It is a space to understand your relationship more clearly so that whatever you decide — to rebuild, or to separate respectfully — you do so with greater understanding and less blame.",
@@ -224,6 +239,27 @@ export default function CouplesCounsellingPage() {
                 build small, repeatable ways of staying connected.
               </p>
             </div>
+
+            <div>
+              <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-4">
+                When anxiety or individual struggles affect the relationship
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Relationship difficulties often sit alongside individual ones.
+                When one partner is living with anxiety, low self-esteem or the
+                effects of past trauma, it can quietly shape how you both connect
+                and communicate. Sometimes the most helpful step is a mix of
+                couples work and individual support. If that sounds like you, you
+                can also read about{" "}
+                <Link
+                  href="/anxiety-counselling-portsmouth"
+                  className="text-foreground underline underline-offset-4 hover:text-foreground/70 transition-colors"
+                >
+                  anxiety counselling in Southsea
+                </Link>{" "}
+                and Portsmouth, which can run alongside relationship counselling.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -268,7 +304,14 @@ export default function CouplesCounsellingPage() {
               >
                 Southsea
               </Link>
-              , and the surrounding Hampshire area. You can also{" "}
+              , and the surrounding Hampshire area — including dedicated{" "}
+              <Link
+                href="/couples-counselling-southsea"
+                className="text-foreground underline underline-offset-4 hover:text-foreground/70 transition-colors"
+              >
+                couples counselling in Southsea
+              </Link>
+              . You can also{" "}
               <Link
                 href="/about"
                 className="text-foreground underline underline-offset-4 hover:text-foreground/70 transition-colors"
@@ -280,8 +323,68 @@ export default function CouplesCounsellingPage() {
           </div>
         </section>
 
-        {/* FAQs */}
+        {/* Why Marion */}
         <section className="py-12 md:py-16 bg-[#f9f9f9]">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-6 text-center">
+              Why couples choose to work with Marion
+            </h2>
+            <p className="text-muted-foreground leading-relaxed text-center max-w-2xl mx-auto mb-8">
+              Choosing the right person to help with your relationship matters.
+              Here&apos;s what you can expect when you work with me.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="bg-white p-6 border border-border">
+                <h3 className="font-serif text-lg text-foreground mb-2">
+                  BACP registered &amp; couples-trained
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  I&apos;m a BACP registered counsellor with a Certificate in
+                  Working with Couples and psychodynamic training, working within
+                  the BACP ethical framework.
+                </p>
+              </div>
+              <div className="bg-white p-6 border border-border">
+                <h3 className="font-serif text-lg text-foreground mb-2">
+                  2,500+ hours of experience
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  With over 2,500 hours of one-to-one counselling, I bring
+                  steadiness and experience to even the most difficult
+                  conversations.
+                </p>
+              </div>
+              <div className="bg-white p-6 border border-border">
+                <h3 className="font-serif text-lg text-foreground mb-2">
+                  An unbiased, judgement-free space
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  I don&apos;t take sides or hand out verdicts. My role is to help
+                  you both feel heard and understand each other more clearly.
+                </p>
+              </div>
+              <div className="bg-white p-6 border border-border">
+                <h3 className="font-serif text-lg text-foreground mb-2">
+                  A free, no-pressure first call
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  We start with a free introductory call so you can both see how I
+                  work before committing to anything. You can{" "}
+                  <Link
+                    href="/contact"
+                    className="text-foreground underline underline-offset-4 hover:text-foreground/70 transition-colors"
+                  >
+                    get in touch here
+                  </Link>
+                  .
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQs */}
+        <section className="py-12 md:py-16 bg-white">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-8 text-center">
               Common questions about couples counselling

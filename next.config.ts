@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Barrel-optimise the icon and date libraries so only the icons/helpers
+  // actually used are bundled, rather than the whole package. Trims unused JS.
+  experimental: {
+    optimizePackageImports: ["lucide-react", "date-fns"],
+  },
   images: {
     remotePatterns: [
       {
@@ -31,6 +36,12 @@ const nextConfig: NextConfig = {
       {
         source: "/counselling-in-:slug",
         destination: "/area/:slug",
+      },
+      // Dedicated couples landing pages per town. Portsmouth and Southsea have
+      // their own static pages (matched first); other towns resolve here.
+      {
+        source: "/couples-counselling-:slug",
+        destination: "/couples-area/:slug",
       },
     ];
   },

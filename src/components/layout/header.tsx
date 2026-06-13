@@ -9,6 +9,7 @@ import { trackPhoneClick, trackEmailClick, trackFreeCallClick } from "@/lib/anal
 const services = [
   { name: "Couples Counselling", href: "/couples-counselling-portsmouth" },
   { name: "Anxiety Counselling", href: "/anxiety-counselling-portsmouth" },
+  { name: "ADHD Counselling", href: "/adhd-counselling-portsmouth" },
 ];
 
 // Nav split so the Counselling dropdown can sit between About and Sessions.

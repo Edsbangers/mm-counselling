@@ -22,6 +22,42 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+// Map a post to the most relevant service landing page(s) by topic, so that
+// anxiety-themed posts point at the anxiety page and relationship/communication
+// posts point at the couples page. Keyword-based so it covers future posts too.
+function relatedServices(slug: string, title: string): { href: string; label: string }[] {
+  const haystack = `${slug} ${title}`.toLowerCase();
+  const out: { href: string; label: string }[] = [];
+  const isAnxiety =
+    /anxiet|anxious|panic|worry|worri|overthink|stress|news|war|overwhelm|people[- ]?pleas|imposter|self[- ]?esteem|self[- ]?worth/.test(
+      haystack
+    );
+  const isCouples =
+    /relationship|communicat|listening|couple|partner|marriage|trust|infidelity|affair/.test(
+      haystack
+    );
+  const isAdhd = /adhd|attention[- ]?deficit|neurodiverg|neurodivers/.test(haystack);
+  if (isAdhd) {
+    out.push({
+      href: "/adhd-counselling-portsmouth",
+      label: "ADHD counselling in Portsmouth",
+    });
+  }
+  if (isAnxiety) {
+    out.push({
+      href: "/anxiety-counselling-portsmouth",
+      label: "anxiety counselling in Portsmouth",
+    });
+  }
+  if (isCouples) {
+    out.push({
+      href: "/couples-counselling-portsmouth",
+      label: "couples counselling in Portsmouth",
+    });
+  }
+  return out;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const db = await getDb();
   if (!db) return {};
@@ -99,6 +135,8 @@ export default async function BlogPostPage({ params }: Props) {
   const plainText = post.content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
   const wordCount = plainText.split(/\s+/).filter(Boolean).length;
   const articleBody = plainText.slice(0, 500);
+
+  const services = relatedServices(post.slug, post.title);
 
   const keywords = [
     "counselling Portsmouth",
@@ -225,6 +263,23 @@ export default async function BlogPostPage({ params }: Props) {
               </Link>
               .
             </p>
+            {services.length > 0 && (
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                You may also find it helpful to explore{" "}
+                {services.map((s, i) => (
+                  <span key={s.href}>
+                    {i > 0 && (i === services.length - 1 ? " and " : ", ")}
+                    <Link
+                      href={s.href}
+                      className="text-foreground underline underline-offset-4"
+                    >
+                      {s.label}
+                    </Link>
+                  </span>
+                ))}
+                .
+              </p>
+            )}
           </div>
 
           {relatedPosts.length > 0 && (

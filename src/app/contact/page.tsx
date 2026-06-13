@@ -89,7 +89,22 @@ export default function ContactPage() {
           <p className="text-muted-foreground leading-relaxed">
             Ready to take the first step? I offer a free introductory
             consultation where you can discuss your needs and see if it&apos;s a
-            good fit. There&apos;s no obligation to continue.
+            good fit. There&apos;s no obligation to continue. Whether you&apos;re
+            looking for{" "}
+            <Link
+              href="/anxiety-counselling-portsmouth"
+              className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+            >
+              anxiety counselling in Portsmouth
+            </Link>{" "}
+            or{" "}
+            <Link
+              href="/couples-counselling-portsmouth"
+              className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+            >
+              couples counselling in Portsmouth
+            </Link>
+            , I&apos;m here to help.
           </p>
         </div>
       </section>

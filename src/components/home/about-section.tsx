@@ -33,13 +33,28 @@ export function AboutSection() {
               <strong className="text-foreground">For Individuals</strong> &mdash; I
               work collaboratively with you to rebuild self-esteem, process the
               pain of past relationships, and untangle the roots of generational
-              trauma so you can move forward with clarity and confidence.
+              trauma so you can move forward with clarity and confidence. If
+              worry, panic or overthinking are weighing on you, I offer{" "}
+              <Link
+                href="/anxiety-counselling-portsmouth"
+                className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+              >
+                anxiety counselling in Portsmouth
+              </Link>{" "}
+              and Southsea.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               <strong className="text-foreground">For Couples</strong> &mdash; I
               help partners identify and break negative relationship cycles.
               Together, we will work to improve communication, rebuild trust, and
-              foster a healthier, more secure connection.
+              foster a healthier, more secure connection through{" "}
+              <Link
+                href="/couples-counselling-portsmouth"
+                className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+              >
+                couples counselling in Southsea
+              </Link>{" "}
+              and the wider Portsmouth area.
             </p>
             <p className="text-muted-foreground leading-relaxed italic">
               Healing is a journey, and taking the first step takes courage.

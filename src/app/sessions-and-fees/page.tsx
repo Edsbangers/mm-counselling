@@ -216,7 +216,7 @@ export default function SessionsAndFeesPage() {
                   href="/couples-counselling-portsmouth"
                   className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
                 >
-                  couples counselling in Portsmouth
+                  couples and relationship counselling in Portsmouth
                 </Link>
                 .
               </p>

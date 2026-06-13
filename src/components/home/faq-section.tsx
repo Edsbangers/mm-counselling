@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 
 export const faqData = [
@@ -68,6 +69,24 @@ export function FAQSection() {
             </div>
           ))}
         </div>
+
+        <p className="text-center text-muted-foreground leading-relaxed mt-12">
+          Looking for help with a specific concern? Read more about{" "}
+          <Link
+            href="/anxiety-counselling-portsmouth"
+            className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+          >
+            anxiety counselling in Portsmouth
+          </Link>{" "}
+          and{" "}
+          <Link
+            href="/couples-counselling-portsmouth"
+            className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+          >
+            couples counselling in Portsmouth
+          </Link>
+          .
+        </p>
       </div>
     </section>
   );
