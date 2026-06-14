@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     startTime: body.startTime,
     endTime: body.endTime,
     sessionType: body.sessionType || "individual",
-    fee: body.fee ?? (body.sessionType === "couples" ? 60 : 50),
+    fee: body.fee ?? (body.sessionType === "couples" ? 65 : 50),
     notes: body.notes || undefined,
   };
 

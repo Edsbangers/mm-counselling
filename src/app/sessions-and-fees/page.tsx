@@ -6,7 +6,7 @@ import { CtaBlock } from "@/components/shared/cta-block";
 export const metadata: Metadata = {
   title: "Sessions & Fees | From £50 in Portsmouth",
   description:
-    "Counselling sessions in Southsea from £50 for individuals and £60 for couples, with a free introductory phone or Zoom call.",
+    "Counselling sessions in Southsea from £50 for individuals and £65 for couples, with a free introductory phone or Zoom call.",
   alternates: { canonical: "/sessions-and-fees" },
 };
 
@@ -40,7 +40,7 @@ function generateStructuredData() {
               "@type": "Offer",
               name: "Couples Counselling Session",
               description: "50-minute couples therapy session with a BACP registered counsellor",
-              price: "60.00",
+              price: "65.00",
               priceCurrency: "GBP",
               availability: "https://schema.org/InStock",
             },
@@ -78,7 +78,7 @@ function generateStructuredData() {
             "@type": "Offer",
             name: "Couples Counselling Session",
             description: "50-minute couples therapy session with a BACP registered counsellor",
-            price: "60.00",
+            price: "65.00",
             priceCurrency: "GBP",
             availability: "https://schema.org/InStock",
           },

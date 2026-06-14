@@ -51,7 +51,7 @@ Generate social media posts for BOTH Facebook and Instagram about this topic:
 About the practice:
 - BACP registered psychotherapeutic counsellor based in Southsea, Portsmouth
 - Specialises in anxiety, depression, trauma, couples work, neurodiversity (ADHD/autism)
-- Individual sessions £50, couples £60, free introductory call available
+- Individual sessions £50, couples £65, free introductory call available
 - Website: ${siteConfig.url}
 - Instagram: @mmcounselling1
 

@@ -79,7 +79,7 @@ export const areaContent: Record<string, AreaData> = {
       {
         question: "How much do sessions cost?",
         answer:
-          "Individual sessions are £50 and couples sessions are £60, each lasting 50 minutes. A free introductory call by phone or Zoom is offered before your first paid session.",
+          "Individual sessions are £50 and couples sessions are £65, each lasting 50 minutes. A free introductory call by phone or Zoom is offered before your first paid session.",
       },
       {
         question: "Do I need a GP referral to start counselling in Portsmouth?",
@@ -142,7 +142,7 @@ export const areaContent: Record<string, AreaData> = {
       {
         question: "How much does counselling cost in Southsea?",
         answer:
-          "Individual sessions are £50 and couples sessions are £60, each lasting 50 minutes, with a free introductory call beforehand.",
+          "Individual sessions are £50 and couples sessions are £65, each lasting 50 minutes, with a free introductory call beforehand.",
       },
       {
         question: "Are evening appointments available?",

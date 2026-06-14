@@ -29,7 +29,7 @@ export function NewBookingDialog({
 
   if (!open) return null;
 
-  const fee = form.sessionType === "couples" ? 60 : 50;
+  const fee = form.sessionType === "couples" ? 65 : 50;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -176,7 +176,7 @@ export function NewBookingDialog({
               className="w-full px-4 py-2 border border-[#e5e5e5] text-sm focus:outline-none focus:border-[#808080] bg-white"
             >
               <option value="individual">Individual (£50)</option>
-              <option value="couples">Couples (£60)</option>
+              <option value="couples">Couples (£65)</option>
             </select>
           </div>
 

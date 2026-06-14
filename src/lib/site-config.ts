@@ -72,7 +72,7 @@ export const siteConfig = {
   // Fees
   fees: {
     individual: 50,
-    couples: 60,
+    couples: 65,
     currency: "GBP",
     sessionLength: "50 minutes",
     cancellationNotice: "24 hours",

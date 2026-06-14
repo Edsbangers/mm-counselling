@@ -40,7 +40,7 @@ function generateStructuredData() {
           siteConfig.profiles.counsellingDirectory,
           siteConfig.profiles.psychologyToday,
         ],
-        priceRange: "\u00a350-\u00a360",
+        priceRange: "\u00a350-\u00a365",
         currenciesAccepted: "GBP",
         description:
           "Person-centred counselling in Portsmouth and Southsea. BACP registered counsellor offering face-to-face and online therapy for anxiety, trauma, depression, relationship difficulties, and more.",
@@ -123,11 +123,11 @@ function generateStructuredData() {
                 name: "Couples Counselling Session",
                 description: "50-minute couples therapy session",
               },
-              price: "60.00",
+              price: "65.00",
               priceCurrency: "GBP",
               priceSpecification: {
                 "@type": "UnitPriceSpecification",
-                price: "60.00",
+                price: "65.00",
                 priceCurrency: "GBP",
                 unitCode: "HUR",
                 unitText: "per 50-minute session",

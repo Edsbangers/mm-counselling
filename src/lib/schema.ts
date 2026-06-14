@@ -66,7 +66,7 @@ export function localBusinessNode() {
       latitude: 50.7811,
       longitude: -1.0856,
     },
-    priceRange: "£50-£60",
+    priceRange: "£50-£65",
     currenciesAccepted: "GBP",
     description:
       "Person-centred counselling in Portsmouth and Southsea. BACP registered counsellor offering face-to-face, telephone and online therapy for anxiety, trauma, depression, relationship difficulties, and more.",

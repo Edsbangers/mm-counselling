@@ -89,7 +89,7 @@ function generateStructuredData(data: AreaData) {
           latitude: 50.7811,
           longitude: -1.0856,
         },
-        priceRange: "\u00a350-\u00a360",
+        priceRange: "\u00a350-\u00a365",
         openingHoursSpecification: {
           "@type": "OpeningHoursSpecification",
           dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
